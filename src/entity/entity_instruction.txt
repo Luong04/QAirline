@@ -1,0 +1,60 @@
+1. Bảng Airports (Sân bay)
+airport_id: Mã sân bay (Primary Key)
+name: Tên sân bay
+city: Thành phố
+country: Quốc gia
+code: Mã sân bay (IATA code, ví dụ: "HAN" cho Nội Bài)
+
+2. Bảng Flights (Chuyến bay)
+flight_id: Mã chuyến bay (Primary Key)
+airline_id: Hãng hàng không
+departure_airport_id: Mã sân bay khởi hành (Foreign Key từ Airports)
+arrival_airport_id: Mã sân bay đến (Foreign Key từ Airports)
+departure_time: Thời gian khởi hành
+arrival_time: Thời gian đến
+duration: Thời gian bay
+status: Trạng thái chuyến bay (ví dụ: Đang bay, Đã hạ cánh, Hoãn)
+
+3. Bảng Customers (Khách hàng)
+customer_id: Mã khách hàng (Primary Key)
+first_name: Tên
+last_name: Họ
+email: Email
+phone: Số điện thoại
+date_of_birth: Ngày sinh
+
+4. Bảng Bookings (Đặt vé)
+booking_id: Mã đặt vé (Primary Key)
+customer_id: Mã khách hàng (Foreign Key từ Customers)
+booking_date: Ngày đặt vé
+total_price: Tổng giá tiền
+status: Trạng thái đặt vé (ví dụ: Đã thanh toán, Chưa thanh toán, Đã hủy)
+
+5. Bảng Tickets (Vé)
+ticket_id: Mã vé (Primary Key)
+booking_id: Mã đặt vé (Foreign Key từ Bookings)
+flight_id: Mã chuyến bay (Foreign Key từ Flights)
+seat_number: Số ghế
+class: Hạng vé (ví dụ: Phổ thông, Thương gia)
+price: Giá vé
+
+6. Bảng Payments (Thanh toán)
+payment_id: Mã thanh toán (Primary Key)
+booking_id: Mã đặt vé (Foreign Key từ Bookings)
+amount: Số tiền thanh toán
+payment_date: Ngày thanh toán
+payment_method: Phương thức thanh toán (ví dụ: Thẻ tín dụng, PayPal)
+
+7. Bảng Airlines (Hãng hàng không)
+airline_id: Mã hãng hàng không (Primary Key)
+name: Tên hãng hàng không
+country: Quốc gia
+
+8. Bảng Admins
+admin_id: Mã quản trị viên (khóa chính, tự động tăng).
+username: Tên đăng nhập của quản trị viên, phải là duy nhất.
+password_hash: Mật khẩu đã được mã hóa để đảm bảo an toàn. sha256
+email: Email của quản trị viên, phải là duy nhất.
+full_name: Tên đầy đủ của quản trị viên.
+created_at: Ngày giờ tạo tài khoản quản trị.
+last_login: Ngày giờ lần đăng nhập cuối cùng của quản trị viên
