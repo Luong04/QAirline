@@ -1,0 +1,10 @@
+giai thich ve viec mysql workbench khong anh huong den day:
+do docker la moi truong doc lap, nen khi tao database se khong lien quan gi den mysql workbench
+
+cac buoc thao tac voi docker database CLI:
+b1, mo powershell
+b2, docker ps #kiem tra xem docker da chay chua, neu chua thi mo docker desktop
+b3, docker exec -it qairline-database bash
+b4, mysql -u root -p
+b5, nhap password la LuongluvWinnerX2004
+b6, thao tac voi db qairline nhu binh thuong

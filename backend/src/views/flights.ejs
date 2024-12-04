@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flight Information</h1>
+    <table id="flight-table">
+        <thead>
+            <tr>
+                <th>Flight ID</th>
+                <th>Airline</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Duration</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // URL của API từ backend (giả định backend trả JSON)
+        const API_URL = 'http://localhost:8081/api/flights';
+
+        // Hàm fetch dữ liệu từ backend
+        async function fetchFlights() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const flights = await response.json();
+                renderTable(flights);
+            } catch (error) {
+                console.error("Error fetching flight data:", error);
+            }
+        }
+
+        // Hàm render dữ liệu vào bảng
+        function renderTable(flights) {
+            const tableBody = document.querySelector('#flight-table tbody');
+            tableBody.innerHTML = ''; // Clear existing data
+
+            flights.forEach(flight => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${flight.flight_id}</td>
+                    <td>${flight.airline}</td>
+                    <td>${flight.departure_airport}</td>
+                    <td>${flight.arrival_airport}</td>
+                    <td>${flight.departure_time}</td>
+                    <td>${flight.arrival_time}</td>
+                    <td>${flight.duration}</td>
+                    <td>${flight.status}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Gọi hàm fetch dữ liệu khi trang được tải
+        fetchFlights();
+    </script>
+</body>
+</html>
