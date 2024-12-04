@@ -1,0 +1,101 @@
+.container-infor {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.options {
+    display: flex;
+    margin-bottom: 20px;
+}
+.options label {
+    margin-left: 30px;
+    font-weight: bold;
+}
+.options input[type="radio"] {
+    margin-right: 5px;
+}
+
+
+.container-route {
+    border: 3px solid #e1a21b;
+    padding: 20px;
+    width: 90%;
+    height: 90px;
+    margin: 0px 10px 0px 30px;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+}
+
+
+.infor-left {
+    grid-column: 1;
+    border-right: 2px solid #e1a21b;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    padding-right:20px;
+    align-items: center;
+}
+
+
+.infor-right {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    align-items: center;
+    padding-left: 15px;
+}
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.form-group input {
+    margin-top: 30px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.form-group input[type="date"] {
+    max-width: 200px;
+}
+.btn-search {
+    padding: 30px 10px 5px 50px;
+    color: #e1a21b;
+    border: 2px solid #e1a21b ;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    width: 180px;
+    height: 80px;
+    margin-left: 40px;
+    background-color: #fff;
+}
+.btn-search:hover {
+    background-color: #f6e9cc;
+}
+
+
+.date-picker1 {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .data-picker {
+    width: 50px;
+  }

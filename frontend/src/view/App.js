@@ -1,30 +1,21 @@
 import React, {useState} from 'react';
+import { Route, Routes } from "react-router-dom";
 import './App.css';
-import MainSection from "../components/MainSection.js";
-import HotPlace from "../components/HotPlace.js";
-import Login from "../components/Login.js";
+import Home from '../page/HomePage/Home.js';
+import Check from '../page/CheckTicket/Check.js';
+import ListFlight from '../page/ListFlight/ListFlight.js';
+import Booking from '../page/Booking/Booking.js';
+
 
 const App = () => {
-  const [showLogin, setShowLogin] = useState(false);
-
-  const toggleLogin = () => {
-    setShowLogin(!showLogin);
-  }
-
-
   return (
     <div className="App">
-      <header className="Body">
-        <MainSection toggleLogin={toggleLogin}/>
-        <HotPlace />
-        
-      </header>
-      {showLogin && (
-        <>
-          <div className="overlay" onClick={toggleLogin}></div>
-          <Login onClose={toggleLogin} />
-        </>
-      )}
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/checkticket" element={<Check/>}/>
+        <Route path="/listflight" element={<ListFlight/>}/>
+        <Route path="/booking" element={<Booking/>}/>
+      </Routes>
     </div>
   );
 }

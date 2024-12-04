@@ -1,0 +1,94 @@
+/* Tiêu đề */
+h1 {
+    text-align: center;
+    color: #ffffff; /* Nâu cam đậm */
+    margin-bottom: 50px;
+    font-size: 2rem;
+    font-family: Lobster;
+
+  }
+
+  /* Container cho bảng */
+.table-container {
+  width: 100%;
+  max-height: 400px; /* Chiều cao tối đa của bảng */
+  overflow-y: auto; /* Hiển thị thanh cuộn dọc nếu nội dung vượt quá chiều cao */
+  overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+  border: 3px solid #d35400; /* Nâu cam đậm */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+  opacity: 95%;
+}
+
+/* Các kiểu bảng cũ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff; /* Nền trắng */
+}
+
+  /* Tiêu đề cột */
+  thead th {
+    background-color: #f8c471; /* Nâu cam nhạt */
+    color: #053a4e; /* Màu chữ trắng */
+    font-size: 1rem;
+    position: sticky; /* Cố định tiêu đề */
+    top: -2px; /* Dính ở đầu */
+
+  }
+
+  thead {
+    border: 1px solid #d35400;
+  }
+
+  tbody th, td {
+    font-size: 0.9rem;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  
+  /* Các ô bảng */
+  th, td {
+    border: 1px solid #d35400; /* Nâu cam đậm */
+    padding: 10px;
+    text-align: center;
+  }
+  
+  
+  
+  /* Hàng dữ liệu */
+  td {
+    background-color: #eaf2f8; /* Xanh dương nhạt */
+    color: #34495e; /* Xanh đen */
+  }
+  
+  /* Hàng chẵn */
+  tbody tr:nth-child(even) {
+    background-color: #e5f2f8; /* Xanh dương sáng hơn */
+  }
+  
+  /* Hiệu ứng hover */
+  tbody tr:hover {
+    background-color: #fbcc5f; /* Cam sáng */
+    color: #ffffff; /* Màu chữ trắng */
+  }
+
+  body {
+    margin: 0; /* Xóa margin mặc định */
+    padding: 0px; /* Xóa padding mặc định */
+    min-height: 100%; /* Đảm bảo chiều cao tối thiểu là 100% trình duyệt */
+    height: 100%; /* Đảm bảo thẻ html và body chiếm hết chiều cao */
+    overflow-y: auto; /* Hiển thị thanh cuộn dọc khi nội dung vượt chiều cao */
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+  }
+  
+  .ListFlight {
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Sắp xếp nội dung theo cột */
+    min-height: 100vh; /* Chiều cao tối thiểu là chiều cao của trình duyệt */
+    padding: 20px;
+    background-image: url('../../assets/image/background6.png');  /* Đường dẫn chính xác */
+    background-size: cover; /* Ảnh phủ toàn bộ */
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /*Không lặp lại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+  }
