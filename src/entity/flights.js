@@ -9,8 +9,8 @@ const Flight = sequelize.define('Flight', {
         autoIncrement: true, // Tự động tăng giá trị
         allowNull: false
     },
-    airline_id: {
-        type: DataTypes.INTEGER,
+    plane_id: {
+        type: DataTypes.STRING,
         allowNull: false
     },
     departure_airport_id: {
@@ -33,9 +33,17 @@ const Flight = sequelize.define('Flight', {
         type: DataTypes.TIME
     },
     status: {
-        type: DataTypes.ENUM('Scheduled', 'In Flight', 'Landed', 'Cancelled'),
+        type: DataTypes.ENUM('Scheduled', 'In Flight', 'Landed', 'Cancelled', 'Delayed'),
         defaultValue: 'Scheduled'
-    }
+    },
+    true_price_economy: {
+        type: DataTypes.FLOAT, // Giá hạng kinh tế
+        allowNull: true
+    },
+    true_price_business: {
+        type: DataTypes.FLOAT, // Giá hạng thương gia
+        allowNull: true
+    },
 }, {
     tableName: 'Flights',
     timestamps: false

@@ -1,6 +1,6 @@
-// cach nay chi de tham khao vi de bai yeu cau su dung ORM
 require('dotenv').config();
 const mysql = require('mysql2');
+
 
 // const connection = mysql.createConnection({
 //     host: process.env.DB_HOST,

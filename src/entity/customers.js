@@ -4,9 +4,8 @@ const sequelize = require('../config/sequelize');
 
 const Customer = sequelize.define('Customer', {
     customer_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,  // Đặt admin_id làm khóa chính
-        autoIncrement: true, // Tự động tăng giá trị
+        type: DataTypes.STRING,
+        primaryKey: true, 
         allowNull: false
     },
     first_name: {
@@ -19,14 +18,15 @@ const Customer = sequelize.define('Customer', {
     },
     email: {
         type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
+        allowNull: true
     },
     phone: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: true
     },
     date_of_birth: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     tableName: 'Customers',

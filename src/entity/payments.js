@@ -10,11 +10,11 @@ const Payment = sequelize.define('Payment', {
         allowNull: false
     },
     booking_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     amount: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT,
         allowNull: false
     },
     payment_date: {

@@ -4,13 +4,12 @@ const sequelize = require('../config/sequelize');
 
 const Booking = sequelize.define('Booking', {
     booking_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,  // Đặt admin_id làm khóa chính
-        autoIncrement: true, // Tự động tăng giá trị
         allowNull: false
     },
     customer_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     booking_date: {
@@ -18,7 +17,7 @@ const Booking = sequelize.define('Booking', {
         defaultValue: DataTypes.NOW
     },
     total_price: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT,
         allowNull: false
     },
     status: {
