@@ -1,0 +1,17 @@
+.main-section {
+    background-image: url('../assets/image/background.png'); /* Đường dẫn chính xác */
+    background-size: cover; /* Ảnh phủ toàn bộ */
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+    
+    width: 100vw; /* Chiếm toàn bộ chiều ngang màn hình */
+    height: 750px;
+    /* min-height: 100vh; Chiếm ít nhất toàn bộ chiều cao màn hình */
+    
+    display: flex;
+    flex-direction: column;
+    padding: 20px; /* Khoảng cách nội dung bên trong */
+    margin: 0; /* Loại bỏ lề mặc định */
+  }
+  
