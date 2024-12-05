@@ -1,75 +1,137 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import "./PlaneContainer.css";
 import logo from "../../../assets/image/logo.png";
 
-
-// Dữ liệu chuyến xe (có thể đến từ API hoặc props)
-const planeData = [
-  {
-    departure_place: "Hà Nội",
-    arrival_place: "Đà Nẵng",
-    depature_time: "19:50 10/12/2024",
-    arrival_time: "23:00 10/12/2024",
-    duration: "3h 10p",
-    seatsAvailable: 16,
-  },
-  {
-    departure_place: "Hà Nội",
-    arrival_place: "Hồ Chí Minh",
-    depature_time: "20:00 10/12/2024",
-    arrival_time: "10:00 11/12/2024",
-    duration: "14h 30p",
-    seatsAvailable: 8,
-  },
-  {
-    departure_place: "Hà Nội",
-    arrival_place: "Hồ Chí Minh",
-    depature_time: "20:00 10/12/2024",
-    arrival_time: "10:00 11/12/2024",
-    duration: "14h 30p",
-    seatsAvailable: 8,
-  },
-  // Thêm các chuyến xe khác...
-];
-
-
+// Component chính
 const PlaneContainer = () => {
+  // Dùng useLocation để lấy thông tin state từ navigate
+  const location = useLocation(); 
+
+  // Khởi tạo state cho chuyến bay
+  const [flights, setFlights] = useState([]);
+  const [goFlights, setGoFlights] = useState([]);
+  const [returnFlights, setReturnFlights] = useState([]);
+  /*      Các dữ liệu trong mảng flights, flights chứa nhiều phần tử con, mỗi phần tử gồm
+            flight_id: flight.flight_id,
+            departure_code: departure_airport.code,
+            arrival_code: arrival_airport.code,
+            departure_time: flight.departure_time,
+            arrival_time: flight.arrival_time,
+            plane: plane.model,
+            duration_time: flight.duration,
+            economy_price: flight.true_price_economy, 
+            business_price: flight.true_price_business, 
+  */
+
+  // Dùng useEffect để cập nhật state flights khi location thay đổi
+  useEffect(() => {
+    // Kiểm tra nếu state có tồn tại và lấy dữ liệu chuyến bay từ location
+    if (location.state) {
+      if(location.state.flights) setFlights(location.state.flights);
+      if(location.state.goFlights) setGoFlights(location.state.goFlights);
+      if(location.state.returnFlights) setReturnFlights(location.state.returnFlights);
+    }
+  }, [location]);  // Hook này sẽ chạy lại khi location thay đổi
+
   return (
     <div className="plane-container">
-      {planeData.map((plane, index) => (
-        <div key={index} className="plane-card">
-          <div className="card-left">
-            <div class="time-location">
-              <div class="departure">
-                <span class="location"  style={{ marginBottom: "10px"}}>{plane.departure_place}</span>
-                <span class="time">{plane.depature_time}</span>
-
-              </div>
-              <div class="duration">
-                <div class="line-container" style={{ marginBottom: "10px"}}>
-                  <div class="line"></div>
-                  <div class="icon-container">
-                    <img src={logo} alt="Icon" class="icon" />
-                  </div>
-                  <div class="line"></div>
+      {flights.length > 0 ? (
+        flights.map((plane, index) => (
+          <div key={index} className="plane-card">
+            <div className="card-left">
+              <div className="time-location">
+                <div className="departure">
+                  <span className="location" style={{ marginBottom: "10px" }}>{plane.departure_code}</span>
+                  <span className="time">{plane.departure_time}</span>
                 </div>
-                <span class="total-time">{plane.duration}</span>
-              </div>
-              <div class="arrival">
-                <span class="location" style={{ marginBottom: "10px"}}>{plane.arrival_place}</span>
-                <span class="time">{plane.arrival_time}</span>
-
+                <div className="duration">
+                  <div className="line-container" style={{ marginBottom: "10px" }}>
+                    <div className="line"></div>
+                    <div className="icon-container">
+                      <img src={logo} alt="Icon" className="icon" />
+                    </div>
+                    <div className="line"></div>
+                  </div>
+                  <span className="total-time">{plane.duration_time}</span>
+                </div>
+                <div className="arrival">
+                  <span className="location" style={{ marginBottom: "10px" }}>{plane.arrival_code}</span>
+                  <span className="time">{plane.arrival_time}</span>
+                </div>
               </div>
             </div>
+            <div className="card-right">
+              <button className="reserve-btn">Đặt vé</button>
+            </div>
           </div>
-          <div className="card-right"><p>Còn trống: {plane.seatsAvailable} chỗ</p>
-            <button className="reserve-btn">Đặt vé</button></div>
-
-        </div>
-      ))}
+        ))
+      ) : (
+        <>
+          {goFlights.length > 0 && goFlights.map((plane, index) => (
+            <div key={index} className="plane-card">Go flights
+              <div className="card-left">
+                <div className="time-location">
+                  <div className="departure">
+                    <span className="location" style={{ marginBottom: "10px" }}>{plane.departure_code}</span>
+                    <span className="time">{plane.departure_time}</span>
+                  </div>
+                  <div className="duration">
+                    <div className="line-container" style={{ marginBottom: "10px" }}>
+                      <div className="line"></div>
+                      <div className="icon-container">
+                        <img src={logo} alt="Icon" className="icon" />
+                      </div>
+                      <div className="line"></div>
+                    </div>
+                    <span className="total-time">{plane.duration_time}</span>
+                  </div>
+                  <div className="arrival">
+                    <span className="location" style={{ marginBottom: "10px" }}>{plane.arrival_code}</span>
+                    <span className="time">{plane.arrival_time}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="card-right">
+                <button className="reserve-btn">Đặt vé</button>
+              </div>
+            </div>
+          ))}
+          
+          {returnFlights.length > 0 && returnFlights.map((plane, index) => (
+            <div key={index} className="plane-card">Return flights
+              <div className="card-left">
+                <div className="time-location">
+                  <div className="departure">
+                    <span className="location" style={{ marginBottom: "10px" }}>{plane.departure_code}</span>
+                    <span className="time">{plane.departure_time}</span>
+                  </div>
+                  <div className="duration">
+                    <div className="line-container" style={{ marginBottom: "10px" }}>
+                      <div className="line"></div>
+                      <div className="icon-container">
+                        <img src={logo} alt="Icon" className="icon" />
+                      </div>
+                      <div className="line"></div>
+                    </div>
+                    <span className="total-time">{plane.duration_time}</span>
+                  </div>
+                  <div className="arrival">
+                    <span className="location" style={{ marginBottom: "10px" }}>{plane.arrival_code}</span>
+                    <span className="time">{plane.arrival_time}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="card-right">
+                <button className="reserve-btn">Đặt vé</button>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
+  
 };
-
 
 export default PlaneContainer;

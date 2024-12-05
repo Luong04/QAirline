@@ -163,3 +163,27 @@
   border-radius: 5px;
   font-size: 14px;
 }
+
+.react-autosuggest__suggestions-container {
+  position: absolute; /* Định vị tuyệt đối để không đẩy các thành phần khác */
+  z-index: 1000; /* Đảm bảo danh sách gợi ý đè lên các thành phần khác */
+  background-color: #fff; /* Nền trắng để tách biệt gợi ý */
+  max-height: 200px; /* Giới hạn chiều cao */
+  overflow-y: auto; /* Hiển thị thanh cuộn nếu có nhiều gợi ý */
+  width: 300px; /* Đặt chiều rộng cố định cho container */
+}
+
+/* Phong cách cho từng gợi ý */
+.react-autosuggest__suggestion {
+  padding: 8px 0; /* Căn lề chỉ trên/dưới */
+  cursor: pointer; /* Con trỏ dạng click */
+  text-align: left; /* Căn nội dung về bên trái */
+  margin-left: 20px; /* Loại bỏ thụt lề */
+  width: 100%; /* Chiều rộng mỗi gợi ý bằng container */
+  box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng */
+}
+
+/* Gợi ý khi người dùng di chuột qua */
+.react-autosuggest__suggestion--highlighted {
+  background-color: #f0f8ff; /* Màu nền khi hover */
+}

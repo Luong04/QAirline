@@ -1,13 +1,88 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './FlightBooking.css';
 import searchIcon from '../../../assets/image/search_icon.png';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import moment from 'moment-timezone';
+import Autosuggest from 'react-autosuggest'; // Import thư viện Autosuggest
 
 const FlightBooking = () => {
   const [activeTab, setActiveTab] = useState('flight');
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [suggestionsFrom, setSuggestionsFrom] = useState([]); // Để lưu gợi ý cho "Nơi đi"
+  const [suggestionsTo, setSuggestionsTo] = useState([]); // Để lưu gợi ý cho "Nơi đến"
+
+  const getSuggestionValue = (suggestion) => suggestion;
+  // Hàm lấy gợi ý từ backend cho "Nơi đi" và "Nơi đến"
+  const getSuggestions = async (value, type) => {
+    if (!value) {
+        if (type === 'from') {
+            setSuggestionsFrom([]);
+        } else {
+          setSuggestionsTo([]);
+        }
+        return;
+    }
+
+    try {
+        const response = await axios.get(`http://localhost:8081/api/getPlaces`, {
+            params: { query: value }
+        });
+
+        if (type === 'from') {
+            setSuggestionsFrom(response.data); // Cập nhật gợi ý cho "Nơi đi"
+        } else {
+            setSuggestionsTo(response.data); // Cập nhật gợi ý cho "Nơi đến"
+        }
+    } catch (error) {
+        console.error('Error fetching suggestions:', error);
+    }
+  };
+
+  // Hàm xử lý khi người dùng nhập liệu
+  const onChange = (event, { newValue }, type) => {
+    if (type === 'from') {
+        setFrom(newValue); // Cập nhật giá trị "Nơi đi"
+    } else {
+        setTo(newValue); // Cập nhật giá trị "Nơi đến"
+    }
+  };
+
+  // Hàm render suggestion item
+  const renderSuggestion = (suggestion) => (
+    <div>{suggestion}</div> // Hiển thị mỗi gợi ý
+  );
+
+  // Hàm xử lý khi lấy gợi ý từ API
+  const onSuggestionsFetchRequested = ({ value }, type) => {
+    getSuggestions(value, type); // Gọi API để lấy gợi ý
+  };
+
+
+  const handleSearchFlight = async () => {
+    if (!from || !to || !selectedDate) {
+      alert("Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
+    try {
+      const localDate = moment(selectedDate).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
+      const response = await axios.post('http://localhost:8081/api/findBasicFlight', {
+        departure_place: from,
+        arrival_place: to,
+        departure_date: localDate,
+      });
+      navigate('/booking', { state: { flights: response.data, from, to, selectedDate } });
+    } catch (error) {
+      console.error('Error fetching flights:', error.response?.data || error.message);
+      alert('Không tìm thấy chuyến bay phù hợp!');
+    }
+  };
 
   return (
     <div className="booking-container">
@@ -29,41 +104,52 @@ const FlightBooking = () => {
       <div className="tab-content">
         {activeTab === 'flight' ? (
           <div className="flight-form">
-              
-              <div className="input-group">
+            <div className="input-group" style={{ position: "relative" }}>
               <label>Nơi đi</label>
-              <input
-                type="text"
-                id="from"
-                name="from"
-                placeholder="Nơi đi"
-              /></div>
-              <div className="input-group">
+              <Autosuggest
+                suggestions={suggestionsFrom}
+                onSuggestionsFetchRequested={({ value }) => onSuggestionsFetchRequested({ value }, 'from')}
+                onSuggestionsClearRequested={() => setSuggestionsFrom([])}
+                getSuggestionValue={(suggestion) => suggestion} // Lấy giá trị của gợi ý
+                renderSuggestion={renderSuggestion} // Render gợi ý
+                inputProps={{
+                    placeholder: 'Nơi đi',
+                    value: from,
+                    onChange: (e, { newValue }) => onChange(e, { newValue }, 'from')
+                }}
+              />
+            </div>
+            <div className="input-group" style={{ position: "relative" }}>
               <label>Nơi đến</label>
-                <input
-                  type="text"
-                  id="to"
-                  name="to"
-                  placeholder="Nơi đến"
-                />
-              </div>
-              <div className="input-group">
+              <Autosuggest
+                suggestions={suggestionsTo}
+                onSuggestionsFetchRequested={({ value }) => onSuggestionsFetchRequested({ value }, 'to')}
+                onSuggestionsClearRequested={() => setSuggestionsTo([])}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                inputProps={{
+                  placeholder: 'Nơi đến',
+                  value: to,
+                  onChange: (e, { newValue }) => onChange(e, { newValue }, 'to')
+                }}
+              />
+            </div>
+            <div className="input-group">
               <label>Ngày đi</label>
-                <DatePicker
-                  selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  dateFormat="dd/MM/yyyy"
-                  placeholderText="Ngày đi"
-                  className="date-picker"
-                />
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Ngày đi"
+                className="date-picker"
+              />
             </div>
             <div className="row">
-              <div><Link to="/booking" className="search-container">
-                <button className="search-button1"><b>Tìm chuyến bay</b>
+              <div className="search-container">
+                <button className="search-button1" onClick={handleSearchFlight}><b>Tìm chuyến bay</b></button>
+                <button className="search-button" onClick={handleSearchFlight}>
+                  <img src={searchIcon} alt="Search Icon" />
                 </button>
-                <button className="search-button">
-                  <img src={searchIcon} alt="Search Icon"></img>
-                </button></Link>
               </div>
             </div>
           </div>
@@ -71,37 +157,24 @@ const FlightBooking = () => {
           <div className="stopover-content">
             <div className="input-group">
               <label>Mã vé</label>
-              <input
-                type="text"
-                id="ticketCode"
-                name="ticketcode"
-                placeholder="Nhập mã vé"
-              /></div>
+              <input type="text" id="ticketCode" name="ticketcode" placeholder="Nhập mã vé" />
+            </div>
             <div className="input-group">
-              <label>Số điện thoại</label><input
-                type="text"
-                id="phone"
-                name="phone"
-                placeholder="Nhập số điện thoại"
-              /></div>
+              <label>Số điện thoại</label>
+              <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại" />
+            </div>
             <div className="input-group">
               <label>Email</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="Nhập email"
-              /></div>
+              <input type="text" id="email" name="email" placeholder="Nhập email" />
+            </div>
             <div>
               <Link to="/checkticket" className="promo-button">Tra cứu</Link>
             </div>
-
-
           </div>
         )}
       </div>
     </div>
   );
-}
+};
 
 export default FlightBooking;

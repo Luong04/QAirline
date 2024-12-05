@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const sequelize = require('./src/config/sequelize');
 
 const app = express();
@@ -16,6 +17,7 @@ const sessionMiddleware = require('./src/config/sessionConfig');
 configviewEngine(app);
 
 //config req.body
+app.use(cors());
 app.use(express.json()); // for from json
 app.use(express.urlencoded({ extended: true})); // for from data
 

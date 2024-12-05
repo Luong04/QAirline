@@ -1,10 +1,12 @@
 // trang này để định tuyến api (cho frontend), các trang chứa file json
 const express = require('express');
 const router = express.Router();
-const {getAllFlight, getFlightById, getAllFlightAdmin, createFlight, updateFlight, deleteFlight, findFlight} = require('../services/flightServices');
+const {getAllFlight, getFlightById, getAllFlightAdmin, createFlight, updateFlight, deleteFlight, findFlight, findBasicFlight} = require('../services/flightServices');
 const {getAllBookingAdmin, getBookingById, createBooking, createPayment, cancelBooking} = require('../services/bookingServices');
 const {updatePrice} = require('../services/priceServices');
 const {createSeatReservations, createOneSeatReservations} = require('../services/seatServices');
+const { route } = require('./web');
+const { getPlaces } = require('../services/predictionService');
 // Giả sử bạn đã có models từ Sequelize
 
 
@@ -25,8 +27,9 @@ router.put('/adminflights/:id', updateFlight);
 // Xóa chuyến bay
 router.delete('/adminflights/:id', deleteFlight);
 
-router.get('/findFlight', findFlight)
-
+router.post('/findFlight', findFlight)
+router.post('/findBasicFlight', findBasicFlight)
+router.get('/getPlaces', getPlaces);
 router.get('/booking/:id', getBookingById);
 
 router.get('/adminbooking/', getAllBookingAdmin);

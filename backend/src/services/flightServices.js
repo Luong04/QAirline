@@ -153,8 +153,7 @@ const deleteFlight = async (req, res) => {
 }
 
 const findFlight = async (req, res) => {
-    const { departure_place, arrival_place, is_one_way, departure_date, comeback_date, numberTicket, typeTicket } = req.body;
-
+    const { departure_place, arrival_place, is_one_way, departure_date, return_date } = req.body;
     // Tìm sân bay
     const departure_airport = await Airport.findOne({ where: { name: departure_place } });
     const arrival_airport = await Airport.findOne({ where: { name: arrival_place } });
@@ -164,10 +163,17 @@ const findFlight = async (req, res) => {
     }
 
     // Định dạng và kiểm tra ngày đi
-    const formattedDate = moment(departure_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
-    if (!moment(formattedDate, 'YYYY-MM-DD', true).isValid()) {
+    const formattedDepartureDate = moment(departure_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
+    if (!moment(formattedDepartureDate, 'YYYY-MM-DD', true).isValid()) {
         return res.status(400).json({ message: 'Ngày đi không hợp lệ' });
     }
+
+    const startOfDay = moment(formattedDepartureDate).startOf('day').utc().add(7, 'hours');  // Chuyển thành UTC và cộng 7 giờ
+    const endOfDay = moment(formattedDepartureDate).endOf('day').utc().add(7, 'hours');  // Chuyển thành UTC và cộng 7 giờ
+    
+
+    console.log("Start of day (UTC):", startOfDay.format('YYYY-MM-DD HH:mm:ss'));
+    console.log("End of day (UTC):", endOfDay.format('YYYY-MM-DD HH:mm:ss'));
 
     // Tìm chuyến bay đi (departure)
     const foundFlight = await Flight.findAll({
@@ -175,8 +181,8 @@ const findFlight = async (req, res) => {
             departure_airport_id: departure_airport.airport_id,
             arrival_airport_id: arrival_airport.airport_id,
             departure_time: {
-                [Op.gte]: `${formattedDate} 00:00:00`,
-                [Op.lt]: `${formattedDate} 23:59:59`
+                [Op.gte]: startOfDay.toDate(), // Convert moment to Date object
+                [Op.lte]: endOfDay.toDate()  // Convert moment to Date object
             }
         }
     });
@@ -196,40 +202,45 @@ const findFlight = async (req, res) => {
                 arrival_time: flight.arrival_time,
                 plane: plane.model,
                 duration_time: flight.duration,
-                economy_price: 1000000, // Giá vé kinh tế giả định
-                business_price: 3000000, // Giá vé hạng thương gia giả định
-                number_ticket: numberTicket, // Số lượng vé
-                type_ticket: typeTicket // Loại vé (economy hoặc business)
+                economy_price: flight.true_price_economy, 
+                business_price: flight.true_price_business, 
             };
         }));
+        console.log(result);
         return res.status(200).json(result);
     }
 
     // Xử lý chuyến bay khứ hồi (comeback)
-    if (comeback_date !== "") {
-        const formattedComebackDate = moment(comeback_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
-        if (!moment(formattedComebackDate, 'YYYY-MM-DD', true).isValid()) {
-            return res.status(400).json({ message: 'Ngày khứ hồi không hợp lệ' });
-        }
-
-        // Tìm chuyến bay về (comeback)
-        const returnFlight = await Flight.findAll({
+    
+    const formattedReturnDate = moment(return_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
+    if (!moment(formattedReturnDate, 'YYYY-MM-DD', true).isValid()) {
+        return res.status(400).json({ message: 'Ngày khứ hồi không hợp lệ' });
+    }
+        
+    const startOfReturnDay = moment(formattedReturnDate).startOf('day').utc().add(7, 'hours');  // Chuyển thành UTC và cộng 7 giờ
+    const endOfReturnDay = moment(formattedReturnDate).endOf('day').utc().add(7, 'hours');  // Chuyển thành UTC và cộng 7 giờ
+        
+    console.log("Start of return day (UTC):", startOfReturnDay.format('YYYY-MM-DD HH:mm:ss'));
+    console.log("End of return day (UTC):", endOfReturnDay.format('YYYY-MM-DD HH:mm:ss'));
+        
+    // Tìm chuyến bay về (comeback)
+    const returnFlight = await Flight.findAll({
             where: {
                 departure_airport_id: arrival_airport.airport_id,
                 arrival_airport_id: departure_airport.airport_id,
                 departure_time: {
-                    [Op.gte]: `${formattedComebackDate} 00:00:00`,
-                    [Op.lt]: `${formattedComebackDate} 23:59:59`
+                    [Op.gte]: startOfReturnDay.toDate(), // Convert moment to Date object
+                    [Op.lte]: endOfReturnDay.toDate()  // Convert moment to Date object
                 }
             }
-        });
-
-        if (returnFlight.length === 0) {
+    });
+        
+    if (returnFlight.length === 0) {
             return res.status(404).json({ message: 'Không tìm thấy chuyến bay khứ hồi' });
-        }
+    }
 
-        // Nếu tìm thấy chuyến bay đi và về
-        const go_result = await Promise.all(foundFlight.map(async (flight) => {
+    // Nếu tìm thấy chuyến bay đi và về
+    const go_result = await Promise.all(foundFlight.map(async (flight) => {
             const plane = await Plane.findByPk(flight.plane_id);
             return {
                 flight_id: flight.flight_id,
@@ -239,14 +250,12 @@ const findFlight = async (req, res) => {
                 arrival_time: flight.arrival_time,
                 plane: plane.model,
                 duration_time: flight.duration,
-                economy_price: 1000000,
-                business_price: 3000000,
-                number_ticket: numberTicket,
-                type_ticket: typeTicket
+                economy_price: flight.true_price_economy, 
+                business_price: flight.true_price_business,
             };
-        }));
+    }));
 
-        const comeback_result = await Promise.all(returnFlight.map(async (flight) => {
+    const comeback_result = await Promise.all(returnFlight.map(async (flight) => {
             const plane = await Plane.findByPk(flight.plane_id);
             return {
                 flight_id: flight.flight_id,
@@ -256,19 +265,77 @@ const findFlight = async (req, res) => {
                 arrival_time: flight.arrival_time,
                 plane: plane.model,
                 duration_time: flight.duration,
-                economy_price: ECONOMY_PRICE,
-                business_price: BUSINESS_PRICE,
-                number_ticket: numberTicket,
-                type_ticket: typeTicket
+                economy_price: flight.true_price_economy, 
+                business_price: flight.true_price_business,
             };
-        }));
-        return res.status(200).json({ goInfo: go_result, comebackInfo: comeback_result });
+    }));
+    console.log(go_result, comeback_result);
+    return res.status(200).json({ goInfo: go_result, returnInfo: comeback_result });
+};
+
+const findBasicFlight = async (req, res) => { 
+    const { departure_place, arrival_place, departure_date } = req.body;
+    console.log(departure_place, arrival_place, departure_date);
+
+    // Tìm sân bay
+    const departure_airport = await Airport.findOne({ where: { name: departure_place } });
+    const arrival_airport = await Airport.findOne({ where: { name: arrival_place } });
+
+    if (!departure_airport || !arrival_airport) {
+        return res.status(404).json({ message: 'Không tìm thấy sân bay' });
     }
-    // Trường hợp không có chuyến bay về và không phải là chuyến bay một chiều
-    return res.status(400).json({ message: 'Yêu cầu không hợp lệ' });
+
+    // Định dạng và kiểm tra ngày đi
+    const formattedDate = moment(departure_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
+    if (!moment(formattedDate, 'YYYY-MM-DD', true).isValid()) {
+        return res.status(400).json({ message: 'Ngày đi không hợp lệ' });
+    }
+
+    const startOfDay = moment(formattedDate).startOf('day').utc().add(7, 'hours');  // Chuyển thành UTC và cộng 7 giờ
+    const endOfDay = moment(formattedDate).endOf('day').utc().add(7, 'hours');  // Chuyển thành UTC và cộng 7 giờ
+    
+
+    console.log("Start of day (UTC):", startOfDay.format('YYYY-MM-DD HH:mm:ss'));
+    console.log("End of day (UTC):", endOfDay.format('YYYY-MM-DD HH:mm:ss'));
+
+    // Tìm chuyến bay đi (departure)
+    const foundFlight = await Flight.findAll({
+        where: {
+            departure_airport_id: departure_airport.airport_id,
+            arrival_airport_id: arrival_airport.airport_id,
+            departure_time: {
+                [Op.gte]: startOfDay.toDate(), // Convert moment to Date object
+                [Op.lte]: endOfDay.toDate()  // Convert moment to Date object
+            },
+            status: "Scheduled"
+        }
+    });
+
+    if (foundFlight.length === 0) {
+        return res.status(404).json({ message: 'Không tìm thấy chuyến bay đi' });
+    }
+
+    const result = await Promise.all(foundFlight.map(async (flight) => {
+        const plane = await Plane.findByPk(flight.plane_id);
+        return {
+            flight_id: flight.flight_id,
+            departure_code: departure_airport.code,
+            arrival_code: arrival_airport.code,
+            departure_time: flight.departure_time,
+            arrival_time: flight.arrival_time,
+            plane: plane.model,
+            duration_time: flight.duration,
+            economy_price: flight.true_price_economy, 
+            business_price: flight.true_price_business, 
+        };
+    }));
+
+    console.log("found:", result);
+    return res.status(200).json(result);
 };
 
 
+
 module.exports = {
-    getAllFlight, getFlightById, getFlightByStatus, createFlight, updateFlight, deleteFlight, getAllFlightAdmin, findFlight
+    getAllFlight, getFlightById, getFlightByStatus, createFlight, updateFlight, deleteFlight, getAllFlightAdmin, findFlight, findBasicFlight
 }
