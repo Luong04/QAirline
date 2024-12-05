@@ -34,11 +34,11 @@ const InfoFlight = () => {
                 <div className="infor-left">
                     <div className="form-group">
                         <label htmlFor="departure">Điểm đi</label>
-                        <input type="text" id="departure" placeholder="Kỳ Anh" />
+                        <input type="text" id="departure" placeholder="" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="destination">Điểm đến</label>
-                        <input type="text" id="destination" placeholder="Hà Tĩnh" />
+                        <input type="text" id="destination" placeholder="" />
                     </div>
                 </div>
                 <div className="infor-right">

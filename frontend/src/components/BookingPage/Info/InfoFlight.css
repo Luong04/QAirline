@@ -36,7 +36,7 @@
     border-right: 2px solid #e1a21b;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
+    grid-gap: 30px;
     padding-right:20px;
     align-items: center;
 }
@@ -96,6 +96,6 @@
     font-size: 14px;
   }
 
-  .data-picker {
+  .data-picker1 {
     width: 50px;
   }

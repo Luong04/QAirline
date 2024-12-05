@@ -10,7 +10,7 @@ h1 {
 
   /* Container cho bảng */
 .table-container {
-  width: 100%;
+  width: 90%;
   max-height: 400px; /* Chiều cao tối đa của bảng */
   overflow-y: auto; /* Hiển thị thanh cuộn dọc nếu nội dung vượt quá chiều cao */
   overflow-x: hidden; /* Ẩn thanh cuộn ngang */
@@ -70,21 +70,12 @@ table {
     background-color: #fbcc5f; /* Cam sáng */
     color: #ffffff; /* Màu chữ trắng */
   }
-
-  body {
-    margin: 0; /* Xóa margin mặc định */
-    padding: 0px; /* Xóa padding mặc định */
-    min-height: 100%; /* Đảm bảo chiều cao tối thiểu là 100% trình duyệt */
-    height: 100%; /* Đảm bảo thẻ html và body chiếm hết chiều cao */
-    overflow-y: auto; /* Hiển thị thanh cuộn dọc khi nội dung vượt chiều cao */
-    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
-  }
   
   .ListFlight {
     text-align: center;
     display: flex;
     flex-direction: column; /* Sắp xếp nội dung theo cột */
-    min-height: 100vh; /* Chiều cao tối thiểu là chiều cao của trình duyệt */
+    min-height: 750px; /* Chiều cao tối thiểu là chiều cao của trình duyệt */
     padding: 20px;
     background-image: url('../../assets/image/background6.png');  /* Đường dẫn chính xác */
     background-size: cover; /* Ảnh phủ toàn bộ */

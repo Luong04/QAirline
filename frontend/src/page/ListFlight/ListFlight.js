@@ -5,12 +5,12 @@ import Navbar from '../../components/HomePage/Header/Navbar.js';
 const ListFlight = () => {
     return (
         <div className="ListFlight">
-      <header className="Body" >
+      <header>
         <Navbar />
         
         <h1>THÔNG TIN HÀNH TRÌNH</h1>
       </header>
-      <body className="Body" style={{ padding: "0 50px" }}>
+      <body style={{ padding: "0 60px 0 190px" }}>
             <div className="table-container"><table id="flight-table">
                 <thead>
                     <tr>
