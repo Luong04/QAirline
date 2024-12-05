@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .create-btn {
+            position: absolute;
+            right: 10;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flight Information</h1>
+    <button class="create-btn">Create a flight</button>
+    <br><br>
+    <table id="flight-table">
+        <thead>
+            <tr>
+                <th>Flight ID</th>
+                <th>Airline ID</th>
+                <th>Departure Airport ID</th>
+                <th>Arrival Airport ID</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // URL của API từ backend (giả định backend trả JSON)
+        const API_URL = 'http://localhost:8081/api/adminflights';        
+        
+        // Gọi hàm fetch dữ liệu khi trang được tải
+        fetchFlights(); 
+
+        // Hàm fetch dữ liệu từ backend
+        async function fetchFlights() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const flights = await response.json();
+                renderTable(flights);
+            } catch (error) {
+                console.error("Error fetching flight data:", error);
+            }
+        }
+
+        // Hàm render dữ liệu vào bảng
+        function renderTable(flights) {
+            const tableBody = document.querySelector('#flight-table tbody');
+            tableBody.innerHTML = ''; // Clear existing data
+
+            flights.forEach(flight => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${flight.flight_id}</td>
+                    <td>${flight.airline_id}</td>
+                    <td>${flight.departure_airport_id}</td>
+                    <td>${flight.arrival_airport_id}</td>
+                    <td>${flight.departure_time}</td>
+                    <td>${flight.arrival_time}</td>
+                    <td>${flight.duration}</td>
+                    <td>${flight.status}</td>
+                    <td>
+                        <button class='edit-btn' data-id="${flight.flight_id}">Edit</button>
+                        <button class='save-btn' data-id="${flight.flight_id}" style="display: none;">Save</button>
+                        <button class='delete-btn' data-id="${flight.flight_id}">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+            addEventListener();
+        }
+
+        function addEventListener() {
+            document.querySelectorAll('.create-btn').forEach(button => {
+                button.addEventListener('click', handleCreate);
+            });
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', handleEdit);
+            });
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', handleDelete);
+            });
+            document.querySelectorAll('.save-btn').forEach(button => {
+                button.addEventListener('click', handleSave);
+            });
+        }
+
+        const handleEdit = async (event) => {
+            const row= event.target.closest('tr');
+            const cells = row.querySelectorAll('td');
+
+            const allRows = document.querySelectorAll('#flight-table tbody tr');
+            allRows.forEach(otherRow => {
+                if (otherRow !== row) {
+                    otherRow.querySelector('.edit-btn').disabled = true;
+                    otherRow.querySelector('.delete-btn').disabled = true;
+                }
+            });
+
+            //Vô hiệu hóa casc nút
+            cells.forEach((cell, index) => {
+                if(index < cells.length - 1 && index > 0) {
+                    cell.setAttribute('contenteditable', 'true');
+                    cell.style.backgroundColor = '#ffffcc';
+                }
+            });
+            row.querySelector('.edit-btn').style.display = 'none';
+            row.querySelector('.save-btn').style.display = 'inline-block';
+        }
+
+        const handleSave = async (event) => {
+            const row= event.target.closest('tr');
+            const cells = row.querySelectorAll('td');
+
+            const updatedData = {
+                flight_id: cells[0].innerText,
+                airline_id: cells[1].innerText,
+                departure_airport_id: cells[2].innerText,
+                arrival_airport_id: cells[3].innerText,
+                departure_time: cells[4].innerText,
+                arrival_time: cells[5].innerText,
+                duration: cells[6].innerText,
+                status: cells[7].innerText,
+            };
+
+            await fetch(`${API_URL}/${updatedData.flight_id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedData),
+            })
+            .then(response => {
+                if(response.ok) {
+                    fetchFlights();
+                } else {
+                    alert(`Failed to edit`);
+                }
+            })
+
+            cells.forEach((cell, index) => {
+                if(index < cells.length - 1 && index > 0) {
+                    cell.setAttribute('contenteditable', 'false');
+                    cell.style.backgroundColor = '';
+                }
+            });
+            // Bật lại các nút Edit và Delete của tất cả các dòng
+            const allRows = document.querySelectorAll('#flight-table tbody tr');
+            allRows.forEach(otherRow => {
+            otherRow.querySelector('.edit-btn').disabled = false;
+            otherRow.querySelector('.delete-btn').disabled = false;
+            });
+
+            row.querySelector('.edit-btn').style.display = 'inline-block';
+            row.querySelector('.save-btn').style.display = 'none';
+        }
+
+        const handleDelete = async (event) => {
+            const flightId = event.target.getAttribute('data-id');
+            //xu ly sau
+            const response = await fetch(`${API_URL}/${flightId}`, {
+                method: 'DELETE'
+            })
+            if(response.ok) {
+                event.target.closest('tr').remove();
+            } else {
+                const error = await response.json();
+                alert(`Failed to delete: ${error.message}`);
+            }
+        }
+
+        const handleCreate = async () => {
+            const flightTableBody = document.querySelector('#flight-table tbody');
+        
+            // Tạo một hàng mới trong bảng
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td contenteditable="true" style="background-color: #ffffcc;">(auto)</td>
+                <td contenteditable="true" style="background-color: #ffffcc;"></td>
+                <td contenteditable="true" style="background-color: #ffffcc;"></td>
+                <td contenteditable="true" style="background-color: #ffffcc;"></td>
+                <td contenteditable="true" style="background-color: #ffffcc;"></td>
+                <td contenteditable="true" style="background-color: #ffffcc;"></td>
+                <td contenteditable="true" style="background-color: #ffffcc;"></td>
+                <td contenteditable="true" style="background-color: #ffffcc;"></td>
+                <td>
+                    <button class="save-btn" style="display: inline-block;">Save</button>
+                    <button class="cancel-btn" style="display: inline-block;">Cancel</button>
+                </td>
+            `;
+            flightTableBody.insertBefore(newRow, flightTableBody.firstChild);
+        
+            // Vô hiệu hóa các nút Edit và Delete trong bảng
+            const allRows = document.querySelectorAll('#flight-table tbody tr');
+            allRows.forEach(row => {
+                row.querySelector('.edit-btn')?.setAttribute('disabled', 'true');
+                row.querySelector('.delete-btn')?.setAttribute('disabled', 'true');
+            });
+        
+            // Xử lý nút Save
+            newRow.querySelector('.save-btn').addEventListener('click', async () => {
+                const cells = newRow.querySelectorAll('td');
+                
+                // Thu thập dữ liệu từ dòng mới
+                const newFlight = {
+                    airline_id: cells[1].innerText.trim(),
+                    departure_airport_id: cells[2].innerText.trim(),
+                    arrival_airport_id: cells[3].innerText.trim(),
+                    departure_time: cells[4].innerText.trim(),
+                    arrival_time: cells[5].innerText.trim(),
+                    duration: cells[6].innerText.trim(),
+                    status: cells[7].innerText.trim(),
+                };
+        
+                // Gửi yêu cầu POST đến API
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newFlight),
+                });
+        
+                if (response.ok) {
+                    // Làm mới danh sách chuyến bay
+                    fetchFlights();
+                } else {
+                    const error = await response.json();
+                    alert(`Failed to create: ${error.message}`);
+                }
+            });
+        
+            // Xử lý nút Cancel
+            newRow.querySelector('.cancel-btn').addEventListener('click', () => {
+                newRow.remove();
+                // Bật lại các nút Edit và Delete trong bảng
+                allRows.forEach(row => {
+                    row.querySelector('.edit-btn')?.removeAttribute('disabled');
+                    row.querySelector('.delete-btn')?.removeAttribute('disabled');
+                });
+            });
+        };
+        
+
+    </script>
+</body>
+</html>

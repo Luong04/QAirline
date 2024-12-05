@@ -1,0 +1,208 @@
+1. Bảng Airports (Sân bay)
+airport_id: Mã sân bay (Primary Key)
+name: Tên sân bay
+city: Thành phố
+country: Quốc gia
+code: Mã sân bay (IATA code, ví dụ: "HAN" cho Nội Bài)
+
+2. Bảng Flights (Chuyến bay)
+flight_id: Mã chuyến bay (Primary Key)
+plane_id: loại máy bay
+departure_airport_id: Mã sân bay khởi hành (Foreign Key từ Airports)
+arrival_airport_id: Mã sân bay đến (Foreign Key từ Airports)
+departure_time: Thời gian khởi hành
+arrival_time: Thời gian đến
+duration: Thời gian bay
+status: Trạng thái chuyến bay (ví dụ: Đang bay, Đã hạ cánh, Hoãn)
+
+3. Bảng Customers (Khách hàng)
+customer_id: Mã khách hàng (Primary Key)
+first_name: Tên
+last_name: Họ
+email: Email
+phone: Số điện thoại
+date_of_birth: Ngày sinh
+
+4. Bảng Bookings (Đặt vé)
+booking_id: Mã đặt vé (Primary Key)
+customer_id: Mã khách hàng (Foreign Key từ Customers)
+booking_date: Ngày đặt vé
+total_price: Tổng giá tiền
+status: Trạng thái đặt vé (ví dụ: Đã thanh toán, Chưa thanh toán, Đã hủy)
+
+5. Bảng Tickets (Vé)
+ticket_id: Mã vé (Primary Key)
+booking_id: Mã đặt vé (Foreign Key từ Bookings)
+flight_id: Mã chuyến bay (Foreign Key từ Flights)
+seat_number: Số ghế
+class: Hạng vé (ví dụ: Phổ thông, Thương gia)
+price: Giá vé
+
+6. Bảng Payments (Thanh toán)
+payment_id: Mã thanh toán (Primary Key)
+booking_id: Mã đặt vé (Foreign Key từ Bookings)
+amount: Số tiền thanh toán
+payment_date: Ngày thanh toán
+payment_method: Phương thức thanh toán (ví dụ: Thẻ tín dụng, PayPal)
+
+7. Bảng Planes (Hãng hàng không)
+    plane_id:
+    model:
+    total_seat:
+    seat_economy:
+    seat_business:
+
+8. Bảng Admins
+admin_id: Mã quản trị viên (khóa chính, tự động tăng).
+username: Tên đăng nhập của quản trị viên, phải là duy nhất.
+password_hash: Mật khẩu đã được mã hóa để đảm bảo an toàn. sha256
+email: Email của quản trị viên, phải là duy nhất.
+full_name: Tên đầy đủ của quản trị viên.
+created_at: Ngày giờ tạo tài khoản quản trị.
+last_login: Ngày giờ lần đăng nhập cuối cùng của quản trị viên
+
+
+/// TẠO DATABASE:
+use qairline;
+
+-- Chèn 2 tài khoản admin1 và admin2 với mật khẩu đã mã hóa là admin1 và admin2
+INSERT INTO admin (username, password_hash, email, full_name, created_at) 
+VALUES
+('admin1', 'hashed_password1', '25f43b1486ad95a1398e3eeb3d83bc4010015fcc9bedb35b432e00298d5021f7', 'Admin One', NOW()),
+('admin2', 'hashed_password2', '1c142b2d01aa34e9a36bde480645a57fd69e14155dacfab5a3f9257b77fdc8d8', 'Admin Two', NOW());
+
+
+
+INSERT INTO Airports (airport_id, name, city, country, code) VALUES
+(1, 'Nội Bài', 'Hà Nội', 'Việt Nam', 'HAN'),
+(2, 'Tân Sơn Nhất', 'Hồ Chí Minh', 'Việt Nam', 'SGN'),
+(3, 'Đà Nẵng', 'Đà Nẵng', 'Việt Nam', 'DAD'),
+(4, 'Cam Ranh', 'Khánh Hòa', 'Việt Nam', 'CXR'),
+(5, 'Phú Bài', 'Huế', 'Việt Nam', 'HUI'),
+(6, 'Vinh', 'Vinh', 'Việt Nam', 'VII'),
+(7, 'Liên Khương', 'Đà Lạt', 'Việt Nam', 'DLI');
+
+
+INSERT INTO Planes (plane_id, model, total_seat, seat_economy, seat_business)
+VALUES
+    ('B737-001', 'Boeing 737', 200, 150, 50),
+    ('B737-002', 'Boeing 737', 200, 150, 50),
+    ('A320-001', 'Airbus A320', 180, 130, 50),
+    ('A320-002', 'Airbus A320', 180, 130, 50),
+    ('B777-001', 'Boeing 777', 300, 220, 80),
+    ('A350-001', 'Airbus A350', 280, 200, 80),
+    ('A350-002', 'Airbus A350', 280, 200, 80);
+
+
+chạy file sinh dữ liệu Flights bằng lệnh sau: (sau cop vô mysql mà chạy)
+mã python:
+
+
+#################################################################################
+
+import random
+import datetime
+
+# Danh sách plane_id
+plane_ids = ["A320-001", "A320-002", "A350-001", "A350-002", "B737-001", "B737-002", "B777-001"]
+
+# Các airport_id
+airport_ids = [1, 2, 3, 4, 5, 6, 7]
+
+# Hàm tạo chuyến bay
+def generate_flight():
+    # Chọn ngẫu nhiên máy bay
+    plane_id = random.choice(plane_ids)
+    
+    # Chọn ngẫu nhiên sân bay khởi hành và đến (không trùng)
+    departure_airport_id, arrival_airport_id = random.sample(airport_ids, 2)
+    
+    # Tạo thời gian khởi hành và thời gian đến ngẫu nhiên trong khoảng thời gian từ 01/12/2024 đến 31/12/2024
+    base_date = datetime.date(2024, 12, 1)
+    days_offset = random.randint(0, 30)  # Giới hạn ngày trong tháng 12
+    departure_time = datetime.datetime.combine(base_date + datetime.timedelta(days=days_offset), datetime.time(random.randint(6, 22), random.randint(0, 59)))
+    arrival_time = departure_time + datetime.timedelta(hours=random.randint(1, 12))  # Chuyến bay dài 1-12 giờ
+
+    # Tính trạng thái chuyến bay
+    current_time = datetime.datetime.now()
+    if current_time < departure_time:
+        status = "Scheduled"
+    elif current_time > arrival_time:
+        # Tỉ lệ 20:1 giữa Landed và Cancelled
+        status = "Landed" if random.random() < 0.95 else "Cancelled"
+    else:
+        status = "In Flight"
+    
+    # Tạo câu lệnh MySQL
+    return f"INSERT INTO Flights (plane_id, departure_airport_id, arrival_airport_id, departure_time, arrival_time, status) VALUES ('{plane_id}', {departure_airport_id}, {arrival_airport_id}, '{departure_time.strftime('%Y-%m-%d %H:%M:%S')}', '{arrival_time.strftime('%Y-%m-%d %H:%M:%S')}', '{status}');"
+
+# Mở file để ghi các lệnh SQL
+with open('generate_flights.sql', 'w') as file:
+    # Sinh các lệnh MySQL cho 7 chuyến bay mỗi ngày trong tháng 12
+    for day in range(1, 32):  # Từ ngày 01 đến 31 tháng 12
+        for _ in range(7):  # Mỗi ngày tạo 7 chuyến bay
+            flight_sql = generate_flight()
+            file.write(flight_sql + '\n')  # Ghi lệnh vào file, mỗi lệnh cách nhau một dòng
+
+print("Các lệnh SQL đã được ghi vào file 'generate_flights.sql'.")
+
+
+##########################################################################################################
+
+/tips
+muốn reset lại hoàn toàn 1 bảng: TRUNCATE TABLE + tên bảng
+
+####################################################################################################
+file sinh giá bảng price:
+
+import random
+
+# Dữ liệu plane_id và airport_id
+plane_ids = [
+    'A320-001', 'A320-002', 'A350-001', 'A350-002', 
+    'B737-001', 'B737-002', 'B777-001'
+]
+airport_ids = list(range(1, 8))  # Tạo danh sách airport_id từ 1 đến 7
+
+# Giá cơ bản cho từng loại máy bay (giá hạng economy)
+plane_base_prices = {
+    'A320-001': 150,  # Giá cơ bản của hạng Economy (USD)
+    'A320-002': 160,
+    'A350-001': 250,
+    'A350-002': 260,
+    'B737-001': 180,
+    'B737-002': 190,
+    'B777-001': 300
+}
+
+# Hàm để tạo câu lệnh INSERT SQL
+def generate_insert_query(plane_id, departure_airport_id, arrival_airport_id, price_economy, price_business):
+    query = f"INSERT INTO Prices (plane_id, departure_airport_id, arrival_airport_id, base_price_economy, base_price_business) "
+    query += f"VALUES ('{plane_id}', {departure_airport_id}, {arrival_airport_id}, {price_economy}, {price_business});\n"
+    return query
+
+# Mở file để ghi
+with open('insert_prices.sql', 'w') as f:
+    # Duyệt toàn bộ tổ hợp plane_id, departure_airport_id, arrival_airport_id
+    for plane_id in plane_ids:
+        for departure_airport_id in airport_ids:
+            for arrival_airport_id in airport_ids:
+                # Điều kiện đảm bảo departure_id khác với arrival_id
+                if departure_airport_id != arrival_airport_id:
+                    # Sắp xếp để đảm bảo cặp (departure, arrival) luôn có thứ tự giống nhau
+                    dep_airport, arr_airport = sorted([departure_airport_id, arrival_airport_id])
+
+                    # Lấy giá cơ bản từ plane_base_prices
+                    price_economy = plane_base_prices[plane_id] + random.uniform(0, 50)  # Điều chỉnh giá hạng Economy
+                    price_business = price_economy * 2  # Giá hạng Business gấp đôi hạng Economy
+
+                    # Tạo câu lệnh INSERT
+                    insert_query = generate_insert_query(plane_id, dep_airport, arr_airport, round(price_economy, 2), round(price_business, 2))
+
+                    # Ghi vào file
+                    f.write(insert_query)
+
+print("File insert_prices.sql đã được tạo thành công!")
+#################################################################
+
+test mail: "kientrungx10st@gmail.com"
