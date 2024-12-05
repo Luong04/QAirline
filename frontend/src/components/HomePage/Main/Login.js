@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles//Login.css";
+import "./Login.css";
 
 const Login = ({onClose}) => {
   return (
@@ -24,7 +24,7 @@ const Login = ({onClose}) => {
             Đăng nhập
           </button>
         </form>
-        <a href="#forgot-password" className="forgot-password">
+        <a href="#forget-password" className="forget-password">
           Quên mật khẩu?
         </a>
       </div>

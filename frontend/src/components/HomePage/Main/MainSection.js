@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../components/Navbar.js";
-import FlightBooking from "../components/FlightBooking.js";
+import Navbar from '../Header/Navbar.js';
+import FlightBooking from "./FlightBooking.js";
 
-import "../styles/MainSection.css";
+import "./MainSection.css";
 
 const MainSection = ({toggleLogin}) => {
   return (

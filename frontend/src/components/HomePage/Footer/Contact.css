@@ -1,0 +1,36 @@
+.container {
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.info-item {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.info-item h3 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.info-item p {
+    font-size: 16px;
+    color: #555;
+}
+
+.info-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
