@@ -1,9 +1,11 @@
 import React from "react";
 import "./PlaneContainer.css";
 import logo from "../../../assets/image/logo.png";
+import { Link } from 'react-router-dom'
 
 
 // Dữ liệu chuyến xe (có thể đến từ API hoặc props)
+
 const planeData = [
   {
     departure_place: "Hà Nội",
@@ -43,7 +45,6 @@ const PlaneContainer = () => {
               <div class="departure">
                 <span class="location"  style={{ marginBottom: "10px"}}>{plane.departure_place}</span>
                 <span class="time">{plane.depature_time}</span>
-
               </div>
               <div class="duration">
                 <div class="line-container" style={{ marginBottom: "10px"}}>
@@ -63,7 +64,7 @@ const PlaneContainer = () => {
             </div>
           </div>
           <div className="card-right"><p>Còn trống: {plane.seatsAvailable} chỗ</p>
-            <button className="reserve-btn">Đặt vé</button></div>
+            <Link to="/booking/chon-chuyen" className="reserve-btn"><button className="reserve-btn">Đặt vé</button></Link></div>
 
         </div>
       ))}

@@ -17,16 +17,16 @@ const NavbarBooking = () => {
             <nav className="menu">
                 <ul>
                     <li className={activeSection === '#chon-chuyen' ? 'active' : ''}>
-                        <a href="#chon-chuyen" onClick={() => handleMenuClick('#chon-chuyen')}>CHỌN CHUYẾN</a>
+                        <a href="booking/chon-chuyen" onClick={() => handleMenuClick('booking/chon-chuyen')}>CHỌN CHUYẾN</a>
                     </li>
                     <li className={activeSection === '#thong-tin' ? 'active' : ''}>
-                        <a href="#thong-tin" onClick={() => handleMenuClick('#thong-tin')}>THÔNG TIN KHÁCH HÀNG</a>
+                        <a href="booking/thong-tin" onClick={() => handleMenuClick('booking/thong-tin')}>THÔNG TIN KHÁCH HÀNG</a>
                     </li>
                     <li className={activeSection === '#thanh-toan' ? 'active' : ''}>
-                        <a href="#thanh-toan" onClick={() => handleMenuClick('#thanh-toan')}>THANH TOÁN</a>
+                        <a href="booking/thanh-toan" onClick={() => handleMenuClick('booking/thanh-toan')}>THANH TOÁN</a>
                     </li>
                     <li className={activeSection === '#xac-nhan' ? 'active' : ''}>
-                        <a href="#xac-nhan" onClick={() => handleMenuClick('#xac-nhan')}>XÁC NHẬN</a>
+                        <a href="booking/xac-nhan" onClick={() => handleMenuClick('booking/xac-nhan')}>XÁC NHẬN</a>
                     </li>
                     <li className={activeSection === '/' ? 'active' : ''}>
                         <a href="/" onClick={() => handleMenuClick('/')}>VỀ TRANG CHỦ</a>
