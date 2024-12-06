@@ -64,7 +64,7 @@ const PlaneContainer = () => {
             </div>
           </div>
           <div className="card-right"><p>Còn trống: {plane.seatsAvailable} chỗ</p>
-            <Link to="/booking/chon-chuyen" className="reserve-btn"><button className="reserve-btn">Đặt vé</button></Link></div>
+            <Link to="/booking/chon-chuyen"><button className="reserve-btn">Đặt vé</button></Link></div>
 
         </div>
       ))}

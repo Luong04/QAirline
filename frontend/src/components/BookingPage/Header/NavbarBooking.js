@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/image/logo.png";
 import "./NavbarBooking.css";
 
 const NavbarBooking = () => {
-    const [activeSection, setActiveSection] = useState('#chon-chuyen');
-
-    const handleMenuClick = (section) => {
-        setActiveSection(section);
-    };
+    const location = useLocation(); // Lấy URL hiện tại
 
     return (
         <div className="navBooking">
@@ -16,24 +13,24 @@ const NavbarBooking = () => {
             </div>
             <nav className="menu">
                 <ul>
-                    <li className={activeSection === '#chon-chuyen' ? 'active' : ''}>
-                        <a href="booking/chon-chuyen" onClick={() => handleMenuClick('booking/chon-chuyen')}>CHỌN CHUYẾN</a>
+                    <li className={location.pathname === "/booking" || location.pathname === "/booking/chon-chuyen" ? "active" : ""}>
+                        <Link to="/booking/chon-chuyen">CHỌN CHUYẾN</Link>
                     </li>
-                    <li className={activeSection === '#thong-tin' ? 'active' : ''}>
-                        <a href="booking/thong-tin" onClick={() => handleMenuClick('booking/thong-tin')}>THÔNG TIN KHÁCH HÀNG</a>
+                    <li className={location.pathname === "/booking/thong-tin" ? "active" : ""}>
+                        <Link to="/booking/thong-tin">THÔNG TIN KHÁCH HÀNG</Link>
                     </li>
-                    <li className={activeSection === '#thanh-toan' ? 'active' : ''}>
-                        <a href="booking/thanh-toan" onClick={() => handleMenuClick('booking/thanh-toan')}>THANH TOÁN</a>
+                    <li className={location.pathname === "/booking/thanh-toan" ? "active" : ""}>
+                        <Link to="/booking/thanh-toan">THANH TOÁN</Link>
                     </li>
-                    <li className={activeSection === '#xac-nhan' ? 'active' : ''}>
-                        <a href="booking/xac-nhan" onClick={() => handleMenuClick('booking/xac-nhan')}>XÁC NHẬN</a>
+                    <li className={location.pathname === "/booking/xac-nhan" ? "active" : ""}>
+                        <Link to="/booking/xac-nhan">XÁC NHẬN</Link>
                     </li>
-                    <li className={activeSection === '/' ? 'active' : ''}>
-                        <a href="/" onClick={() => handleMenuClick('/')}>VỀ TRANG CHỦ</a>
+                    <li className={location.pathname === "/" ? "active" : ""}>
+                        <Link to="/">VỀ TRANG CHỦ</Link>
                     </li>
                 </ul>
-            </nav></div>
-
+            </nav>
+        </div>
     );
 };
 

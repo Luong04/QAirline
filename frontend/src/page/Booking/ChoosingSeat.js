@@ -168,6 +168,12 @@ const ChoosingSeat = () => {
               </span>
             </h2>
             <h3>
+    Số lượng ghế:{" "}
+    <span id="seat-count">
+      {selectedSeats.length}
+    </span>
+  </h3>
+            <h3>
               Tổng tiền:{" "}
               <span id="total-price">
                 {calculateTotal()} VND
