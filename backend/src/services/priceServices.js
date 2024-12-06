@@ -2,6 +2,7 @@ const { Op } = require('sequelize');
 const Price = require('../entity/prices');
 const Flight = require('../entity/flights');
 
+//ghep front end phai cho mac dinh chay doan code nay de cap nhat gia 
 const updatePrice = async (req, res) => {
     try {
         const currentDate = new Date();
