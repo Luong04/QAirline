@@ -8,7 +8,7 @@ import Autosuggest from 'react-autosuggest';
 import { useNavigate } from "react-router-dom";
 import moment from 'moment-timezone';
 
-const InfoFlight = () => {
+const InfoFlight = ({setFlights, setGoFlights, setReturnFlights}) => {
     const [isRoundTrip, setIsRoundTrip] = useState(false); // State để theo dõi chế độ Một chiều/Khứ hồi
     const [returnDate, setReturnDate] = useState(null);
     const location = useLocation(); 
@@ -69,6 +69,10 @@ const InfoFlight = () => {
 
     const handleSearchFlights = async () => {
         // Gửi yêu cầu đến API để tìm chuyến bay
+        setFlights([]);
+        setGoFlights([]);
+        setReturnFlights([]);
+
         const departureDate = moment(selectedDate).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
         const returnDateFormatted = moment(returnDate).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
         const payload = {

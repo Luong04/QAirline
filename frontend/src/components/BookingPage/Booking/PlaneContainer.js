@@ -4,14 +4,10 @@ import "./PlaneContainer.css";
 import logo from "../../../assets/image/logo.png";
 
 // Component chính
-const PlaneContainer = () => {
+const PlaneContainer = ({ flights, goFlights, returnFlights, setFlights, setGoFlights, setReturnFlights }) => {
   // Dùng useLocation để lấy thông tin state từ navigate
   const location = useLocation(); 
 
-  // Khởi tạo state cho chuyến bay
-  const [flights, setFlights] = useState([]);
-  const [goFlights, setGoFlights] = useState([]);
-  const [returnFlights, setReturnFlights] = useState([]);
   /*      Các dữ liệu trong mảng flights, flights chứa nhiều phần tử con, mỗi phần tử gồm
             flight_id: flight.flight_id,
             departure_code: departure_airport.code,
@@ -31,6 +27,10 @@ const PlaneContainer = () => {
       if(location.state.flights) setFlights(location.state.flights);
       if(location.state.goFlights) setGoFlights(location.state.goFlights);
       if(location.state.returnFlights) setReturnFlights(location.state.returnFlights);
+    } else {
+      setFlights([]);
+      setGoFlights([]);
+      setReturnFlights([]);
     }
   }, [location]);  // Hook này sẽ chạy lại khi location thay đổi
 
@@ -127,8 +127,14 @@ const PlaneContainer = () => {
               </div>
             </div>
           ))}
+          {flights.length === 0 && goFlights.length === 0 && returnFlights.length === 0 && (
+            <div className="no-flights">
+              <p>Không tìm thấy chuyến bay</p>
+            </div>
+          )}
         </>
       )}
+      
     </div>
   );
   
