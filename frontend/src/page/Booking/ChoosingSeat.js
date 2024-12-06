@@ -179,7 +179,7 @@ const ChoosingSeat = () => {
                 {calculateTotal()} VND
               </span>
             </h3>
-            <Link to="/booking/thong-tin" style={{textDecoration: "none"}}><button id="confirm">Tiếp tục</button></Link>
+            <Link to="/booking/infoClient" style={{textDecoration: "none"}}><button id="confirm">Tiếp tục</button></Link>
           </section>
         </main>
       </div>

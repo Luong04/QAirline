@@ -1,0 +1,63 @@
+.payment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.inforBooking-container {
+    width: 70%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.bill-container {
+    width: 30%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px 30px;
+}
+
+.inforTrip, .inforCustomer, .bill, .form-payment{
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.inforTrip {
+    height: 170px;
+}
+
+.time-location {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.inforCustomer {
+    p {
+        text-align: left;
+        margin-left: 30px;
+    }
+    height: 150px;
+}
+
+.bill {
+    p {
+        text-align: left;
+        margin-left: 20px;
+    }
+    height: 170px;
+}
+
+.form-payment{
+}
