@@ -1,71 +1,47 @@
-.check_container {
-  background-image: url('../../assets/image/plane.png');  /* Đường dẫn chính xác */
-    background-size: cover; /* Ảnh phủ toàn bộ */
-    background-position: center; /* Căn giữa ảnh */
-    background-repeat: no-repeat; /*Không lặp lại */
-    text-align: center;
-    margin-top: 100px;
+.check {
+  text-align: center;
+}
+.check-container{
+  text-align: center;
+  background-color: white;
+  width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 20px;
 }
 
-.ticket-details-container {
-    width: 600px;
-    margin: auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    text-align: center; /* Căn giữa toàn bộ */
-    
-  }
-  
-  .ticket-details-header {
-    font-size: 24px;
-    font-weight: bold;
-    color: #c97932;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #c97932; /* Gạch ngang nhẹ dưới tiêu đề */
-    padding-bottom: 10px;
-  }
-  
-  .ticket-details-item {
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: #34495e;
-  }
-  
-  .ticket-details-item strong {
-    color: #2980b9;
-  }
-  
-  .ticket-details-footer {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 200px; /* Khoảng cách giữa các nút */
-  }
-  
-  .ticket-details-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #2980b9;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .ticket-details-button:hover {
-    background-color: #1f618d;
-  }
-  
-  .ticket-details-button.cancel {
-    background-color: #e74c3c; /* Màu đỏ nhạt cho nút hủy */
-  }
-  
-  .ticket-details-button.cancel:hover {
-    background-color: #c0392b; /* Đậm hơn khi hover */
-  }
-  
+form {
+  width: 500px;
+  background-color:aliceblue;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+}
+
+.form-check {
+  padding: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.form-control {
+  margin-left: 40px;
+  width: 250px;
+}
+
+.cancel-btn {
+  width: 150px;
+  margin-top: 10px;
+  margin-right: 100px;
+  background-color: red;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.cancel-btn:hover {
+  background-color: rgb(180, 5, 5); /* Màu đỏ đậm hơn */
+}

@@ -1,0 +1,51 @@
+.header-checkBooking {
+    display: flex;
+    height: 100px;
+    background-color: white;
+    align-items: center;
+  }
+
+  .logo {
+    margin: 0 100px 0 350px;
+  }
+
+  .header-checkBooking h2 {
+    margin: 0px; /* Xóa margin mặc định của h2 */
+    font-size: 30px;
+  }
+
+  .container-checkBooking {
+    background-color: azure;
+    margin: 20px auto;
+    width: 1300px;
+    display: flex;
+    border-radius: 20px;
+    gap: 5%;
+    padding: 20px;
+  }
+
+  .left-checkBooking {
+    width: 30%;
+    background-color: aquamarine;
+    border-radius: 15px;
+  }
+
+  .left-checkBooking ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .left-checkBooking ul li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+
+  .right-checkBooking {
+    width: 65%;
+    background-color: aquamarine;
+    border-radius: 15px;
+  }
+  
