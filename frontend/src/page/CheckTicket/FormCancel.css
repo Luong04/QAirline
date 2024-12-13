@@ -1,0 +1,53 @@
+.cancel-container {
+    width: 50%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px 30px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 600px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    padding: 0 10px 0 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 0;
+}
+
+.error-text {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.required {
+    color: red;
+}
+
+.cancel-btn {
+    width: 150px;
+    margin-top: 10px;
+    margin-right: 100px;
+    background-color: red;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .cancel-btn:hover {
+    background-color: rgb(180, 5, 5); /* Màu đỏ đậm hơn */
+  }

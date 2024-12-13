@@ -98,7 +98,7 @@ const FlightBooking = () => {
           className={activeTab === 'stopover' ? 'active' : ''}
           onClick={() => setActiveTab('stopover')}
         >
-          Tra cứu / Hủy vé
+          Thông tin đặt vé
         </button>
       </div>
 
@@ -157,8 +157,8 @@ const FlightBooking = () => {
         ) : (
           <div className="stopover-content">
             <div className="input-group">
-              <label>Mã vé</label>
-              <input type="text" id="ticketCode" name="ticketcode" placeholder="Nhập mã vé" />
+              <label>Họ tên</label>
+              <input type="text" id="fullname" name="fullname" placeholder="Nhập họ tên" />
             </div>
             <div className="input-group">
               <label>Số điện thoại</label>

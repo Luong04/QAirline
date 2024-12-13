@@ -18,8 +18,7 @@ const Navbar = ({toggleLogin}) => {
                 <span className="navbar-text">Trợ giúp</span>
             
                 <div className="navbar-item">
-                    <img src={languageIcon} alt="Language Icon" className="navbar-icon" />
-                    <span className="navbar-text1">EN</span>
+                    <span className="navbar-text">Tra cứu vé</span>
                 </div>
                 <img src={profileIcon} alt="Profile Icon" className="navbar-icon"></img>
                 <span className="navbar-text1" onClick={toggleLogin}>Đăng nhập </span>

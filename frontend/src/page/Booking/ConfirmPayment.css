@@ -1,0 +1,19 @@
+
+.confirmation-message {
+  text-align: center;
+  color: rgb(46, 88, 66);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.confirmation-message h2 {
+  margin: 30;
+  font-size: 30px;
+  color: red;
+}
+
+.confirmation-message p {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
