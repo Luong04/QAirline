@@ -24,6 +24,7 @@ const PlaneContainer = ({ flights, goFlights, returnFlights, setFlights, setGoFl
   useEffect(() => {
     // Kiểm tra nếu state có tồn tại và lấy dữ liệu chuyến bay từ location
     if (location.state) {
+      console.log('State:', location.state);  // In ra để kiểm tra dữ liệu
       if(location.state.flights) setFlights(location.state.flights);
       if(location.state.goFlights) setGoFlights(location.state.goFlights);
       if(location.state.returnFlights) setReturnFlights(location.state.returnFlights);

@@ -9,7 +9,6 @@ const port = process.env.PORT || 8888;
 
 const configviewEngine = require('./src/config/viewEngine');
 
-const webRoutes = require('./src/routes/web');
 const apiRoutes = require('./src/routes/api');
 
 const sessionMiddleware = require('./src/config/sessionConfig');
@@ -31,7 +30,7 @@ sequelize.authenticate()
     .then(() => console.log('All models were synchronized successfully.'))
     .catch(err => console.error('Unable to connect to the database:', err));
 
-app.use('/', webRoutes);
+//app.use('/', webRoutes);
 app.use('/api/', apiRoutes);
 app.listen(port, () => {
   console.log(`QAirline listening on port ${port}`)

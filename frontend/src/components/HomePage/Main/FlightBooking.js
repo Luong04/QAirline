@@ -72,10 +72,11 @@ const FlightBooking = () => {
     }
     try {
       const localDate = moment(selectedDate).tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
-      const response = await axios.post('http://localhost:8081/api/findBasicFlight', {
+      const response = await axios.post('http://localhost:8081/api/findFlight', {
         departure_place: from,
         arrival_place: to,
         departure_date: localDate,
+        is_one_way: "true"
       });
       navigate('/booking', { state: { flights: response.data, from, to, selectedDate } });
     } catch (error) {

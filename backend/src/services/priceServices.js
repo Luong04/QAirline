@@ -3,7 +3,7 @@ const Price = require('../entity/prices');
 const Flight = require('../entity/flights');
 
 //ghep front end phai cho mac dinh chay doan code nay de cap nhat gia 
-const updatePrice = async (req, res) => {
+const updatePrice = async () => {
     try {
         const currentDate = new Date();
 
@@ -37,10 +37,10 @@ const updatePrice = async (req, res) => {
             );
         }
 
-        res.status(200).json({ message: "Prices updated successfully for all flights." });
+        return "Prices updated successfully for all flights.";
     } catch (error) {
         console.error("Error updating flight prices:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        throw new Error ("Internal Server Error");
     }
 };
 
