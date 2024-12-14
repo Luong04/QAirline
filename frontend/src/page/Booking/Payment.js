@@ -65,7 +65,7 @@ const Payment = () => {
             <label>
               <input type="radio" name="payment" value="vnp" checked style={{width:"13px"}}/> VNPay
             </label>
-            <button type="submit" className="submit-btn">THANH TOÁN
+            <button type="button" className="submit-btn">THANH TOÁN
             </button>
           </div>
         </section>

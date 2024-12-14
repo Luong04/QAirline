@@ -160,15 +160,15 @@ const FlightBooking = () => {
               <input type="text" id="fullname" name="fullname" placeholder="Nhập họ tên" />
             </div>
             <div className="input-group">
-              <label>Số điện thoại</label>
-              <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại" />
+              <label>CCCD</label>
+              <input type="text" id="CCCD" name="CCCD" placeholder="Nhập CCCD" />
             </div>
             <div className="input-group">
               <label>Email</label>
               <input type="text" id="email" name="email" placeholder="Nhập email" />
             </div>
             <div>
-              <Link to="/checkticket" className="promo-button">Tra cứu</Link>
+              <Link to="/checkBooking" className="promo-button">Tra cứu</Link>
             </div>
           </div>
         )}

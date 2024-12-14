@@ -9,7 +9,6 @@ import ChoosingSeat from '../page/Booking/ChoosingSeat.js';
 import InfoClient from '../page/Booking/InfoClient.js';
 import Payment from '../page/Booking/Payment.js';
 import ConfirmPayment from '../page/Booking/ConfirmPayment.js';
-import TicketB from '../components/BookingPage/Tickets/TicketB.js';
 import CheckBooking from '../page/CheckTicket/CheckBooking.js'
 
 
@@ -25,7 +24,6 @@ const App = () => {
         <Route path="/booking/infoClient" element={<InfoClient/>}/>
         <Route path="/booking/payment" element={<Payment/>}/>
         <Route path="/booking/confirmPayment" element={<ConfirmPayment/>}/>
-        <Route path="/booking/ticket" element={<TicketB/>}/>
         <Route path="/checkBooking" element={<CheckBooking/>}/>
       </Routes>
     </div>

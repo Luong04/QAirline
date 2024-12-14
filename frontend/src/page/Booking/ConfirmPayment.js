@@ -7,7 +7,7 @@ import TicketB from "../../components/BookingPage/Tickets/TicketB.js";
 
 const ConfirmPayment = () => {
     // 1. Sử dụng useState để quản lý thông tin vé
-    const [ticketInfo, setTicketInfo] = useState({
+    const [ticketsInfo, setTicketInfo] = useState([{
         name: "Nguyen Dam Kien",
         ticketCode: "A26537",
         departure: "Vinh",
@@ -17,7 +17,17 @@ const ConfirmPayment = () => {
         seat: "B13",
         price: "1000000",
         classType: "ECONOMY"
-    });
+    }, {
+        name: "Nguyen Dam Kien",
+        ticketCode: "A26537",
+        departure: "Vinh",
+        destination: "Hồ Chí Minh",
+        departureTime: "12h00 21/3/2025",
+        arrivalTime: "14h30 21/3/2025",
+        seat: "B13",
+        price: "1000000",
+        classType: "ECONOMY"
+    }]);
 
     return (
         <div>
@@ -29,9 +39,7 @@ const ConfirmPayment = () => {
                 <p>Cảm ơn bạn đã đặt vé với QAIRLINE. Chúc bạn có một chuyến đi vui vẻ!</p>
             </div>
 
-
-            {/* 3. Thêm TicketB và truyền các thông tin vé */}
-            <TicketB
+            {ticketsInfo.map((ticketInfo, index)=>(<TicketB
                 name={ticketInfo.name}
                 ticketCode={ticketInfo.ticketCode}
                 departure={ticketInfo.departure}
@@ -41,9 +49,10 @@ const ConfirmPayment = () => {
                 seat={ticketInfo.seat}
                 price={ticketInfo.price}
                 classType={ticketInfo.classType}
-            />
+            />))}
+            
 
-            <button type="submit" className="submit-btn" style={{width:"200px"}}>VỀ TRANG CHỦ</button>
+            <button type="button" className="submit-btn" style={{width:"200px", marginBottom: "20px"}}>VỀ TRANG CHỦ</button>
         </div >
     );
 };

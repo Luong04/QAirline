@@ -1,51 +1,101 @@
 .header-checkBooking {
-    display: flex;
-    height: 100px;
-    background-color: white;
-    align-items: center;
-  }
+  display: flex;
+  height: 100px;
+  background-color: white;
+  align-items: center;
+}
 
-  .logo {
-    margin: 0 100px 0 350px;
-  }
+.header-checkBooking .logo {
+  margin: 0 100px 0 350px;
+}
 
-  .header-checkBooking h2 {
-    margin: 0px; /* Xóa margin mặc định của h2 */
-    font-size: 30px;
-  }
+.header-checkBooking h2 {
+  margin: 0px;
+  /* Xóa margin mặc định của h2 */
+  font-size: 30px;
+}
 
-  .container-checkBooking {
-    background-color: azure;
-    margin: 20px auto;
-    width: 1300px;
-    display: flex;
-    border-radius: 20px;
-    gap: 5%;
-    padding: 20px;
-  }
+.container-checkBooking {
+  margin: 20px auto;
+  width: 1300px;
+  display: flex;
+  border-radius: 20px;
+  gap: 10px;
+  padding: 20px;
+}
 
-  .left-checkBooking {
-    width: 30%;
-    background-color: aquamarine;
-    border-radius: 15px;
-  }
+.left-checkBooking {
+  width: 30%;
+  background-color: rgb(250, 251, 251);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Hiệu ứng đổ bóng */
+  height: 280px;
+}
 
-  .left-checkBooking ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .left-checkBooking ul li {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #555;
-  }
-  
+.left-checkBooking h3 {
+  font-size: 20px;
+  margin: 30px auto;
+}
 
-  .right-checkBooking {
-    width: 65%;
-    background-color: aquamarine;
-    border-radius: 15px;
-  }
-  
+.info-checkBooking {
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: 30px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.info-checkBooking span {
+  color: rgb(156, 210, 210);
+  width: 120px;
+  text-align: left;
+}
+
+.checkbox-ticket-row {
+  display: flex;
+  /* Sử dụng flexbox */
+  align-items: center;
+  /* Canh giữa theo chiều dọc */
+  gap: 10px;
+  /* Khoảng cách giữa checkbox và TicketB */
+}
+
+.checkbox-ticket-row input[type="checkbox"] {
+  margin: 0;
+  /* Loại bỏ khoảng cách mặc định */
+  width: 10%;
+}
+
+
+.right-checkBooking {
+  width: 70%;
+  background-color: rgb(246, 250, 249);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Hiệu ứng đổ bóng */
+}
+
+.right-checkBooking h3 {
+  font-size: 20px;
+  margin: 30px auto;
+}
+
+.right-checkBooking button[type="button"]{
+  margin-bottom: 20px;
+  width: 150px;
+}
+
+.right-checkBooking .cancel-btn {
+  width: 150px;
+  margin-top: 10px;
+  margin-right: 100px;
+  background-color: red;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.right-checkBooking .cancel-btn:hover {
+  background-color: rgb(180, 5, 5);
+  /* Màu đỏ đậm hơn */
+}

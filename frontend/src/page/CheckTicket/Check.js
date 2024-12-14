@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Check.css";
 import TicketB from "../../components/BookingPage/Tickets/TicketB.js";
 import Navbar from '../../components/HomePage/Header/Navbar.js';
-import FormCancel from "../CheckTicket/FormCancel.js"
 
 
 const Check = () => {
@@ -38,8 +37,7 @@ const Check = () => {
         <h1 style={{ marginBottom: "20px" }}>TRA CỨU VÉ</h1>
       </header>
       <div>
-        
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{width: "500px"}}>
           <div className="form-check">
             <label htmlFor="ticketCode" className="form-label">Nhập mã vé</label>
             <input
@@ -57,22 +55,22 @@ const Check = () => {
 
         {/* Hiển thị TicketB khi tìm thấy vé */}
         {ticketFound && (
-        <div className="ticket-info">
-          <TicketB
-            name={ticketInfo.name}
-            ticketCode={ticketInfo.ticketCode}
-            departure={ticketInfo.departure}
-            destination={ticketInfo.destination}
-            departureTime={ticketInfo.departureTime}
-            arrivalTime={ticketInfo.arrivalTime}
-            seat={ticketInfo.seat}
-            price={ticketInfo.price}
-            classType={ticketInfo.classType}
-          />
-          <button type="submit" className="submit-btn" style={{ width: "150px", marginTop: "10px" }}>Về trang chủ</button>
-        </div>
-        
-          )}
+          <div className="ticket-info">
+            <TicketB
+              name={ticketInfo.name}
+              ticketCode={ticketInfo.ticketCode}
+              departure={ticketInfo.departure}
+              destination={ticketInfo.destination}
+              departureTime={ticketInfo.departureTime}
+              arrivalTime={ticketInfo.arrivalTime}
+              seat={ticketInfo.seat}
+              price={ticketInfo.price}
+              classType={ticketInfo.classType}
+            />
+            <button type="submit" className="submit-btn" style={{ width: "150px", marginTop: "10px" }}>Về trang chủ</button>
+          </div>
+
+        )}
       </div>
     </div>
   );
