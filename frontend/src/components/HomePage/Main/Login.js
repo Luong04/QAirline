@@ -8,7 +8,7 @@ const Login = ({onClose}) => {
       <button className="close-button" onClick={onClose}>
           X
         </button>
-        <h2 className="login-title">Đăng nhập</h2>
+        <h2 className="login-title">ĐĂNG NHẬP</h2>
         <form className="login-form">
           <input
             type="text"

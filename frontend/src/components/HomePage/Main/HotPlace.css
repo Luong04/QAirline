@@ -1,24 +1,22 @@
+/* Tổng quát */
 .destination-card {
-    margin: 0px auto; /* Canh giữa theo chiều ngang, tạo khoảng cách dọc */
+    margin: 0 auto; /* Canh giữa */
     max-width: 1180px;
-    border: none;
-    overflow: hidden;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0));
-    border-radius: 15px; /* Bo tròn các góc */
+    border-radius: 15px; /* Bo tròn góc */
 }
 
 .destination-header {
     padding: 15px;
     text-align: left;
-    color: #004B6B; /* Màu chữ trắng */
+    color: #004B6B;
     font-weight: bold;
     font-size: 1.2rem;
-    border: none;
 }
 
+/* Grid layout cho phần nội dung */
 .destination-content {
     position: relative;
     display: grid;
@@ -28,36 +26,78 @@
     grid-gap: 20px;
 }
 
+/* Container chính */
 .image-container {
-    position: relative;
-    overflow: hidden; /* Ẩn phần ảnh vượt quá container */
+    position: relative; /* Cần để overlay "absolute" dựa trên container này */
+    overflow: hidden; /* Giữ cho overlay không vượt ra ngoài khung */
     border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid white;
+    cursor: pointer;
 }
 
 .image-container img {
-    width: 100%; /* Ảnh phủ gần đầy chiều ngang */
-    height: 300px; /* Cố định chiều cao */
-    display: block;
-    border-radius: 15px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng hover */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Giữ tỷ lệ ảnh */
+    transition: transform 0.3s ease; /* Hiệu ứng phóng to ảnh */
 }
 
-.image-container img:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
+.image-container:hover img {
+    transform: scale(1.05); /* Ảnh phóng to nhẹ */
 }
 
-/* Cấu hình lưới cho các phần tử con */
+/* Overlay ban đầu ẩn */
+.image-container .overlay {
+    position: absolute;
+    bottom: -100%; /* Ẩn overlay ra khỏi khung */
+    left: 0;
+    width: 100%;
+    height: 100px; /* Độ cao của overlay, điều chỉnh theo ý muốn */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: bottom 0.4s ease; /* Hiệu ứng trượt lên */
+    opacity: 0; /* Ban đầu trong suốt */
+    text-align: left;
+}
+
+.image-container:hover .overlay {
+    bottom: 0; /* Trượt overlay lên */
+    opacity: 1; /* Hiển thị overlay */
+}
+
+/* Nội dung chữ trong overlay */
+.overlay h3 {
+    font-size: 1.2rem;
+    margin: 0 0 5px 0;
+}
+
+.overlay p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.overlay a {
+    color: #00bfff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.overlay a:hover {
+    text-decoration: underline;
+}
+
+
+/* Grid cấu hình lưới */
 .destination-content .image-container:nth-child(1) {
-    grid-column: span 2;
+    grid-column: span 2; /* Chiếm 2 cột */
 }
 
 .destination-content .image-container:nth-child(2) {
-    grid-column: span 2;
+    grid-column: span 2; /* Chiếm 2 cột */
 }
 
 .destination-content .image-container:nth-child(3) {
@@ -69,5 +109,5 @@
 }
 
 .destination-content .image-container:nth-child(5) {
-    grid-column: span 2;
+    grid-column: span 2; /* Chiếm 2 cột */
 }

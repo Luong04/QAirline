@@ -1,5 +1,6 @@
 .check {
   text-align: center;
+  padding: 20px;
 }
 .check-container{
   text-align: center;
@@ -11,12 +12,11 @@
 }
 
 form {
-  width: 500px;
   background-color:aliceblue;
   margin: 20px auto;
   padding: 15px;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .form-check {
@@ -33,15 +33,3 @@ form {
   width: 250px;
 }
 
-.cancel-btn {
-  width: 150px;
-  margin-top: 10px;
-  margin-right: 100px;
-  background-color: red;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.cancel-btn:hover {
-  background-color: rgb(180, 5, 5); /* Màu đỏ đậm hơn */
-}

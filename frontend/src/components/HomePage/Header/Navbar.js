@@ -15,12 +15,11 @@ const Navbar = ({toggleLogin}) => {
                     <span ><Link to="/" className="navbar-text1">Trang chủ</Link></span>
                 </div>
                 <span ><Link to="/listflight" className="navbar-text">Thông tin hành trình</Link></span>
-                <span className="navbar-text">Trợ giúp</span>
+                {/* <span className="navbar-text">Trợ giúp</span> */}
             
                 <div className="navbar-item">
-                    <span className="navbar-text">Tra cứu vé</span>
+                    <span><Link to="/checkticket" className="navbar-text">Tra cứu vé</Link></span>
                 </div>
-                <img src={profileIcon} alt="Profile Icon" className="navbar-icon"></img>
                 <span className="navbar-text1" onClick={toggleLogin}>Đăng nhập </span>
                 <span className="navbar-icon1">☰</span>
         </nav>
