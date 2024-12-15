@@ -63,6 +63,7 @@ const ChoosingSeat = () => {
     }, 0);
   
   const getSeatClass = (seat) => {
+    if (seat.status === "reserved") return "booked";
     if (selectedSeats.some((s) => s.code === seat.code)) return "selected";
     return seat.type; // Trả về `business` hoặc `economy`
   };

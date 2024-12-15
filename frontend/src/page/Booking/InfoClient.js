@@ -144,7 +144,7 @@ const InfoClient = () => {
         passenger_price: info.price,
         passenger_flight: info.flight,
       }));
-      setPassengers(newPassengers);
+      console.log("newPassengers",newPassengers);
       const response = await axios.post('http://localhost:8081/api/createBooking', {
         customerData : {
           customer_id: form.cccd,
@@ -153,7 +153,7 @@ const InfoClient = () => {
           customer_phone: form.phone,
           customer_date_of_birth: null
         },
-        passengers
+        passengers: newPassengers
       });
       console.log(response.data);
       navigate("/booking/payment", { state: { booking_id: response.data,total, goFlight, form, number_business: businessClassPassengers.length, number_economy: economyClassPassengers.length /*returnFlight*/ } });

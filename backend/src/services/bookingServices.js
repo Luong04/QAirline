@@ -152,6 +152,8 @@ const createBooking = async (req, res) => {
         passengers // gồm nhiều passenger, mỗi passenger gồm {passenger_id, passenger_name, passenger_seat, passenger_class, passenger_price, passenger_flight}
     } = req.body;
 
+    console.log(passengers);
+    console.log(customerData);
     const {
         customer_id,
         customer_name,
@@ -189,9 +191,9 @@ const createBooking = async (req, res) => {
                 last_name: passenger_lastname,
             });
         }
-
+        
         // Tính tổng giá tiền
-
+        console.log("Total Money:", total);
         // Tạo booking với trạng thái "unpaid"
         const date = new Date();
         const preBookingID = `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
@@ -223,7 +225,7 @@ const createBooking = async (req, res) => {
                 if (status === "Paid") {
                     //tạo vé 
                     const dataTickets = [];
-
+                    console.log("passengers: ", passengers);
                     for (let i = 0; i < passengers.length; i++) {
                         const ticket = {
                             booking_id: newBookingId,
@@ -237,6 +239,7 @@ const createBooking = async (req, res) => {
                         const newTicket = await createTicket(ticket);
                         dataTickets.push(newTicket);
                     }
+                    console.log("dataTicket: ",dataTickets);
 
 
                     // gửi mail

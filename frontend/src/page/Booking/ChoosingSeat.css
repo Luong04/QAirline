@@ -125,7 +125,7 @@
 }
 
 .legend .booked {
-  background-color: yellow;
+  background-color: #ed4a41;
 }
 
 .info {
@@ -258,6 +258,11 @@
 .seat.selected {
   background-color: #6dcf6d;
   color: white;
+}
+
+.seat.booked {
+  background-color: #ed4a41; /* Màu đỏ nhạt */
+  cursor: not-allowed; /* Không cho phép click */
 }
 
 /* Hiệu ứng hover */
