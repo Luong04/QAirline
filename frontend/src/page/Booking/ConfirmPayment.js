@@ -1,24 +1,18 @@
-import React, { useState } from "react"; // Đảm bảo import useState từ React
+import React, { useState, useEffect } from "react"; // Đảm bảo import useState từ React
 import "./ConfirmPayment.css";
 import NavbarBooking from '../../components/BookingPage/Header/NavbarBooking.js';
-import { Link, redirect } from 'react-router-dom';
-import logo from "../../assets/image/logo.png";
-import TicketB from "../../components/BookingPage/Tickets/TicketB.js";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ConfirmPayment = () => {
-    // 1. Sử dụng useState để quản lý thông tin vé
-    const [ticketInfo, setTicketInfo] = useState({
-        name: "Nguyen Dam Kien",
-        ticketCode: "A26537",
-        departure: "Vinh",
-        destination: "Hồ Chí Minh",
-        departureTime: "12h00 21/3/2025",
-        arrivalTime: "14h30 21/3/2025",
-        seat: "B13",
-        price: "1000000",
-        classType: "ECONOMY"
-    });
-
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [booking_id, setBookingId] = useState(null);
+    useEffect(() => {
+        // Kiểm tra nếu state có tồn tại và lấy dữ liệu
+        if (location.state && location.state.booking_id) {
+            setBookingId(location.state.booking_id);
+        }
+    }, [location]);
     return (
         <div>
             {/* 2. Thêm Navbar */}
@@ -31,19 +25,8 @@ const ConfirmPayment = () => {
 
 
             {/* 3. Thêm TicketB và truyền các thông tin vé */}
-            <TicketB
-                name={ticketInfo.name}
-                ticketCode={ticketInfo.ticketCode}
-                departure={ticketInfo.departure}
-                destination={ticketInfo.destination}
-                departureTime={ticketInfo.departureTime}
-                arrivalTime={ticketInfo.arrivalTime}
-                seat={ticketInfo.seat}
-                price={ticketInfo.price}
-                classType={ticketInfo.classType}
-            />
-
-            <button type="submit" className="submit-btn" style={{width:"200px"}}>VỀ TRANG CHỦ</button>
+            <button type="submit" className="submit-btn" style={{ width: "200px" }} onClick={()=>{navigate('/checkBooking', { state: {booking_id}})}}>XEM VÉ</button>
+            <button type="submit" className="submit-btn" style={{ width: "200px" }} onClick={()=>{navigate('/')}}>VỀ TRANG CHỦ</button>
         </div >
     );
 };

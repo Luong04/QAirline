@@ -2,16 +2,16 @@
 const express = require('express');
 const router = express.Router();
 const {getAllFlight, getFlightById, getAllFlightAdmin, createFlight, updateFlight, deleteFlight, findFlight, findBasicFlight} = require('../controllers/flightController.js');
-const {getAllBookingAdmin, getBookingByForm, createBooking, createPayment} = require('../controllers/bookingController');
+const {getBookingById, getAllBookingAdmin, createBooking, cancelBooking, createPayment} = require('../services/bookingServices.js');
 const {updatePrice} = require('../services/priceServices');
 const {getTicket, createNewTicket, cancelTicketById} = require('../controllers/ticketController');
 const {createSeatReservations, createOneSeatReservations} = require('../services/seatServices');
 const {getPlaces } = require('../services/predictionService');
 const {updateStatistic, getStatisticInDate, getStatisticInWeek, getStatisticInMonth, getWeeklyTotals, getMonthlyTotals } = require('../controllers/statisticController.js');
 const {createNotification, getNotification, removeNotification} = require('../controllers/notificationController');
-
+const {findSeatReservations} = require('../controllers/seatController.js')
+const {getBookingByForm} = require('../controllers/bookingController.js')
 // Giả sử bạn đã có models từ Sequelize
-
 
 // Lấy danh sách tất cả chuyến bay
 router.get('/flights', getAllFlight);
@@ -38,6 +38,7 @@ router.get('/booking', getBookingByForm);
 router.get('/adminbooking', getAllBookingAdmin);
 router.post('/createBooking', createBooking);
 router.post('/createPayment', createPayment);
+router.post('/findSeatReservations', findSeatReservations);
 
 router.post('./getTicketByForm', getTicket);
 router.post('./createTicket', createNewTicket);

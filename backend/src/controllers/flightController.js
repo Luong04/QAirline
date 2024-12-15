@@ -1,5 +1,6 @@
 const flightServices = require('../services/flightServices');
-
+const Plane = require('../entity/planes');
+const Airport = require('../entity/airports');
 // Lấy tất cả chuyến bay
 const getAllFlight = async (req, res) => {
     try {
@@ -26,8 +27,8 @@ const getAllFlight = async (req, res) => {
             const flightJSON = flight.toJSON(); // Chuyển đổi Sequelize instance thành object thuần
             return {
                 flight_id: flightJSON.flight_id,
-                departure_airport: airportMap[flightJSON.departure_airport_id] || "Unknown Airport",
-                arrival_airport: airportMap[flightJSON.arrival_airport_id] || "Unknown Airport",
+                departure_code: airportMap[flightJSON.departure_airport_id] || "Unknown Airport",
+                arrival_code: airportMap[flightJSON.arrival_airport_id] || "Unknown Airport",
                 plane: planeMap[flightJSON.plane_id] || "Unknown Plane",
                 departure_time: flightJSON.departure_time,
                 arrival_time: flightJSON.arrival_time,

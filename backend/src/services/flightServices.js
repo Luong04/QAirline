@@ -14,7 +14,7 @@ const getFlightById = async (id) => {
 
 const createFlight = async (flightData) => {
     return await Flight.create(flightData);
-};
+};  
 
 const updateFlight = async (id, flightData) => {
     const flight = await Flight.findByPk(id);
@@ -64,13 +64,33 @@ const findFlight = async (params) => {
         }
     });
 
-    const foundFlights = found_flights.map(flight => flight.get());
+    const foundFlights_ = found_flights.map(flight => flight.get());
 
-    if (foundFlights.length === 0) {
+    if (foundFlights_.length === 0) {
         throw new Error('Không tìm thấy chuyến bay đi');
     }
-
+    const airports = await Airport.findAll({ attributes: ['airport_id', 'code'] });
+    const airportMap = Object.fromEntries(
+        airports.map((airport) => [airport.airport_id, airport.code])
+    );
+    // Gắn tên vào các chuyến bay và loại bỏ các cột không cần thiết
+    const foundFlights = foundFlights_.map((flight) => {
+        return {
+            flight_id: flight.flight_id,
+            plane_id: flight.plane_id,
+            departure_code: airportMap[flight.departure_airport_id] || "Unknown Airport",
+            arrival_code: airportMap[flight.arrival_airport_id] || "Unknown Airport",
+            departure_time: flight.departure_time,
+            arrival_time: flight.arrival_time,
+            duration: flight.duration,
+            status: flight.status,
+            true_price_economy: flight.true_price_economy,
+            true_price_business: flight.true_price_business
+        };
+    });
     if (is_one_way === "true") {
+        // Tạo ánh xạ ID -> Tên
+
         return foundFlights;
     }
 
@@ -98,7 +118,21 @@ const findFlight = async (params) => {
         throw new Error('Không tìm thấy chuyến bay đi');
     }
     
-    const returnFlights = return_flights.map(flight => flight.get());
+    const returnFlights_ = return_flights.map(flight => flight.get());
+    const returnFlights = returnFlights_.map((flight) => {
+        return {
+            flight_id: flight.flight_id,
+            plane_id: flight.plane_id,
+            departure_code: airportMap[flight.departure_airport_id] || "Unknown Airport",
+            arrival_code: airportMap[flight.arrival_airport_id] || "Unknown Airport",
+            departure_time: flight.departure_time,
+            arrival_time: flight.arrival_time,
+            duration: flight.duration,
+            status: flight.status,
+            true_price_economy: flight.true_price_economy,
+            true_price_business: flight.true_price_business
+        };
+    });
     return { foundFlights, returnFlights };
 };
 
