@@ -1,35 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // Dùng để chuyển hướng
 import "./Check.css";
 import TicketB from "../../components/BookingPage/Tickets/TicketB.js";
 import Navbar from '../../components/HomePage/Header/Navbar.js';
-
+import axios from 'axios';
 
 const Check = () => {
+  const location = useLocation();
+  const navigate = useNavigate(); // Sử dụng để điều hướng
   const [ticketCode, setTicketCode] = useState('');
   const [ticketFound, setTicketFound] = useState(false); // Trạng thái để hiển thị TicketB
-  const [ticketInfo, setTicketInfo] = useState({
-    name: "Nguyen Dam Kien",
-    ticketCode: "A26537",
-    departure: "Vinh",
-    destination: "Hồ Chí Minh",
-    departureTime: "12h00 15/12/2024",
-    arrivalTime: "14h30 15/12/2024",
-    seat: "B13",
-    price: "2.000.000",
-    classType: "ECONOMY"
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Giả lập tra cứu vé
-    if (ticketCode.trim() === "VALID_CODE") { // Thay VALID_CODE bằng mã kiểm tra thực tế
+  const [ticketInfo, setTicketInfo] = useState();
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    const response = await axios.post('http://localhost:8081/api/getTicketById', {ticketCode});
+    if(response) {
+      setTicketInfo(response.data);
+      console.log(response.data);
       setTicketFound(true);
-    } else {
-      alert("Không tìm thấy vé với mã này!");
-      setTicketFound(false);
     }
-  };
-
+  }
+  useEffect(() => {
+          // Kiểm tra nếu state có tồn tại và lấy dữ liệu
+          if (location.state) {
+              setTicketInfo(location.state.ticketInfo);
+          }
+  }, [location]);
   return (
     <div className="check">
       <header>
@@ -67,7 +63,7 @@ const Check = () => {
               price={ticketInfo.price}
               classType={ticketInfo.classType}
             />
-            <button type="submit" className="submit-btn" style={{ width: "150px", marginTop: "10px" }}>Về trang chủ</button>
+            <button type="submit" className="submit-btn" style={{ width: "150px", marginTop: "10px" }} onClick={()=>{navigate('/')}}>Về trang chủ</button>
           </div>
 
         )}

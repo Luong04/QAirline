@@ -134,6 +134,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px;
+  height: 100%;
+  position: sticky;
+  top: 10px;
+  right: 180px;
+  width: 400px;
 }
 
 .info button {
@@ -272,10 +277,24 @@
 }
 
 .container-price {
-  margin: 30px 50px 50px 50px;
-  height: 100px;
+  height: 80px;
   background-color: #ccc;
   border-radius: 5px;
   border: 1px solid #eea929;
   text-align: center;
+  width: 50%;
+  font-weight: bold;
 }
+
+.info .row-price {
+  display: flex;
+  gap: 20px;
+}
+
+.info-goFlight {
+  background-color: #d0eaff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+

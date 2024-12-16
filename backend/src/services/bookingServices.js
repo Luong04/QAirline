@@ -5,6 +5,8 @@ const Payment = require('../entity/payments');
 const { createTicket } = require('./ticketServices');
 const { createEmailforBooking } = require('./mailServices');
 const redis = require('redis');
+const Airport = require('../entity/airports');
+const Ticket = require('../entity/tickets');
 const publisher = redis.createClient();
 
 const subscriber = redis.createClient();
@@ -59,48 +61,68 @@ ham getbookingbyid tra ve :
 + status
 */
 
-const getBookingById = async (req, res) => {
+const getBookingByForm = async (booking_id, cccd, email) => {
     try {
-        const { id } = req.params; // Sử dụng 'id' thay vì 'booking_id'
-        console.log(id);
-        const booking = await Booking.findByPk(id); // Truy vấn thông tin booking theo ID
+        const booking = await Booking.findByPk(booking_id); // Truy vấn thông tin booking theo ID
 
         if (!booking) {
-            return res.status(404).json({ error: "Booking not found" });
+            return { error: "Booking not found" };
         }
 
         const customer = await Customer.findByPk(booking.customer_id); // Lấy thông tin khách hàng
 
-        if (!customer) {
-            return res.status(404).json({ error: "Customer not found" });
+        if (customer.email !== email || customer.customer_id !== cccd) {
+            return { error: "Wrong customer information" };
         }
-
-        const passengers = await Promise.all(
+        const tickets = await Ticket.findAll({
+            where :{
+                booking_id
+            }
+        });
+        console.log(tickets);
+        const ticketsInfo = await Promise.all(
             tickets.map(async (ticket) => {
                 const passenger = await Customer.findByPk(ticket.customer_id);
+                const flight = await Flight.findByPk(ticket.flight_id);
+                const dairport = await Airport.findByPk(flight.departure_airport_id);
+                const aairport = await Airport.findByPk(flight.arrival_airport_id);
+                // Tách ngày (date)
+                let ddate = flight.departure_time.toISOString().split('T')[0];  // Lấy phần ngày từ ISO string (yyyy-mm-dd)
+
+                // Tách giờ (time)
+                let dtime = flight.departure_time.toISOString().split('T')[1].split('.')[0];
+                // Tách ngày (date)
+                let adate = flight.arrival_time.toISOString().split('T')[0];  // Lấy phần ngày từ ISO string (yyyy-mm-dd)
+
+                // Tách giờ (time)
+                let atime = flight.arrival_time.toISOString().split('T')[1].split('.')[0];;
                 return {
-                    ticket_id: ticket.ticket_id,
+                    ticketCode: ticket.ticket_id,
                     name: `${passenger.first_name} ${passenger.last_name}`,
-                    customer_id: passenger.customer_id
+                    seat: ticket.seat_number,
+                    classType: ticket.class,
+                    price: ticket.price,
+                    departure: `${dairport.name}`,
+                    destination: `${aairport.name}`,
+                    departureTime: `${dtime} ${ddate}`,
+                    arrivalTime: `${atime} ${adate}`,
                 };
             })
         );
 
         // Chuẩn bị dữ liệu trả về
         const enrichedBooking = {
-            booking_id: booking.booking_id,
+            customer_id: customer.customer_id,
             customer_name: `${customer.first_name} ${customer.last_name}`,
             email: customer.email,
+            phone: customer.phone,
             booking_date: booking.booking_date,
-            total_price: booking.total_price,
-            status: booking.status,
-            passengers
+            ticketsInfo
         };
 
-        res.status(200).json(enrichedBooking);
+        return(enrichedBooking);
     } catch (error) {
         console.error("Error fetching booking by ID:", error);
-        res.status(500).json({ error: "Internal Server Error" });
     }
 };
 
@@ -191,7 +213,7 @@ const createBooking = async (req, res) => {
                 last_name: passenger_lastname,
             });
         }
-        
+
         // Tính tổng giá tiền
         console.log("Total Money:", total);
         // Tạo booking với trạng thái "unpaid"
@@ -239,7 +261,7 @@ const createBooking = async (req, res) => {
                         const newTicket = await createTicket(ticket);
                         dataTickets.push(newTicket);
                     }
-                    console.log("dataTicket: ",dataTickets);
+                    console.log("dataTicket: ", dataTickets);
 
 
                     // gửi mail
@@ -264,5 +286,5 @@ const createBooking = async (req, res) => {
 
 
 module.exports = {
-    getBookingById, getAllBookingAdmin, createBooking, cancelBooking, createPayment
+    getBookingByForm, getAllBookingAdmin, createBooking, cancelBooking, createPayment
 }

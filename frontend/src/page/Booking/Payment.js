@@ -11,6 +11,7 @@ const Payment = () => {
   const navigate = useNavigate();
   const [booker, setBooker] = useState(null);
   const [goFlight, setGoFlight] = useState(null);
+  const [returnFlight, setReturnFlight] = useState(null);
   const [businessSeats, setBusinessSeats] = useState(null);
   const [economySeats, setEconomySeats] = useState(null);
   const [total, setTotal] = useState(null);
@@ -24,7 +25,7 @@ const Payment = () => {
     if(response.status === 201) {
       alert("Xác nhận thanh toán thành công");
     }
-    navigate("/booking/confirmPayment",  { state: {booking_id} });
+    navigate("/booking/confirmPayment",  { state: {booking_id, booker} });
   }
 
   useEffect(() => {
@@ -40,6 +41,9 @@ const Payment = () => {
         if (location.state.goFlight) {
           setGoFlight(location.state.goFlight);
         }
+        if (location.state.goFlight) {
+          setReturnFlight(location.state.returnFlight);
+        }
         if (location.state.number_business) {
           setBusinessSeats(location.state.number_business);
         }
@@ -53,6 +57,7 @@ const Payment = () => {
         setBooker(null);
         setBusinessSeats(null);
         setGoFlight(null);
+        setReturnFlight(null);
         setEconomySeats(null);
         setTotal(null);
         setBookingId(null);
@@ -79,7 +84,7 @@ const Payment = () => {
         <section className="inforBooking-container">
 
           <div className="inforTrip">
-            <h3>THÔNG TIN HÀNH TRÌNH</h3>
+            <h3>THÔNG TIN HÀNH TRÌNH (CHIỀU ĐI)</h3>
             <div className="time-location">
               <div className="departure">
                 <span className="location" style={{ marginBottom: "10px" }}>{goFlight?.departure_code}</span>
@@ -100,6 +105,33 @@ const Payment = () => {
                 <span className="time">{goFlight?.arrival_time}</span>
               </div>
             </div>
+          </div>
+          <div>
+            {returnFlight && (
+                        <div className="inforTrip">
+                        <h3>THÔNG TIN HÀNH TRÌNH (CHIỀU VỀ)</h3>
+                        <div className="time-location">
+                          <div className="departure">
+                            <span className="location" style={{ marginBottom: "10px" }}>{returnFlight?.departure_code}</span>
+                            <span className="time">{returnFlight?.departure_time}</span>
+                          </div>
+                          <div className="duration">
+                            <div className="line-container" style={{ marginBottom: "10px" }}>
+                              <div className="line"></div>
+                              <div className="icon-container">
+                                <img src={logo} alt="Icon" className="icon" />
+                              </div>
+                              <div className="line"></div>
+                            </div>
+                            <span className="total-time">{returnFlight?.duration}</span>
+                          </div>
+                          <div className="arrival">
+                            <span className="location" style={{ marginBottom: "10px" }}>{returnFlight?.arrival_code}</span>
+                            <span className="time">{returnFlight?.arrival_time}</span>
+                          </div>
+                        </div>
+                      </div>
+            )}
           </div>
           <div className="inforCustomer">
             <h3>THÔNG TIN KHÁCH HÀNG</h3>
@@ -126,7 +158,7 @@ const Payment = () => {
                 checked={payment_method === "Credit Card"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 style={{ width: "13px" }}
-              /> Credit Card
+              /> Credit Card<br/>
               <input
                 type="radio"
                 name="payment"
@@ -134,7 +166,7 @@ const Payment = () => {
                 checked={payment_method === "PayPal"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 style={{ width: "13px" }}
-              /> PayPal
+              /> PayPal<br/>
               <input
                 type="radio"
                 name="payment"
@@ -142,7 +174,7 @@ const Payment = () => {
                 checked={payment_method === "Bank Transfer"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 style={{ width: "13px" }}
-              /> Bank Transfer
+              /> Bank Transfer<br/>
               <input
                 type="radio"
                 name="payment"
@@ -150,7 +182,7 @@ const Payment = () => {
                 checked={payment_method === "Cash"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
                 style={{ width: "13px" }}
-              /> Cash
+              /> Cash<br/>
             </label>
             <button type="submit" className="submit-btn" onClick={handleSubmit}>THANH TOÁN
             </button>

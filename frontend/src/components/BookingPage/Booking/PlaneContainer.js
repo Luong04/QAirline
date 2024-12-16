@@ -66,7 +66,7 @@ const PlaneContainer = ({ flights, goFlights, returnFlights, setFlights, setGoFl
         console.log("SEATTT:", seatReservation.data);
         navigate('/booking/choosingSeat', { state: { goFlight: selectedGoFlight, returnFlight: selectedReturnFlight, seatReservation: seatReservation.data, departure_code: goFlights[0].departure_code, arrival_code: goFlights[0].arrival_time } });
       }
-      alert("Vui lòng chọn chuyến bay chiều đi và chiều về.");
+      else alert("Vui lòng chọn chuyến bay chiều đi và chiều về.");
     }
   };
 

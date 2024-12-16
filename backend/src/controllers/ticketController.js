@@ -1,18 +1,19 @@
-const express = require('express');
-const { getTicketbyForm, createTicket, cancelTicket } = require('../services/ticketServices');
+
+const { getTicketById, createTicket} = require('../services/ticketServices');
+const Ticket = require('../entity/tickets');
 
 // GET: Lấy thông tin ticket dựa vào form
 const getTicket = async (req, res) => {
-    const { ticket_id, customer_id } = req.body;
-
+    const {ticketCode} = req.body;
+    console.log(ticketCode);
     try {
-        const ticket = await getTicketbyForm(ticket_id, customer_id);
+        const ticketInfo = await getTicketById(ticketCode);
 
-        if (typeof ticket === 'string') {
-            return res.status(400).json({ message: ticket }); // Lỗi từ dịch vụ
+        if (typeof ticketInfo === 'string') {
+            return res.status(400).json({ message: ticketInfo }); // Lỗi từ dịch vụ
         }
-
-        res.status(200).json(ticket);
+        console.log(ticketInfo);
+        res.status(200).json(ticketInfo);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
@@ -32,18 +33,18 @@ const createNewTicket = async (req, res) => {
 
 // DELETE: Hủy ticket
 const cancelTicketById = async (req, res) => {
-    const { ticket_id } = req.params;
-
+    const ticketIds = req.body;
+    console.log("danh sach ve ",ticketIds);
     try {
-        const result = await cancelTicket(ticket_id);
-
-        if (typeof result === 'string') {
-            return res.status(400).json({ message: result }); // Lỗi từ dịch vụ
+        for(const ticket of ticketIds) {
+            const result = await Ticket.destroy({
+                where : {
+                    ticket_id: ticket
+                }
+            });
         }
-
         res.status(200).json({
             message: 'Ticket canceled successfully',
-            refundRate: result,
         });
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error', error: error.message });
@@ -53,5 +54,5 @@ const cancelTicketById = async (req, res) => {
 module.exports = {
     getTicket,
     createNewTicket,
-    cancelTicketById,
+    cancelTicketById
 };

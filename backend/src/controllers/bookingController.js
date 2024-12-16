@@ -12,14 +12,14 @@ const getAllBookingAdmin = async (req, res) => {
 
 const getBookingByForm = async (req, res) => {
     try {
-        const { id, email, phone } = req.body;
-        const booking = await bookingServices.getBookingByForm(id, email, phone);
+        const { booking_id, cccd, email } = req.body;
+        const bookingInfo = await bookingServices.getBookingByForm(booking_id, cccd, email);
 
-        if (!booking) {
+        if (!bookingInfo) {
             return res.status(404).json({ error: "Booking not found" });
         }
 
-        res.status(200).json(booking);
+        res.status(200).json(bookingInfo);
     } catch (error) {
         console.error("Error fetching booking by ID:", error);
         res.status(500).json({ error: "Internal Server Error" });

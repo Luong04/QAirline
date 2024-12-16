@@ -2,13 +2,13 @@
 const express = require('express');
 const router = express.Router();
 const {getAllFlight, getFlightById, getAllFlightAdmin, createFlight, updateFlight, deleteFlight, findFlight, findBasicFlight} = require('../controllers/flightController.js');
-const {getBookingById, getAllBookingAdmin, createBooking, cancelBooking, createPayment} = require('../services/bookingServices.js');
-const {updatePrice} = require('../services/priceServices');
-const {getTicket, createNewTicket, cancelTicketById} = require('../controllers/ticketController');
+const {getAllBookingAdmin, createBooking, cancelBooking, createPayment} = require('../services/bookingServices.js');
+const {updatePrice} = require('../services/priceServices.js');
+const {getTicket, createNewTicket, cancelTicketById} = require('../controllers/ticketController.js');
 const {createSeatReservations, createOneSeatReservations} = require('../services/seatServices');
 const {getPlaces } = require('../services/predictionService');
 const {updateStatistic, getStatisticInDate, getStatisticInWeek, getStatisticInMonth, getWeeklyTotals, getMonthlyTotals } = require('../controllers/statisticController.js');
-const {createNotification, getNotification, removeNotification} = require('../controllers/notificationController');
+const {createNotification, getNotification, removeNotification} = require('../controllers/notificationController.js');
 const {findSeatReservations} = require('../controllers/seatController.js')
 const {getBookingByForm} = require('../controllers/bookingController.js')
 // Giả sử bạn đã có models từ Sequelize
@@ -34,15 +34,15 @@ router.post('/findFlight', findFlight)
 router.post('/findBasicFlight', findBasicFlight)
 router.get('/getPlaces', getPlaces);
 
-router.get('/booking', getBookingByForm);
+router.post('/getBookingByForm', getBookingByForm);
 router.get('/adminbooking', getAllBookingAdmin);
 router.post('/createBooking', createBooking);
 router.post('/createPayment', createPayment);
 router.post('/findSeatReservations', findSeatReservations);
 
-router.post('./getTicketByForm', getTicket);
-router.post('./createTicket', createNewTicket);
-router.post('./cancelTicket', cancelTicketById);
+router.post('/getTicketById', getTicket);
+router.post('/createTicket', createNewTicket);
+router.post('/cancelTicketById', cancelTicketById);
 
 router.post('/admin/updatePrice', updatePrice);
 router.post('/createSeatReservations', createSeatReservations);

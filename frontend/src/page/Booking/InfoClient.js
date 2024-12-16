@@ -25,6 +25,7 @@ const InfoClient = () => {
   const [seats, setSeats] = useState([]);
   const [total, setTotal] = useState([]);
   const [goFlight, setGoFlight] = useState();
+  const [returnFlight, setReturnFlight] = useState();
   useEffect(() => {
     const fetchSeatData = async () => {
       if (location.state) {
@@ -39,10 +40,14 @@ const InfoClient = () => {
         if (location.state.goFlight) {
           setGoFlight(location.state.goFlight);
         }
+        if (location.state.returnFlight) {
+          setReturnFlight(location.state.returnFlight);
+        }
       } else {
         setSeats(null);
         setTotal(null);
         setGoFlight(null);
+        setReturnFlight(null);
       }
     };
   
@@ -156,7 +161,7 @@ const InfoClient = () => {
         passengers: newPassengers
       });
       console.log(response.data);
-      navigate("/booking/payment", { state: { booking_id: response.data,total, goFlight, form, number_business: businessClassPassengers.length, number_economy: economyClassPassengers.length /*returnFlight*/ } });
+      navigate("/booking/payment", { state: { booking_id: response.data,total, goFlight, form, number_business: businessClassPassengers.length, number_economy: economyClassPassengers.length, returnFlight } });
     } else {
       alert("Vui lòng kiểm tra thông tin của hành khách!");
     }

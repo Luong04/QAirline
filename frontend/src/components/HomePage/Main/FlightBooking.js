@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './FlightBooking.css';
@@ -15,6 +14,9 @@ const FlightBooking = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
+  const [booking_id, setBookingId] = useState('');
+  const [cccd, setCccd] = useState('');
+  const [email, setEmail] = useState('');
   const [suggestionsFrom, setSuggestionsFrom] = useState([]); // Để lưu gợi ý cho "Nơi đi"
   const [suggestionsTo, setSuggestionsTo] = useState([]); // Để lưu gợi ý cho "Nơi đến"
 
@@ -22,35 +24,41 @@ const FlightBooking = () => {
   // Hàm lấy gợi ý từ backend cho "Nơi đi" và "Nơi đến"
   const getSuggestions = async (value, type) => {
     if (!value) {
-        if (type === 'from') {
-            setSuggestionsFrom([]);
-        } else {
-          setSuggestionsTo([]);
-        }
-        return;
+      if (type === 'from') {
+        setSuggestionsFrom([]);
+      } else {
+        setSuggestionsTo([]);
+      }
+      return;
     }
 
     try {
-        const response = await axios.get(`http://localhost:8081/api/getPlaces`, {
-            params: { query: value }
-        });
+      const response = await axios.get(`http://localhost:8081/api/getPlaces`, {
+        params: { query: value }
+      });
 
-        if (type === 'from') {
-            setSuggestionsFrom(response.data); // Cập nhật gợi ý cho "Nơi đi"
-        } else {
-            setSuggestionsTo(response.data); // Cập nhật gợi ý cho "Nơi đến"
-        }
+      if (type === 'from') {
+        setSuggestionsFrom(response.data); // Cập nhật gợi ý cho "Nơi đi"
+      } else {
+        setSuggestionsTo(response.data); // Cập nhật gợi ý cho "Nơi đến"
+      }
     } catch (error) {
-        console.error('Error fetching suggestions:', error);
+      console.error('Error fetching suggestions:', error);
     }
   };
 
   // Hàm xử lý khi người dùng nhập liệu
   const onChange = (event, { newValue }, type) => {
     if (type === 'from') {
-        setFrom(newValue); // Cập nhật giá trị "Nơi đi"
-    } else {
-        setTo(newValue); // Cập nhật giá trị "Nơi đến"
+      setFrom(newValue); // Cập nhật giá trị "Nơi đi"
+    } else if (type === 'to') {
+      setTo(newValue); // Cập nhật giá trị "Nơi đến"
+    } else if (type === 'cccd') {
+      setCccd(newValue); // Cập nhật giá trị "CCCD"
+    } else if (type === 'email') {
+      setEmail(newValue); // Cập nhật giá trị "Email"
+    } else if (type === 'booking_id') {
+      setBookingId(newValue); // Cập nhật giá trị "Mã đặt chỗ"
     }
   };
 
@@ -85,6 +93,25 @@ const FlightBooking = () => {
     }
   };
 
+  const handleSearchBooking = async () => {
+    if (!booking_id || !email || !cccd) {
+      alert("Vui lòng nhập đầy đủ thông tin!");
+      return;
+    }
+    try {
+      const response = await axios.post('http://localhost:8081/api/getBookingByForm', {
+        booking_id,
+        cccd,
+        email
+      });
+      console.log("asdasdasd",response.data);
+      if(response) navigate('/checkBooking', { state: { bookingInfo: response.data } });
+    } catch (error) {
+      console.error('Error :', error.response?.data || error.message);
+      alert('Thông tin cung cấp không chính xác!');
+    }
+  };
+
   return (
     <div className="booking-container">
       <div className="tabs">
@@ -114,9 +141,9 @@ const FlightBooking = () => {
                 getSuggestionValue={(suggestion) => suggestion} // Lấy giá trị của gợi ý
                 renderSuggestion={renderSuggestion} // Render gợi ý
                 inputProps={{
-                    placeholder: 'Nơi đi',
-                    value: from,
-                    onChange: (e, { newValue }) => onChange(e, { newValue }, 'from')
+                  placeholder: 'Nơi đi',
+                  value: from,
+                  onChange: (e, { newValue }) => onChange(e, { newValue }, 'from')
                 }}
               />
             </div>
@@ -157,20 +184,41 @@ const FlightBooking = () => {
         ) : (
           <div className="stopover-content">
             <div className="input-group">
-              <label>Họ tên</label>
-              <input type="text" id="fullname" name="fullname" placeholder="Nhập họ tên" />
+              <label>Mã đặt chỗ</label>
+              <input
+                type="text"
+                id="booking_id"
+                name="booking_id"
+                placeholder="Nhập mã đặt chỗ"
+                value={booking_id}
+                onChange={(e) => onChange(e, { newValue: e.target.value }, 'booking_id')} // Gọi onChange cho booking_id
+              />
             </div>
             <div className="input-group">
               <label>CCCD</label>
-              <input type="text" id="CCCD" name="CCCD" placeholder="Nhập CCCD" />
+              <input
+                type="text"
+                id="CCCD"
+                name="CCCD"
+                placeholder="Nhập CCCD"
+                value={cccd}
+                onChange={(e) => onChange(e, { newValue: e.target.value }, 'cccd')} // Gọi onChange cho CCCD
+              />
             </div>
             <div className="input-group">
               <label>Email</label>
-              <input type="text" id="email" name="email" placeholder="Nhập email" />
+              <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Nhập email"
+                value={email}
+                onChange={(e) => onChange(e, { newValue: e.target.value }, 'email')} // Gọi onChange cho Email
+              />
             </div>
-            <div>
-              <Link to="/checkBooking" className="promo-button">Tra cứu</Link>
-            </div>
+            <button className="promo-button" onClick={handleSearchBooking}>
+              Tra cứu
+            </button>
           </div>
         )}
       </div>

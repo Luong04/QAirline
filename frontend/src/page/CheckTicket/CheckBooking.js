@@ -1,38 +1,29 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Dùng để chuyển hướng
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // Dùng để chuyển hướng
 import "./CheckBooking.css";
 import logo from "../../assets/image/logo.png";
 import TicketB from "../../components/BookingPage/Tickets/TicketB.js";
+import axios from 'axios';
 
 const CheckBooking = () => {
     const navigate = useNavigate(); // Sử dụng để điều hướng
-    const [ticketsInfo, setTicketsInfo] = useState([
-        {
-            name: "Nguyen Dam Kien",
-            ticketCode: "A26537",
-            departure: "Vinh",
-            destination: "Hồ Chí Minh",
-            departureTime: "12h00 21/3/2025",
-            arrivalTime: "14h30 21/3/2025",
-            seat: "B13",
-            price: "1000000",
-            classType: "ECONOMY",
-            checked: false
-        },
-        {
-            name: "Nguyen Dam Kien",
-            ticketCode: "B37890",
-            departure: "Hà Nội",
-            destination: "Đà Nẵng",
-            departureTime: "14h00 22/3/2025",
-            arrivalTime: "16h30 22/3/2025",
-            seat: "C21",
-            price: "800000",
-            classType: "BUSINESS",
-            checked: false
+    const location = useLocation();
+    const [bookingInfo, setBookingInfo] = useState();
+    const [ticketsInfo, setTicketsInfo] = useState([]);
+    useEffect(() => {
+        // Kiểm tra nếu state có tồn tại và lấy dữ liệu
+        if (location.state) {
+            setBookingInfo(location.state.bookingInfo);
         }
-    ]);
+    }, [location]);
 
+    useEffect(() => {
+        console.log("Updated Booking Info:", bookingInfo);
+        if (bookingInfo?.ticketsInfo) {
+            setTicketsInfo(bookingInfo.ticketsInfo);
+        }
+    }, [bookingInfo]);
+    
     // Xử lý logic khi nhấn vào checkbox
     const handleCheckboxChange = (index) => {
         setTicketsInfo((prevTickets) =>
@@ -42,19 +33,30 @@ const CheckBooking = () => {
         );
     };
 
-    // Xử lý logic khi nhấn nút "HỦY VÉ"
-    const handleCancelTickets = () => {
-        // Lọc ra các vé không được chọn
+    const handleCancelTickets = async () => {
         const remainingTickets = ticketsInfo.filter(ticket => !ticket.checked);
-
-        if (remainingTickets.length === 0) {
-            alert("Hủy vé thành công! Không còn vé nào.");
-            navigate("/"); // Chuyển hướng về trang chủ
+        const checkedTickets = ticketsInfo.filter(ticket => ticket.checked);
+        if (checkedTickets.length === 0) {
+            alert("Yêu cầu không hợp lệ!");
         } else {
-            alert("Hủy vé thành công!");
-            setTicketsInfo(remainingTickets); // Cập nhật danh sách vé
+            const ticketIds = checkedTickets.map(ticket => ticket.ticketCode);
+            console.log("TicketIDS: ", ticketIds);
+    
+            // Gửi request kèm ticketIds trong body
+            try {
+                const response = await axios.post('http://localhost:8081/api/cancelTicketById',  ticketIds );
+                console.log(response);
+                if (response) {
+                    alert("Hủy vé thành công!");
+                    setTicketsInfo(remainingTickets); // Cập nhật danh sách vé
+                }
+            } catch (error) {
+                console.error("Error canceling tickets: ", error);
+                alert("Không thể hủy vé. Vui lòng thử lại!");
+            }
         }
     };
+    
 
     return (
         <div>
@@ -64,19 +66,19 @@ const CheckBooking = () => {
                 </div>
                 <h2>TRA CỨU THÔNG TIN ĐẶT VÉ / HỦY VÉ</h2>
             </div>
-            <h2>XIN CHÀO NGUYỄN ĐÀM KIÊN</h2>
+            <h2>XIN CHÀO {bookingInfo?.customer_name}</h2>
             <div className="container-checkBooking">
                 <section className="left-checkBooking">
                     <h3>THÔNG TIN ĐẶT VÉ</h3>
-                    <div className="info-checkBooking"> <span>Họ Tên: </span>Nguyễn Đàm Kiên</div>
-                    <div className="info-checkBooking"> <span>Email: </span>kientrungx10st@gmail.com</div>
-                    <div className="info-checkBooking"> <span>Số điện thoại: </span>0364830484</div>
-                    <div className="info-checkBooking"> <span>Số CCCD: </span>040103123283</div>
-                    <div className="info-checkBooking"> <span>Ngày đặt vé: </span>11/12/2024</div>
-                    <div className="info-checkBooking"> <span>Tổng số vé: </span>{ticketsInfo.length}</div>
+                    <div className="info-checkBooking"> <span>Họ Tên: </span>{bookingInfo?.customer_name}</div>
+                    <div className="info-checkBooking"> <span>Email: </span>{bookingInfo?.email}</div>
+                    <div className="info-checkBooking"> <span>Số điện thoại: </span>{bookingInfo?.phone}</div>
+                    <div className="info-checkBooking"> <span>Số CCCD: </span>{bookingInfo?.customer_id}</div>
+                    <div className="info-checkBooking"> <span>Ngày đặt vé: </span>{bookingInfo?.booking_date}</div>
+                    <div className="info-checkBooking"> <span>Tổng số vé: </span>{ticketsInfo?.length}</div>
                 </section>
                 <section className="right-checkBooking">
-                    {ticketsInfo.map((ticket, index) => (
+                    {ticketsInfo?.map((ticket, index) => (
                         <div className="checkbox-ticket-row" key={ticket.ticketCode}>
                             <input
                                 type="checkbox"
