@@ -167,8 +167,8 @@ const FlightBooking = () => {
               <label>Email</label>
               <input type="text" id="email" name="email" placeholder="Nhập email" />
             </div>
-            <div>
-              <Link to="/checkBooking" className="promo-button">Tra cứu</Link>
+            <div className="promo-button1">
+              <Link to="/checkBooking"  className="promo-button">Tra cứu</Link>
             </div>
           </div>
         )}

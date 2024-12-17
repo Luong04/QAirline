@@ -134,6 +134,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px;
+  position: fixed; /* Đặt vị trí cố định */
+  right: 180px;
+  width: 400px;
 }
 
 .info button {
@@ -267,11 +270,12 @@
 }
 
 .container-price {
-  margin: 30px 50px 50px 50px;
-  height: 100px;
+  height: 80px;
+  width: 300px;
   background-color: #ccc;
   border-radius: 5px;
   border: 1px solid #eea929;
   text-align: center;
 }
+
 

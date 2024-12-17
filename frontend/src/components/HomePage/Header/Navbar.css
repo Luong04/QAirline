@@ -1,6 +1,6 @@
 .navbar {
     height: 40px;
-    width: 1150px;
+    width: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,15 +18,6 @@
 
 .navbar-text {
   margin: 0 25px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #1f2937; /* Màu chữ */
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.navbar-text1 {
-  margin: 0 5px;
   font-size: 18px;
   font-weight: 600;
   color: #1f2937; /* Màu chữ */
@@ -56,4 +47,87 @@
 
 .navbar-text:hover, .navbar-text1:hover, .navbar-icon:hover, .navbar-icon1:hover {
   color: #3b82f6; /* Màu khi hover */
+}
+
+/* Mặc định cho màn hình lớn */
+
+/* Màn hình từ 1024px trở xuống (tablet) */
+@media (max-width: 1024px) {
+  .navbar {
+    width: auto; /* Chiều rộng tự động để phù hợp kích thước màn hình */
+    margin: 10px 20px; /* Giảm margin để vừa màn hình */
+    padding: 10px; /* Giảm padding */
+    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi cần */
+  }
+
+  .navbar-logo {
+    height: 50px; /* Giảm kích thước logo */
+  }
+
+  .navbar-text{
+    font-size: 16px; /* Giảm kích thước chữ */
+    margin: 5px 10px; /* Điều chỉnh khoảng cách */
+  }
+
+  .navbar-icon {
+    height: 30px; /* Giảm kích thước biểu tượng */
+    margin-left: 10px;
+  }
+
+  .navbar-icon1 {
+    font-size: 20px; /* Giảm kích thước font biểu tượng */
+  }
+}
+
+/* Màn hình từ 768px trở xuống (mobile) */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column; /* Chuyển thành layout dọc */
+    align-items: flex-start; /* Căn trái các phần tử */
+    padding: 15px;
+  }
+
+  .navbar-logo {
+    align-self: center; /* Canh giữa logo */
+    margin-bottom: 10px; /* Tạo khoảng cách giữa logo và các mục khác */
+  }
+
+  .navbar-text, .navbar span {
+    font-size: 14px; /* Giảm kích thước chữ */
+    margin: 7px 0; /* Giảm khoảng cách giữa các mục */
+  }
+
+  .navbar-item {
+    margin-bottom: 10px; /* Tạo khoảng cách giữa các nhóm item */
+  }
+
+  .navbar-icon {
+    height: 25px; /* Thu nhỏ biểu tượng */
+    margin-left: 0;
+  }
+
+  .navbar-icon1 {
+    font-size: 18px; /* Font nhỏ hơn nữa */
+  }
+}
+
+/* Màn hình từ 480px trở xuống (small mobile) */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px; /* Bo góc nhỏ hơn */
+  }
+
+  .navbar-text, .navbar span{
+    font-size: 12px; /* Font nhỏ cho màn hình rất nhỏ */
+  }
+
+  .navbar-icon {
+    height: 20px; /* Thu nhỏ biểu tượng thêm nữa */
+  }
+
+  .navbar-icon1 {
+    font-size: 16px;
+  }
 }

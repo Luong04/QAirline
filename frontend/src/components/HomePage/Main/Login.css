@@ -101,3 +101,69 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+/* Mặc định cho màn hình lớn */
+
+/* Màn hình từ 768px trở xuống (tablet và mobile) */
+@media (max-width: 768px) {
+    .login-box {
+      width: 50%; /* Chiếm 90% chiều rộng màn hình */
+      padding: 15px; /* Giảm khoảng cách padding */
+    }
+  
+    .login-title {
+      font-size: 20px; /* Giảm kích thước tiêu đề */
+      margin-bottom: 15px;
+    }
+  
+    .login-input {
+      font-size: 14px; /* Giảm kích thước chữ trong input */
+      padding: 10px;
+    }
+  
+    .login-button {
+      font-size: 14px; /* Giảm kích thước nút */
+      padding: 10px;
+    }
+  
+    .forget-password {
+      font-size: 12px; /* Giảm kích thước chữ */
+    }
+  
+    .close-button {
+      font-size: 14px; /* Giảm kích thước nút đóng */
+      padding: 5px 10px;
+    }
+  }
+  
+  /* Màn hình từ 480px trở xuống (mobile nhỏ) */
+  @media (max-width: 480px) {
+    .login-box {
+      width: 95%; /* Chiếm 95% chiều rộng màn hình */
+      border-radius: 10px; /* Giảm bo góc */
+      padding: 10px; /* Giảm padding */
+    }
+  
+    .login-title {
+      font-size: 18px; /* Kích thước nhỏ hơn nữa */
+    }
+  
+    .login-input {
+      font-size: 13px;
+      padding: 8px;
+    }
+  
+    .login-button {
+      font-size: 13px;
+      padding: 10px;
+    }
+  
+    .forget-password {
+      font-size: 11px;
+    }
+  
+    .close-button {
+      font-size: 12px;
+    }
+  }
+  

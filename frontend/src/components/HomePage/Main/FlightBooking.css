@@ -1,6 +1,6 @@
 .booking-container {
   width: 500px;
-  height: 330px;
+  /* height: 330px; */
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -74,8 +74,12 @@
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
-  margin-left: 5px;
   text-decoration: none;
+  
+}
+
+.promo-button1 {
+  padding: 10px 20px 20px 20px;
 }
 
 .search-container {
@@ -188,3 +192,112 @@
 .react-autosuggest__suggestion--highlighted {
   background-color: #f0f8ff; /* Màu nền khi hover */
 }
+
+/* Mặc định cho màn hình lớn */
+
+/* Màn hình từ 1024px trở xuống (tablet) */
+@media (max-width: 1024px) {
+  .booking-container {
+    width: 50%; /* Giảm chiều rộng để vừa màn hình */
+    margin-top: 100px; /* Canh giữa màn hình */
+    margin-left: 100px;
+    padding: 15px;
+  }
+
+  .tabs button {
+    font-size: 14px; /* Giảm kích thước chữ */
+    padding: 8px 15px; /* Giảm padding */
+  }
+
+  .input-group {
+    grid-template-columns: 120px auto; /* Điều chỉnh chiều rộng cột */
+    gap: 10px; /* Giảm khoảng cách giữa các phần tử */
+    margin: 20px auto; /* Canh giữa */
+  }
+
+  .input-group input {
+    width: 100%; /* Input chiếm toàn bộ chiều rộng cột */
+    font-size: 13px; /* Font chữ nhỏ hơn */
+  }
+
+  .search-container {
+    margin: 20px auto; /* Canh giữa và giảm margin */
+    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng */
+  }
+
+  .search-button1, .search-button {
+    font-size: 12px; /* Giảm kích thước font */
+    padding: 8px; /* Giảm padding */
+  }
+
+  .react-autosuggest__suggestions-container {
+    width: 100%; /* Chiều rộng bằng container */
+  }
+}
+
+/* Màn hình từ 768px trở xuống (mobile) */
+@media (max-width: 768px) {
+  .booking-container {
+    width: 50%; /* Tăng chiều rộng để phủ màn hình */
+    margin-top: 80px;
+    margin-left: 100px;
+    padding: 10px; /* Giảm padding */
+  }
+
+  .tabs {
+    flex-direction: column; /* Chuyển nút tab thành cột */
+    border-bottom: none; /* Loại bỏ đường viền tab */
+  }
+
+  .tabs button {
+    flex: none; /* Cho phép nút co lại */
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+  }
+
+  .input-group {
+    grid-template-columns: 1fr; /* Chỉ có một cột */
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+  }
+
+  .search-container {
+    flex-direction: column; /* Chuyển thành layout dọc */
+    align-items: stretch; /* Kéo dài các nút */
+  }
+
+  .search-button1, .search-button {
+    width: 100%; /* Nút chiếm toàn bộ chiều rộng */
+    text-align: center; /* Canh giữa nội dung */
+  }
+
+  .date-picker {
+    font-size: 12px; /* Giảm kích thước chữ */
+  }
+}
+
+/* Màn hình từ 480px trở xuống (small mobile) */
+@media (max-width: 480px) {
+  .booking-container {
+    width: 100%; /* Chiếm toàn bộ màn hình */
+    margin: 30px 0; /* Giảm margin */
+  }
+
+  .tabs button {
+    font-size: 12px; /* Font chữ nhỏ hơn */
+    padding: 5px 10px; /* Padding nhỏ hơn */
+  }
+
+  .input-group {
+    margin: 10px 0; /* Giảm margin giữa các nhóm */
+  }
+
+  .search-button1, .search-button {
+    font-size: 11px; /* Font nhỏ hơn nữa */
+    padding: 6px; /* Padding nhỏ */
+  }
+
+  .react-autosuggest__suggestion {
+    padding: 5px; /* Giảm padding */
+    font-size: 12px; /* Giảm kích thước chữ */
+  }
+}
+

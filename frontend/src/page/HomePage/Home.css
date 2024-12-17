@@ -17,7 +17,6 @@ body {
   
   .overlay {
     position: fixed;
-    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -28,3 +27,40 @@ body {
   .main-section {
     text-align: center;
   }
+
+  /* Kiểu dáng mặc định đã có trong mã của bạn */
+
+@media (max-width: 768px) {
+  .Home {
+    flex-direction: column; /* Giữ layout cột cho màn hình nhỏ */
+    padding: 20px; /* Thêm khoảng cách nội dung cho màn hình nhỏ */
+  }
+
+  .main-section {
+    text-align: left; /* Đổi text-align nếu cần */
+    padding: 10px; /* Tăng khoảng cách xung quanh */
+  }
+
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.7); /* Tăng độ tối của overlay trên màn hình nhỏ */
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .Home {
+    padding: 10px;
+  }
+
+  .main-section {
+    font-size: 14px; /* Thu nhỏ font chữ */
+    padding: 5px; /* Giảm khoảng cách */
+  }
+
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.9); /* Tăng độ tối thêm nữa */
+    width: 100%;
+    height: 100%;
+  }
+}
