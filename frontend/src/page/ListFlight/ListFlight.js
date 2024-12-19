@@ -15,7 +15,7 @@ const ListFlight = () => {
       <Navbar toggleLogin={toggleLogin}/>  
         <h1>THÔNG TIN HÀNH TRÌNH</h1>
       </header>
-      <body style={{ padding: "0 60px 0 190px" }}>
+      <body >
             <div className="table-container"><table id="flight-table">
                 <thead>
                     <tr>
