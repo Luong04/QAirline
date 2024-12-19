@@ -12,23 +12,21 @@ const NavbarBooking = () => {
                 <img src={logo} alt="logo" />
             </div>
             <nav className="menu">
-                <ul>
-                    <li className={location.pathname === "/booking" || location.pathname === "/booking/choosingSeat" ? "active" : ""}>
+                <div className={location.pathname === "/booking" || location.pathname === "/booking/choosingSeat" ? "active" : ""}>
                         <Link to="/booking/choosingSeat">CHỌN CHUYẾN</Link>
-                    </li>
-                    <li className={location.pathname === "/booking/infoClient" ? "active" : ""}>
+                    </div>
+                    <div className={location.pathname === "/booking/infoClient" ? "active" : ""}>
                         <Link to="/booking/infoClient">THÔNG TIN KHÁCH HÀNG</Link>
-                    </li>
-                    <li className={location.pathname === "/booking/payment" ? "active" : ""}>
+                    </div>
+                    <div className={location.pathname === "/booking/payment" ? "active" : ""}>
                         <Link to="/booking/payment">THANH TOÁN</Link>
-                    </li>
-                    <li className={location.pathname === "/booking/confirmPayment" ? "active" : ""}>
+                    </div>
+                    <div className={location.pathname === "/booking/confirmPayment" ? "active" : ""}>
                         <Link to="/booking/confirmPayment">XÁC NHẬN</Link>
-                    </li>
-                    <li className={location.pathname === "/" ? "active" : ""}>
+                    </div>
+                    <div className={location.pathname === "/" ? "active" : ""}>
                         <Link to="/">VỀ TRANG CHỦ</Link>
-                    </li>
-                </ul>
+                    </div>
             </nav>
         </div>
     );

@@ -1,7 +1,7 @@
 /* Tổng quát */
 .destination-card {
     margin: 0 auto; /* Canh giữa */
-    max-width: 1180px;
+    max-width: 80%;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -11,7 +11,7 @@
 .destination-header {
     padding: 15px;
     text-align: left;
-    color: #004B6B;
+    color: #046262;
     font-weight: bold;
     font-size: 1.2rem;
 }
@@ -46,7 +46,7 @@
 }
 
 /* Overlay ban đầu ẩn */
-.image-container .overlay {
+.image-container .overlay1 {
     position: absolute;
     bottom: -100%; /* Ẩn overlay ra khỏi khung */
     left: 0;
@@ -63,30 +63,30 @@
     text-align: left;
 }
 
-.image-container:hover .overlay {
+.image-container:hover .overlay1 {
     bottom: 0; /* Trượt overlay lên */
     opacity: 1; /* Hiển thị overlay */
 }
 
 /* Nội dung chữ trong overlay */
-.overlay h3 {
+.overlay1 h3 {
     font-size: 1.2rem;
     margin: 0 0 5px 0;
 }
 
-.overlay p {
+.overlay1 p {
     font-size: 0.9rem;
     margin: 0;
 }
 
-.overlay a {
+.overlay1 a {
     color: #00bfff;
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9rem;
 }
 
-.overlay a:hover {
+.overlay1 a:hover {
     text-decoration: underline;
 }
 

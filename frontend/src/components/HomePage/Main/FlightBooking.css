@@ -1,13 +1,13 @@
 .booking-container {
-  width: 500px;
-  /* height: 330px; */
+  width: 35%;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-left: 150px;
+  padding: 1%;
+  margin-left: 10%;
   text-align: center;
-  margin-top: 50px;
+  height: 47%;
+  margin-top: 5%;
 }
 
 .tabs {
@@ -24,12 +24,13 @@
   cursor: pointer;
   transition: background-color 0.3s;
   color: black;
+  font-size: 15px;
 }
 
 .tabs button.active {
   background-color: #fff;
-  border-bottom: 2px solid #c97932;
-  color: #c97932;
+  border-bottom: 2px solid #046262;
+  color: #046262;
 }
 
 .tabs button:hover:not(.active) {
@@ -41,17 +42,11 @@
 }
 
 .flight-form {
-  margin: 10px 0;
+  margin: 0;
 }
 
 .row {
   display: flex;
-  margin-bottom: 15px;
-}
-
-.row:last-child {
-  margin-bottom: 0;
-  /* Loại bỏ margin-bottom cho phần tử cuối cùng */
 }
 
 .flight-form li {
@@ -66,16 +61,16 @@
 }
 
 .promo-button {
-  background-color: #c97932;
+  background-color: #046262;
   /* Replace with actual color */
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 11.5px 20px;
+  border-radius: 10px;
   font-size: 14px;
   cursor: pointer;
   text-decoration: none;
-  
+  width: 30%;
 }
 
 .promo-button1 {
@@ -85,18 +80,18 @@
 .search-container {
   display: flex;
   align-items: center;
-  border: 2px solid #c97932;
+  border: 2px solid #046262;
   /* Replace with actual border color */
-  border-radius: 5px;
+  border-radius: 10px;
   overflow: hidden;
-  margin-left: 170px;
+  margin: 0 auto;
   cursor: pointer;
   text-decoration: none;
 }
 
 .search-button1 {
   background-color: #fcfcfc;
-  color: #c97932;
+  color: #046262;
   border: none;
   padding: 10px;
   font-size: 14px;
@@ -107,7 +102,7 @@
 }
 
 .search-button {
-  background-color: #c97932;
+  background-color: #046262;
   /* Replace with actual color */
   border: none;
   padding: 10px;
@@ -149,8 +144,9 @@
   grid-template-columns: 150px auto;
   /* Cột đầu tiên rộng 100px, cột sau tự giãn */
   gap: 10px 15px;
-  /* Khoảng cách giữa các hàng và cột */
-  margin: 30px 28px;
+  width: 90%;
+  margin: 7% auto;
+  position: relative;
 }
 
 .input-group label {
@@ -162,7 +158,7 @@
 }
 
 .input-group input {
-  width: 250px;
+  width: 100%; /* Đảm bảo input chiếm toàn bộ chiều rộng của nhóm */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -171,133 +167,33 @@
 
 .react-autosuggest__suggestions-container {
   position: absolute; /* Định vị tuyệt đối để không đẩy các thành phần khác */
-  z-index: 1000; /* Đảm bảo danh sách gợi ý đè lên các thành phần khác */
-  background-color: #fff; /* Nền trắng để tách biệt gợi ý */
+  z-index: 1000; /* Gợi ý nổi lên trên */
+  background-color: #dad8d8; /* Màu nền gợi ý */
   max-height: 200px; /* Giới hạn chiều cao */
-  overflow-y: auto; /* Hiển thị thanh cuộn nếu có nhiều gợi ý */
-  width: 300px; /* Đặt chiều rộng cố định cho container */
+  overflow-y: auto; /* Hiển thị thanh cuộn nếu danh sách dài */
+  width: 300px; /* Đảm bảo kích thước bằng với input */
+  box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến kích thước */
+  border-radius: 5px;
+}
+
+.react-autosuggest__suggestions-container ul {
+  margin: 0;
+  padding: 0;
+  li {
+    margin-bottom: 0;
+    height: 35px;
+    padding: 2.5%;
+  }
 }
 
 /* Phong cách cho từng gợi ý */
 .react-autosuggest__suggestion {
-  padding: 8px 0; /* Căn lề chỉ trên/dưới */
   cursor: pointer; /* Con trỏ dạng click */
   text-align: left; /* Căn nội dung về bên trái */
-  margin-left: 20px; /* Loại bỏ thụt lề */
-  width: 100%; /* Chiều rộng mỗi gợi ý bằng container */
-  box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng */
+  box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
 }
 
 /* Gợi ý khi người dùng di chuột qua */
-.react-autosuggest__suggestion--highlighted {
-  background-color: #f0f8ff; /* Màu nền khi hover */
+.react-autosuggest__suggestion:hover {
+  background-color: #c4c5c6; /* Màu nền khi hover */
 }
-
-/* Mặc định cho màn hình lớn */
-
-/* Màn hình từ 1024px trở xuống (tablet) */
-@media (max-width: 1024px) {
-  .booking-container {
-    width: 50%; /* Giảm chiều rộng để vừa màn hình */
-    margin-top: 100px; /* Canh giữa màn hình */
-    margin-left: 100px;
-    padding: 15px;
-  }
-
-  .tabs button {
-    font-size: 14px; /* Giảm kích thước chữ */
-    padding: 8px 15px; /* Giảm padding */
-  }
-
-  .input-group {
-    grid-template-columns: 120px auto; /* Điều chỉnh chiều rộng cột */
-    gap: 10px; /* Giảm khoảng cách giữa các phần tử */
-    margin: 20px auto; /* Canh giữa */
-  }
-
-  .input-group input {
-    width: 100%; /* Input chiếm toàn bộ chiều rộng cột */
-    font-size: 13px; /* Font chữ nhỏ hơn */
-  }
-
-  .search-container {
-    margin: 20px auto; /* Canh giữa và giảm margin */
-    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng */
-  }
-
-  .search-button1, .search-button {
-    font-size: 12px; /* Giảm kích thước font */
-    padding: 8px; /* Giảm padding */
-  }
-
-  .react-autosuggest__suggestions-container {
-    width: 100%; /* Chiều rộng bằng container */
-  }
-}
-
-/* Màn hình từ 768px trở xuống (mobile) */
-@media (max-width: 768px) {
-  .booking-container {
-    width: 50%; /* Tăng chiều rộng để phủ màn hình */
-    margin-top: 80px;
-    margin-left: 100px;
-    padding: 10px; /* Giảm padding */
-  }
-
-  .tabs {
-    flex-direction: column; /* Chuyển nút tab thành cột */
-    border-bottom: none; /* Loại bỏ đường viền tab */
-  }
-
-  .tabs button {
-    flex: none; /* Cho phép nút co lại */
-    width: 100%; /* Chiếm toàn bộ chiều rộng */
-  }
-
-  .input-group {
-    grid-template-columns: 1fr; /* Chỉ có một cột */
-    gap: 10px; /* Khoảng cách giữa các phần tử */
-  }
-
-  .search-container {
-    flex-direction: column; /* Chuyển thành layout dọc */
-    align-items: stretch; /* Kéo dài các nút */
-  }
-
-  .search-button1, .search-button {
-    width: 100%; /* Nút chiếm toàn bộ chiều rộng */
-    text-align: center; /* Canh giữa nội dung */
-  }
-
-  .date-picker {
-    font-size: 12px; /* Giảm kích thước chữ */
-  }
-}
-
-/* Màn hình từ 480px trở xuống (small mobile) */
-@media (max-width: 480px) {
-  .booking-container {
-    width: 100%; /* Chiếm toàn bộ màn hình */
-    margin: 30px 0; /* Giảm margin */
-  }
-
-  .tabs button {
-    font-size: 12px; /* Font chữ nhỏ hơn */
-    padding: 5px 10px; /* Padding nhỏ hơn */
-  }
-
-  .input-group {
-    margin: 10px 0; /* Giảm margin giữa các nhóm */
-  }
-
-  .search-button1, .search-button {
-    font-size: 11px; /* Font nhỏ hơn nữa */
-    padding: 6px; /* Padding nhỏ */
-  }
-
-  .react-autosuggest__suggestion {
-    padding: 5px; /* Giảm padding */
-    font-size: 12px; /* Giảm kích thước chữ */
-  }
-}
-

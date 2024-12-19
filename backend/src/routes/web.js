@@ -1,4 +1,5 @@
-const express = require('express');
+
+/*const express = require('express');
 const router = express.Router();
 
 const {getHomepage, getTest, getFlight} = require('../controllers/customerController');
@@ -13,3 +14,4 @@ router.get('/login', loginRequest);
 router.get('/logout', logout)
 router.get('/flight', getFlight);
 module.exports = router;
+*/

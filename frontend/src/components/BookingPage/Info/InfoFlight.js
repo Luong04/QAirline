@@ -87,10 +87,10 @@ const InfoFlight = ({setFlights, setGoFlights, setReturnFlights}) => {
             console.log(payload);
             const response = await axios.post('http://localhost:8081/api/findFlight', payload);
             const flightResults = response.data; // Cập nhật kết quả chuyến bay
-            console.log(flightResults);
+            console.log("FLight Result: ",flightResults);
             if(!isRoundTrip) navigate('/booking', { state: { flights: response.data, from, to, selectedDate, returnDate, isRoundTrip } });
             else{
-                navigate('/booking', { state: { goFlights: flightResults.goInfo, returnFlights: flightResults.returnInfo, from, to, selectedDate, returnDate, isRoundTrip } });
+                navigate('/booking', { state: { goFlights: flightResults.foundFlights, returnFlights: flightResults.returnFlights, from, to, selectedDate, returnDate, isRoundTrip } });
             }
         } catch (error) {
             console.error('Error fetching flights:', error);
@@ -181,7 +181,7 @@ const InfoFlight = ({setFlights, setGoFlights, setReturnFlights}) => {
                             className="date-picker1"
                         />
                     </div>
-                    <button className="btn-search" onClick={handleSearchFlights}>Tìm kiếm</button>
+                    <button className="btn-search" onClick={handleSearchFlights}><p>Tìm kiếm</p></button>
                 </div>
             </div>
         </div>

@@ -125,7 +125,7 @@
 }
 
 .legend .booked {
-  background-color: yellow;
+  background-color: #ed4a41;
 }
 
 .info {
@@ -134,17 +134,25 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px;
-  position: fixed; /* Đặt vị trí cố định */
-  right: 180px;
-  width: 400px;
+  height: 100%;
+  position: sticky;
+  top: 10px;
 }
 
 .info button {
-  background-color: green;
-  color: white;
-  padding: 10px;
+  width: 30%;
+  margin-top: 3%;
+  padding: 3%;
+  background-color: #238575;
+  color: #fff;
   border: none;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
+}
+
+.info button:hover {
+  background-color: #046262;
 }
 
 /* Kiểu dáng ghế */
@@ -246,13 +254,13 @@
   /* Khoảng cách giữa hai nhóm ghế */
 }
 
-.seat.business {
+.seat.Business {
   background-color: #ffe4b2;
   /* Màu vàng nhạt */
   border-color: gold;
 }
 
-.seat.economy {
+.seat.Economy {
   background-color: #d0eaff;
   /* Màu xanh nhạt */
   border-color: blue;
@@ -263,6 +271,11 @@
   color: white;
 }
 
+.seat.booked {
+  background-color: #ed4a41; /* Màu đỏ nhạt */
+  cursor: not-allowed; /* Không cho phép click */
+}
+
 /* Hiệu ứng hover */
 .seat:hover {
   transform: scale(1.05);
@@ -270,12 +283,23 @@
 }
 
 .container-price {
-  height: 80px;
-  width: 300px;
   background-color: #ccc;
-  border-radius: 5px;
-  border: 1px solid #eea929;
+  border-radius: 15px;
+  border: 1px solid #046262;
   text-align: center;
+  width: 50%;
+  font-weight: bold;
 }
 
+.info .row-price {
+  display: flex;
+  gap: 20px;
+}
+
+.info-goFlight {
+  background-color: #cef4eed5;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
 

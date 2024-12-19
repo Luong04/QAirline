@@ -32,7 +32,7 @@
 
 .login-title {
     font-size: 24px;
-    color: #a64d00;
+    color: #046262;
     /* Nâu cam */
     margin-bottom: 20px;
     font-weight: bold;
@@ -47,7 +47,7 @@
 .login-input {
     padding: 12px 15px;
     font-size: 16px;
-    border: 1px solid #d4a373;
+    border: 1px solid #046262;
     /* Nâu cam nhạt */
     border-radius: 8px;
     outline: none;
@@ -55,12 +55,12 @@
 }
 
 .login-input:focus {
-    border-color: #a64d00;
+    border-color: #1F8384;
     /* Nâu cam đậm */
 }
 
 .login-button {
-    background-color: #a64d00;
+    background-color: #1F8384;
     /* Nâu cam */
     color: #ffffff;
     font-size: 16px;
@@ -73,12 +73,12 @@
 }
 
 .login-button:hover {
-    background-color: #804000;
+    background-color: #046262;
     /* Màu nâu cam đậm hơn khi hover */
 }
 
 .forget-password {
-    color: #a64d00;
+    color: #046262;
     /* Nâu cam */
     font-size: 14px;
     text-decoration: none;
@@ -88,7 +88,7 @@
 }
 
 .forget-password:hover {
-    color: #804000;
+    color: red;
     /* Đậm hơn khi hover */
 }
 
@@ -97,7 +97,7 @@
     color: white;
     font-weight: bold;
     background-color: rgb(233, 34, 34);
-    border: solid 2px rgb(4, 4, 4);
+    border: solid 1px ;
     font-size: 16px;
     cursor: pointer;
 }

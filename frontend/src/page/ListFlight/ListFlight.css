@@ -1,11 +1,9 @@
 /* Tiêu đề */
 h1 {
     text-align: center;
-    color: #ffffff; /* Nâu cam đậm */
+    color: #046262; /* Nâu cam đậm */
     margin-bottom: 50px;
     font-size: 2rem;
-    font-family: Lobster;
-
   }
 
   /* Container cho bảng */
@@ -14,9 +12,10 @@ h1 {
   max-height: 400px; /* Chiều cao tối đa của bảng */
   overflow-y: auto; /* Hiển thị thanh cuộn dọc nếu nội dung vượt quá chiều cao */
   overflow-x: hidden; /* Ẩn thanh cuộn ngang */
-  border: 3px solid #d35400; /* Nâu cam đậm */
+  border: 2px solid #046262; /* Nâu cam đậm */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
-  opacity: 95%;
+  opacity: 90%;
+  border-radius: 5px;
 }
 
 /* Các kiểu bảng cũ */
@@ -26,9 +25,17 @@ table {
   background-color: #fff; /* Nền trắng */
 }
 
+.table-container::-webkit-scrollbar {
+  width: 0; /* Ẩn thanh cuộn */
+}
+
+.table-container {
+  scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
+}
+
   /* Tiêu đề cột */
   thead th {
-    background-color: #f8c471; /* Nâu cam nhạt */
+    background-color: #67bbad; /* Nâu cam nhạt */
     color: #053a4e; /* Màu chữ trắng */
     font-size: 1rem;
     position: sticky; /* Cố định tiêu đề */
@@ -37,7 +44,7 @@ table {
   }
 
   thead {
-    border: 1px solid #d35400;
+    border: 1px solid #046262;
   }
 
   tbody th, td {
@@ -47,7 +54,7 @@ table {
   
   /* Các ô bảng */
   th, td {
-    border: 1px solid #d35400; /* Nâu cam đậm */
+    border: 1px solid #046262; /* Nâu cam đậm */
     padding: 10px;
     text-align: center;
   }
@@ -67,7 +74,7 @@ table {
   
   /* Hiệu ứng hover */
   tbody tr:hover {
-    background-color: #fbcc5f; /* Cam sáng */
+    background-color: #238575; /* Cam sáng */
     color: #ffffff; /* Màu chữ trắng */
   }
   
@@ -76,9 +83,8 @@ table {
     display: flex;
     flex-direction: column; /* Sắp xếp nội dung theo cột */
     min-height: 750px; /* Chiều cao tối thiểu là chiều cao của trình duyệt */
-    padding: 20px;
-    background-image: url('../../assets/image/background6.png');  /* Đường dẫn chính xác */
-    background-size: cover; /* Ảnh phủ toàn bộ */
+    background-image: url('../../assets/image/backgroud1.webp');   
+    background-size: cover; 
     background-position: center; /* Căn giữa ảnh */
     background-repeat: no-repeat; /*Không lặp lại */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */

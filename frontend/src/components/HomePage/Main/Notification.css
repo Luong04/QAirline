@@ -1,0 +1,45 @@
+.notification-container {
+    margin: 0 auto; /* Canh giữa */
+    max-width: 80%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px; /* Bo tròn góc */
+}
+
+.header-notification {
+    padding: 15px;
+    text-align: left;
+    color: #046262;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.notification-item {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 370px;
+}
+
+.notification-item img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.notification-item h3 {
+    /* margin-top: 10px; */
+    font-size: 18px;
+    color: #007bff;
+}
+
+.notification-item p {
+    font-size: 14px;
+    color: #333;
+}
+
+.slick-slide {
+    padding: 0 10px; /* Tạo khoảng cách giữa các slide */
+    box-sizing: border-box; /* Giữ nguyên kích thước tổng */
+}

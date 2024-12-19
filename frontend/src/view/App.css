@@ -12,5 +12,9 @@ html, body {
   display: flex;
   flex-direction: column; /* Sắp xếp nội dung theo cột */
   min-height: 100vh; /* Chiều cao tối thiểu là chiều cao của trình duyệt */
-  background-color: #cbe7f1 ;
+  background-color: #ecfaf8 ;
+}
+
+h2 {
+  color: #046262;
 }

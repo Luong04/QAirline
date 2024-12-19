@@ -1,43 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // Dùng để chuyển hướng
 import "./Check.css";
 import TicketB from "../../components/BookingPage/Tickets/TicketB.js";
 import Navbar from '../../components/HomePage/Header/Navbar.js';
-
+import axios from 'axios';
+import Login from "../../components/HomePage/Main/Login.js"
 
 const Check = () => {
+  const [showLogin, setShowLogin] = useState(false);
+  
+    const toggleLogin = () => {
+      setShowLogin(!showLogin);
+    }
+
+  const location = useLocation();
+  const navigate = useNavigate(); // Sử dụng để điều hướng
   const [ticketCode, setTicketCode] = useState('');
   const [ticketFound, setTicketFound] = useState(false); // Trạng thái để hiển thị TicketB
-  const [ticketInfo, setTicketInfo] = useState({
-    name: "Nguyen Dam Kien",
-    ticketCode: "A26537",
-    departure: "Vinh",
-    destination: "Hồ Chí Minh",
-    departureTime: "12h00 15/12/2024",
-    arrivalTime: "14h30 15/12/2024",
-    seat: "B13",
-    price: "2.000.000",
-    classType: "ECONOMY"
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Giả lập tra cứu vé
-    if (ticketCode.trim() === "VALID_CODE") { // Thay VALID_CODE bằng mã kiểm tra thực tế
-      setTicketFound(true);
-    } else {
-      alert("Không tìm thấy vé với mã này!");
-      setTicketFound(false);
+  const [ticketInfo, setTicketInfo] = useState();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8081/api/getTicketById', { ticketCode });
+      if (response.status === 200 && response.data) {
+        setTicketInfo(response.data);
+        console.log(response.data);
+        setTicketFound(true);
+      } else {
+        alert("Không tìm thấy vé!");
+        navigate('/checkticket');
+      }
+    } catch (error) {
+      console.error("Lỗi khi tìm kiếm vé:", error);
+      alert("Không tìm thấy vé!");
+      navigate('/checkticket');
     }
   };
-
+  
+  useEffect(() => {
+          // Kiểm tra nếu state có tồn tại và lấy dữ liệu
+          if (location.state) {
+              setTicketInfo(location.state.ticketInfo);
+          }
+  }, [location]);
   return (
     <div className="check">
       <header>
-        <Navbar />
+      <Navbar toggleLogin={toggleLogin}/>
         <h1 style={{ marginBottom: "20px" }}>TRA CỨU VÉ</h1>
       </header>
       <div>
-        <form onSubmit={handleSubmit} style={{width: "500px"}}>
+        <form className="formcheck-container" onSubmit={handleSubmit}>
           <div className="form-check">
             <label htmlFor="ticketCode" className="form-label">Nhập mã vé</label>
             <input
@@ -50,7 +63,7 @@ const Check = () => {
             />
           </div>
 
-          <button type="submit" className="submit-btn" style={{ width: "150px", marginTop: "10px" }}>Tra cứu</button>
+          <button type="submit" className="submit-btn" style={{ width: "30%", padding:"3% 0", marginTop: "5%" }}>Tra cứu</button>
         </form>
 
         {/* Hiển thị TicketB khi tìm thấy vé */}
@@ -67,11 +80,17 @@ const Check = () => {
               price={ticketInfo.price}
               classType={ticketInfo.classType}
             />
-            <button type="submit" className="submit-btn" style={{ width: "150px", marginTop: "10px" }}>Về trang chủ</button>
+            <button type="submit" className="submit-btn" style={{ width: "13%", margin: "1% auto", padding :"1% 0" }} onClick={()=>{navigate('/')}}>Về trang chủ</button>
           </div>
 
         )}
       </div>
+      {showLogin && (
+        <>
+          <div className="overlay" onClick={toggleLogin}></div>
+          <Login onClose={toggleLogin} />
+        </>
+      )}
     </div>
   );
 };

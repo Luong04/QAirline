@@ -30,19 +30,19 @@ const TicketB = ({
           </div>
           <div className="row-ticket">
             <div className="content-ticket" style={{ flex: 2.5 }}><span>Mã ghế</span>{seat}</div>
-            <div className="content-ticket"><span>Giá vé</span>{price}</div>
+            <div className="content-ticket"><span>Giá vé</span>{price} $</div>
           </div>
         </div>
       </section>
       <section className="right-ticket">
         <div className="header-ticket">
-          <p style={{ margin: "0 0 0 100px" }}>QAIRLINE</p>
+          <p style={{ margin: "0 auto" }}>QAIRLINE</p>
         </div>
         <div className="body-ticket">
           <div className="content-ticket1"><span style={{ display: "block" }}>Họ tên</span>{name}</div>
           <div className="content-ticket1"><span>Mã vé</span>{ticketCode}</div>
           <div className="content-ticket1"><span>Mã ghế</span>{seat}</div>
-          <div className="content-ticket1"><span>Giá vé</span>{price}</div>
+          <div className="content-ticket1"><span>Giá vé</span>{price} $</div>
         </div>
       </section>
     </div>

@@ -1,58 +1,44 @@
-import React, { useState } from "react"; // Đảm bảo import useState từ React
+import React, { useState, useEffect } from "react"; // Đảm bảo import useState từ React
 import "./ConfirmPayment.css";
 import NavbarBooking from '../../components/BookingPage/Header/NavbarBooking.js';
-import { Link, redirect } from 'react-router-dom';
-import logo from "../../assets/image/logo.png";
-import TicketB from "../../components/BookingPage/Tickets/TicketB.js";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from 'axios';
 const ConfirmPayment = () => {
-    // 1. Sử dụng useState để quản lý thông tin vé
-    const [ticketsInfo, setTicketInfo] = useState([{
-        name: "Nguyen Dam Kien",
-        ticketCode: "A26537",
-        departure: "Vinh",
-        destination: "Hồ Chí Minh",
-        departureTime: "12h00 21/3/2025",
-        arrivalTime: "14h30 21/3/2025",
-        seat: "B13",
-        price: "1000000",
-        classType: "ECONOMY"
-    }, {
-        name: "Nguyen Dam Kien",
-        ticketCode: "A26537",
-        departure: "Vinh",
-        destination: "Hồ Chí Minh",
-        departureTime: "12h00 21/3/2025",
-        arrivalTime: "14h30 21/3/2025",
-        seat: "B13",
-        price: "1000000",
-        classType: "ECONOMY"
-    }]);
-
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [booking_id, setBookingId] = useState(null);
+    const [booker, setBooker] = useState(null);
+    useEffect(() => {
+        // Kiểm tra nếu state có tồn tại và lấy dữ liệu
+        if (location.state) {
+            setBookingId(location.state.booking_id);
+            setBooker(location.state.booker);
+        }
+    }, [location]);
+    const handleCheckBooking = async () => {
+        const response = await axios.post('http://localhost:8081/api/getBookingByForm', {
+            booking_id,
+            cccd: booker?.cccd,
+            email: booker?.email
+        });
+        console.log("kettquuaaabookiinnggg: ", response.data);
+        navigate('/checkBooking', { state: {bookingInfo: response.data }});
+    }
     return (
-        <div>
+        <div className="confirmpayment-container">
             {/* 2. Thêm Navbar */}
             <NavbarBooking />
 
             <div className="confirmation-message">
                 <h2>Đặt vé thành công!</h2>
                 <p>Cảm ơn bạn đã đặt vé với QAIRLINE. Chúc bạn có một chuyến đi vui vẻ!</p>
+                <h3>Mã đặt chỗ: {booking_id}</h3>
             </div>
 
-            {ticketsInfo.map((ticketInfo, index)=>(<TicketB
-                name={ticketInfo.name}
-                ticketCode={ticketInfo.ticketCode}
-                departure={ticketInfo.departure}
-                destination={ticketInfo.destination}
-                departureTime={ticketInfo.departureTime}
-                arrivalTime={ticketInfo.arrivalTime}
-                seat={ticketInfo.seat}
-                price={ticketInfo.price}
-                classType={ticketInfo.classType}
-            />))}
-            
 
-            <button type="button" className="submit-btn" style={{width:"200px", marginBottom: "20px"}}>VỀ TRANG CHỦ</button>
+            {/* 3. Thêm TicketB và truyền các thông tin vé */}
+            <button type="submit" className="submit-btn" style={{width: "13%", padding: "1% 0", marginRight:"10%"}} onClick={handleCheckBooking}>XEM VÉ</button>
+            <button type="submit" className="submit-btn" style={{width: "13%", padding: "1% 0"}} onClick={()=>{navigate('/')}}>VỀ TRANG CHỦ</button>
         </div >
     );
 };
