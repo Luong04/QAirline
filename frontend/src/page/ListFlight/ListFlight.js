@@ -1,13 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import "./ListFlight.css";
 import Navbar from '../../components/HomePage/Header/Navbar.js';
+import Login from "../../components/HomePage/Main/Login.js"
 
 const ListFlight = () => {
+    const [showLogin, setShowLogin] = useState(false);
+    
+      const toggleLogin = () => {
+        setShowLogin(!showLogin);
+      }
     return (
         <div className="ListFlight">
       <header>
-        <Navbar />
-        
+      <Navbar toggleLogin={toggleLogin}/>  
         <h1>THÔNG TIN HÀNH TRÌNH</h1>
       </header>
       <body style={{ padding: "0 60px 0 190px" }}>
@@ -187,6 +192,12 @@ const ListFlight = () => {
             </table>
             </div>
       </body>
+      {showLogin && (
+        <>
+          <div className="overlay" onClick={toggleLogin}></div>
+          <Login onClose={toggleLogin} />
+        </>
+      )}
     </div>
         
 

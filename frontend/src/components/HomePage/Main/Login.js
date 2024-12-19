@@ -1,14 +1,14 @@
 import React from "react";
 import "./Login.css";
 
-const Login = ({onClose}) => {
+const Login = ({ onClose }) => {
   return (
     <div className="login-container">
       <div className="login-box">
-      <button className="close-button" onClick={onClose}>
+        <button className="close-button" onClick={onClose}>
           X
         </button>
-        <h2 className="login-title">Đăng nhập</h2>
+        <h2 className="login-title">ĐĂNG NHẬP</h2>
         <form className="login-form">
           <input
             type="text"

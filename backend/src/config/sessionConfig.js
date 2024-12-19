@@ -8,7 +8,7 @@ const sessionMiddleware = session({
         secure: false, // Chỉ bật `true` nếu dùng HTTPS
         httpOnly: true,
         sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000, // 24 giờ
+        maxAge: 6 * 60 * 60 * 1000, // 6 giờ
     },
 });
 

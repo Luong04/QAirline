@@ -1,28 +1,38 @@
 .login-container {
-    position: fixed; /* Định vị cố định */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex; /* Sử dụng Flexbox để căn giữa */
-  justify-content: center; /* Căn giữa ngang */
-  align-items: center; /* Căn giữa dọc */
-  z-index: 20; /* Đặt trên overlay */
+    position: fixed;
+    /* Định vị cố định */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* Sử dụng Flexbox để căn giữa */
+    justify-content: center;
+    /* Căn giữa ngang */
+    align-items: center;
+    /* Căn giữa dọc */
+    z-index: 20;
+    /* Đặt trên overlay */
 }
 
 .login-box {
-    background: #fff; /* Nền trắng */
+    background: #fff;
+    /* Nền trắng */
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
-    width: 300px; /* Độ rộng cố định */
-    z-index: 30; /* Chắc chắn trên nền mờ */
-    position: relative; /* Để định vị nút đóng */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Hiệu ứng đổ bóng */
+    width: 400px;
+    /* Độ rộng cố định */
+    z-index: 30;
+    /* Chắc chắn trên nền mờ */
+    position: relative;
+    /* Để định vị nút đóng */
 }
 
 .login-title {
     font-size: 24px;
-    color: #a64d00;
+    color: #046262;
     /* Nâu cam */
     margin-bottom: 20px;
     font-weight: bold;
@@ -37,7 +47,7 @@
 .login-input {
     padding: 12px 15px;
     font-size: 16px;
-    border: 1px solid #d4a373;
+    border: 1px solid #046262;
     /* Nâu cam nhạt */
     border-radius: 8px;
     outline: none;
@@ -45,12 +55,12 @@
 }
 
 .login-input:focus {
-    border-color: #a64d00;
+    border-color: #1F8384;
     /* Nâu cam đậm */
 }
 
 .login-button {
-    background-color: #a64d00;
+    background-color: #1F8384;
     /* Nâu cam */
     color: #ffffff;
     font-size: 16px;
@@ -63,12 +73,12 @@
 }
 
 .login-button:hover {
-    background-color: #804000;
+    background-color: #046262;
     /* Màu nâu cam đậm hơn khi hover */
 }
 
 .forget-password {
-    color: #a64d00;
+    color: #046262;
     /* Nâu cam */
     font-size: 14px;
     text-decoration: none;
@@ -78,7 +88,7 @@
 }
 
 .forget-password:hover {
-    color: #804000;
+    color: red;
     /* Đậm hơn khi hover */
 }
 
@@ -86,10 +96,74 @@
     float: right;
     color: white;
     font-weight: bold;
-    top: 10px;
-    right: 10px;
     background-color: rgb(233, 34, 34);
-    border: solid 2px rgb(4, 4, 4);
+    border: solid 1px ;
     font-size: 16px;
     cursor: pointer;
 }
+
+/* Mặc định cho màn hình lớn */
+
+/* Màn hình từ 768px trở xuống (tablet và mobile) */
+@media (max-width: 768px) {
+    .login-box {
+      width: 50%; /* Chiếm 90% chiều rộng màn hình */
+      padding: 15px; /* Giảm khoảng cách padding */
+    }
+  
+    .login-title {
+      font-size: 20px; /* Giảm kích thước tiêu đề */
+      margin-bottom: 15px;
+    }
+  
+    .login-input {
+      font-size: 14px; /* Giảm kích thước chữ trong input */
+      padding: 10px;
+    }
+  
+    .login-button {
+      font-size: 14px; /* Giảm kích thước nút */
+      padding: 10px;
+    }
+  
+    .forget-password {
+      font-size: 12px; /* Giảm kích thước chữ */
+    }
+  
+    .close-button {
+      font-size: 14px; /* Giảm kích thước nút đóng */
+      padding: 5px 10px;
+    }
+  }
+  
+  /* Màn hình từ 480px trở xuống (mobile nhỏ) */
+  @media (max-width: 480px) {
+    .login-box {
+      width: 95%; /* Chiếm 95% chiều rộng màn hình */
+      border-radius: 10px; /* Giảm bo góc */
+      padding: 10px; /* Giảm padding */
+    }
+  
+    .login-title {
+      font-size: 18px; /* Kích thước nhỏ hơn nữa */
+    }
+  
+    .login-input {
+      font-size: 13px;
+      padding: 8px;
+    }
+  
+    .login-button {
+      font-size: 13px;
+      padding: 10px;
+    }
+  
+    .forget-password {
+      font-size: 11px;
+    }
+  
+    .close-button {
+      font-size: 12px;
+    }
+  }
+  

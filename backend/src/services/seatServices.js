@@ -53,7 +53,7 @@ const createSeatReservations = async () => {
 
 
 const createOneSeatReservations = async (flight_id) => {
-    const flight = Flight.findByPk(flight_id);
+    const flight = await Flight.findByPk(flight_id);
     const { plane_id } = flight.dataValues;
     const plane = Plane.findOne({
         where: {plane_id}
@@ -82,6 +82,43 @@ const createOneSeatReservations = async (flight_id) => {
     }
 }
 
+const findSeatReservations = async (goFlightId, returnFlightId) => {
+    const goFlight = await Flight.findByPk(goFlightId);
+    const goPlane = await Plane.findByPk(goFlight.plane_id);
+    const seatsGoBusiness = await SeatReservation.findAll({
+        where:{
+            flight_id : goFlightId,
+            seat_class : "Business"
+        }
+    })
+    const seatsGoEconomy = await SeatReservation.findAll({
+        where:{
+            flight_id : goFlightId,
+            seat_class : "Economy"
+        }
+    })
+
+    if(returnFlightId) {
+        const returnFlight = await Flight.findByPk(returnFlightId);
+        const returnPlane = await Plane.findByPk(returnFlight.plane_id);
+        const seatsReturnBusiness = await SeatReservation.findAll({
+            where:{
+                flight_id : returnFlightId,
+                seat_class : "Business"
+            }
+        })
+        const seatsReturnEconomy = await SeatReservation.findAll({
+            where:{
+                flight_id : returnFlightId,
+                seat_class : "Economy"
+            }
+        })
+
+        return {goPlane, seatsGoBusiness, seatsGoEconomy, returnPlane, seatsReturnBusiness, seatsReturnEconomy}
+    }
+    return {goPlane, seatsGoBusiness, seatsGoEconomy}
+}
+
 module.exports = {
-    createSeatReservations, createOneSeatReservations
+    createSeatReservations, createOneSeatReservations, findSeatReservations
 }

@@ -1,13 +1,13 @@
 .navbar {
-    height: 40px;
-    width: 1150px;
+    height: 50px;
+    width: 78%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #fdfcfc; /* Chỉnh màu nền */
     padding: 10px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bóng đổ */
-    margin: 20px 170px 80px 150px;
+    margin: 40px auto 50px;
     border-radius: 20px;
   }
 
@@ -25,35 +25,9 @@
   text-decoration: none;
 }
 
-.navbar-text1 {
-  margin: 0 5px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #1f2937; /* Màu chữ */
-  cursor: pointer;
-  text-decoration: none;
+.navbar-text:hover {
+  color: #c97932; /* Màu khi hover */
 }
 
-/* Thêm lớp cho item có biểu tượng */
-.navbar-item {
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
-}
+/* Mặc định cho màn hình lớn */
 
-.navbar-icon {
-  height: 40px;
-  margin-left: 25px;
-  cursor: pointer;
-}
-
-.navbar-icon1 {
-  margin-right: 0px;
-  font-size: 25px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.navbar-text:hover, .navbar-text1:hover, .navbar-icon:hover, .navbar-icon1:hover {
-  color: #3b82f6; /* Màu khi hover */
-}

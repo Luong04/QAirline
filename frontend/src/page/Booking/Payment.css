@@ -1,0 +1,80 @@
+.payment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.inforBooking-container {
+    width: 70%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.bill-container {
+    width: 30%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px 30px;
+}
+
+.inforTrip, .inforCustomer, .bill, .form-payment{
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    margin-bottom: 30px;
+    height: 200px;
+}
+
+
+.time-location {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.inforCustomer {
+
+    p {
+        text-align: left;
+        margin-left: 10%;
+        margin-top: 3%;
+    }
+
+    h3 {
+        margin-bottom: 3%;
+    }
+}
+
+.bill {
+    p {
+        text-align: left;
+        margin-left: 20px;
+    }
+}
+
+.row-payment{
+    display: flex;
+    padding: 5px 20px;
+    align-items: center;
+
+    p {
+        margin: 0px;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.row-payment input[type="radio"] {
+    width: 13px;
+    height: 13px;
+
+}

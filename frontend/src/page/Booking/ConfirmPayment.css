@@ -1,0 +1,28 @@
+
+.confirmation-message {
+  text-align: center;
+  color: rgb(46, 88, 66);
+  padding: 20px;
+  margin-top: 8%;
+}
+
+.confirmation-message h2 {
+  margin: 30;
+  font-size: 30px;
+  color: red;
+}
+
+.confirmation-message p {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.confirmpayment-container {
+  background-image: url('../../assets/image/background1.jpg');  
+    background-size: cover; 
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /*Không lặp lại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+    height: 750px;
+}
