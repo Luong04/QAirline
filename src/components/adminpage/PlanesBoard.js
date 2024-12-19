@@ -1,35 +1,42 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import "../../styles/adminpage/PlanesBoard.css";
+import EditPlane from "./EditPlane";
 
 const PlanesBoard = () => {
-  const [planes, setPlanes] = useState([
-    {
-      id: "1",
-      model: "Airbus A320",
-      seatEconomy: 180,
-      seatBusiness: 20,
-      totalSeat: 200,
-    },
-    {
-      id: "2",
-      model: "Boeing 777",
-      seatEconomy: 300,
-      seatBusiness: 30,
-      totalSeat: 330,
-    },
-    {
-      id: "3",
-      model: "Airbus A350",
-      seatEconomy: 250,
-      seatBusiness: 30,
-      totalSeat: 280,
-    },
-  ]);
+  const [planes, setPlanes] = useState([]);
 
-  const handleDelete = (id) => {
+  useEffect(() => {
+    const fetchPlanes = async () => {
+      const res = await fetch("http://localhost:8081/admin/getPlanes", {
+        method: "GET",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setPlanes(data);
+      }
+    };
+    fetchPlanes();
+  }, []);
+
+  const [isEditingPlane, setIsEditingPlane] = useState(null);
+
+  const handleCancel = () => {
+    setIsEditingPlane(null);
+  };
+
+  const handleDelete = async (plane_id) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa máy bay này?")) {
-      const updatedPlanes = planes.filter((plane) => plane.id !== id);
-      setPlanes(updatedPlanes);
+      const res = await fetch(`http://localhost:8081/admin/removePlane`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plane_id: plane_id }),
+      });
+      if (res.ok) {
+        setPlanes(planes.filter((plane) => plane.plane_id !== plane_id));
+        alert("Xóa máy bay thành công");
+      } else {
+        alert("Xóa máy bay thất bại");
+      }
     }
   };
 
@@ -50,19 +57,26 @@ const PlanesBoard = () => {
         <tbody>
           {planes.map((plane) => (
             <tr>
-              <td>{plane.id}</td>
+              <td>{plane.plane_id}</td>
               <td>{plane.model}</td>
-              <td>{plane.seatEconomy}</td>
-              <td>{plane.seatBusiness}</td>
-              <td>{plane.totalSeat}</td>
+              <td>{plane.seat_economy}</td>
+              <td>{plane.seat_business}</td>
+              <td>{plane.total_seat}</td>
               <td>
-                <button>Chỉnh sửa</button>
-                <button onClick={() => handleDelete(plane.id)}>Xóa</button>
+                <button onClick={() => setIsEditingPlane(plane)}>
+                  Chỉnh sửa
+                </button>
+                <button onClick={() => handleDelete(plane.plane_id)}>
+                  Xóa
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {isEditingPlane && (
+        <EditPlane plane={isEditingPlane} onCancel={handleCancel} />
+      )}
     </div>
   );
 };

@@ -11,7 +11,7 @@
   flex-direction: column;
 }
 
-#title,
+#header,
 #content {
   width: 100%;
   box-sizing: border-box;
@@ -22,6 +22,7 @@
   padding: 1rem;
   line-height: 1.5;
   font-size: inherit;
+  margin-top: 0.25rem;
 }
 
 .form-group {

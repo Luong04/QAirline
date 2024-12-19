@@ -2,33 +2,46 @@ import { React, useState } from "react";
 import "../../styles/adminpage/CreateNews.css";
 
 const CreateNews = () => {
-  const [image, setImage] = useState(null);
+  const [header, setheader] = useState("");
+  const [content, setContent] = useState("");
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result); // Lưu URL hình ảnh vào state
-      };
-      reader.readAsDataURL(file); // Đọc file ảnh dưới dạng URL
-    } else {
-      setImage(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        "http://localhost:8081/admin/createNotification",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ header: header, content: content }),
+        }
+      );
+      if (res.ok) {
+        alert("Đăng tin tức thành công");
+        setheader("");
+        setContent("");
+      } else {
+        alert("Đăng tin tức thất bại");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Đăng tin tức thất bại");
     }
   };
 
   return (
     <div className="create-news">
       <h2 style={{ textAlign: "center" }}>Đăng tin tức</h2>
-      <form className="create-news-form">
+      <form className="create-news-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="title">Tiêu đề</label>
+          <label htmlFor="header">Tiêu đề</label>
           <input
             type="text"
-            id="title"
-            name="title"
+            id="header"
+            name="header"
             placeholder="Nhập tiêu đề"
             required
+            onChange={(e) => setheader(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -39,35 +52,9 @@ const CreateNews = () => {
             placeholder="Nhập nội dung"
             rows={5}
             required
+            onChange={(e) => setContent(e.target.value)}
           ></textarea>
         </div>
-        <div className="form-group">
-          <label
-            htmlFor="image"
-            style={{
-              backgroundColor: "rgb(230, 230, 230)",
-              padding: "0.5rem",
-              borderRadius: "0.5rem",
-              cursor: "pointer",
-              border: "1px solid rgb(200, 200, 200)",
-            }}
-          >
-            Ảnh đính kèm
-          </label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image"
-            onChange={handleImageChange}
-            hidden
-          />
-        </div>
-        {image && (
-          <div className="form-group">
-            <img src={image} alt="News" style={{ width: "50%" }} />
-          </div>
-        )}
         <div className="form-group">
           <button type="submit" className="button">
             Đăng tin tức

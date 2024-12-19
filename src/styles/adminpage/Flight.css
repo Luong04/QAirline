@@ -9,7 +9,7 @@
 .flight-details {
   display: flex;
   padding: 1rem;
-  width: 60%;
+  width: 70%;
 }
 
 .flight-id-status {
@@ -60,7 +60,7 @@
 
 .eco-price {
   background-color: darkgreen;
-  width: 15%;
+  width: 12.5%;
   font-weight: bold;
   color: white;
   text-align: center;
@@ -71,7 +71,7 @@
 
 .bus-price {
   background-color: orange;
-  width: 15%;
+  width: 12.5%;
   font-weight: bold;
   text-align: center;
   display: flex;
@@ -80,18 +80,29 @@
 }
 
 .edit-delete {
-  width: 10%;
-  padding: 1rem;
+  width: 5%;
 }
 
 .edit-button {
   width: 100%;
   height: 50%;
   cursor: pointer;
+  border-radius: 0 1rem 0 0;
+  border: none;
+}
+
+.edit-button:hover {
+  background-color: rgb(160, 160, 160);
 }
 
 .delete-button {
   width: 100%;
   height: 50%;
   cursor: pointer;
+  border-radius: 0 0 1rem 0;
+  border: none;
+}
+
+.delete-button:hover {
+  background-color: rgb(160, 160, 160);
 }
