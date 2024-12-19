@@ -4,7 +4,7 @@ const Airport = require('../entity/airports');
 // Lấy tất cả chuyến bay
 const getAllFlight = async (req, res) => {
     try {
-        const flights = await flightServices.getAllFlight();
+        const flights = await flightServices.getAllFlights();
         if (!flights || flights.length === 0) {
             return res.status(404).json({ error: "No flights found" });
         }
