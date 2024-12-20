@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import "../../styles/adminpage/EditFlight.css";
 import DatePicker from "react-datepicker";
 
-const EditFlight = ({ flight, onCancel }) => {
+const EditFlight = ({ flight, onCancel, onEdit }) => {
   const [departureAirport, setDepartureAirport] = useState(
     flight.departure_airport_id
   );
@@ -117,6 +117,16 @@ const EditFlight = ({ flight, onCancel }) => {
           }
         );
         if (res.ok) {
+          onEdit({
+            ...flight,
+            departure_airport_id: departureAirport,
+            arrival_airport_id: arrivalAirport,
+            departure_time: departureTime,
+            arrival_time: arrivalTime,
+            true_price_economy: priceEconomy,
+            true_price_business: priceBusiness,
+            plane_id: planeID,
+          });
           alert("Cập nhật chuyến bay thành công");
         } else {
           alert("Cập nhật chuyến bay thất bại");

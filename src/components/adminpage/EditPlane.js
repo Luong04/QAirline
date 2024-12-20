@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import "../../styles/adminpage/EditPlane.css";
 
-const EditPlane = ({ plane, onCancel }) => {
+const EditPlane = ({ plane, onCancel, onEdit }) => {
   const [planeID, setPlaneID] = useState(plane.plane_id);
   const [planeModel, setPlaneModel] = useState(plane.model);
   const [seatEconomy, setSeatEconomy] = useState(plane.seat_economy);
@@ -26,6 +26,12 @@ const EditPlane = ({ plane, onCancel }) => {
           }
         );
         if (res.ok) {
+          onEdit({
+            ...plane,
+            model: planeModel,
+            seat_economy: seatEconomy,
+            seat_business: seatBusiness,
+          });
           alert("Cập nhật máy bay thành công");
         } else {
           alert("Cập nhật máy bay thất bại");

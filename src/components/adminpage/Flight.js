@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React } from "react";
 import "../../styles/adminpage/Flight.css";
 
 const Flight = ({ flight, onDelete, onEdit }) => {

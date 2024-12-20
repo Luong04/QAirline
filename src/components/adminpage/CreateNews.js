@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import "../../styles/adminpage/CreateNews.css";
 
-const CreateNews = () => {
+const CreateNews = ({ onUpdate }) => {
   const [header, setheader] = useState("");
   const [content, setContent] = useState("");
 
@@ -17,6 +17,8 @@ const CreateNews = () => {
         }
       );
       if (res.ok) {
+        const newNews = { header: header, content: content };
+        onUpdate(newNews);
         alert("Đăng tin tức thành công");
         setheader("");
         setContent("");

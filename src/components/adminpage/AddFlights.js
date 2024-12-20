@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import "../../styles/adminpage/AddFlights.css";
 import DatePicker from "react-datepicker";
 
-const AddFlights = () => {
+const AddFlights = ({ onUpdate }) => {
   const [planeID, setPlaneID] = useState("");
   const [departureAirport, setDepartureAirport] = useState("");
   const [arrivalAirport, setArrivalAirport] = useState("");
@@ -41,7 +41,9 @@ const AddFlights = () => {
 
         if (planeRes.ok && airportRes.ok) {
           const planeData = await planeRes.json();
+          planeData.map((plane) => plane.plane_id);
           const airportData = await airportRes.json();
+          airportData.map((airport) => airport.airport_id);
           setPlaneSuggestions(planeData);
           setAirportSuggestions(airportData);
         }
@@ -110,6 +112,7 @@ const AddFlights = () => {
         }),
       });
       if (res.ok) {
+        onUpdate(flightData);
         alert("Thêm chuyến bay thành công");
         setPlaneID("");
         setDepartureAirport("");

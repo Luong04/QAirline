@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import "../../styles/adminpage/AddPlanes.css";
 
-const AddPlanes = () => {
+const AddPlanes = ({ onUpdate }) => {
   const [planeID, setPlaneID] = useState("");
   const [planeModel, setPlaneModel] = useState("");
   const [seatEconomy, setSeatEconomy] = useState(0);
@@ -22,6 +22,14 @@ const AddPlanes = () => {
         }),
       });
       if (res.ok) {
+        const newPlane = {
+          plane_id: planeID,
+          model: planeModel,
+          total_seat: parseInt(seatEconomy) + parseInt(seatBusiness),
+          seat_economy: seatEconomy,
+          seat_business: seatBusiness,
+        };
+        onUpdate(newPlane);
         alert("Thêm máy bay thành công");
         setPlaneID("");
         setPlaneModel("");

@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import "../../styles/adminpage/News.css";
 
-const News = ({ news, onDelete }) => {
+const News = ({ news, onDelete, onEdit }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [header, setHeader] = useState(news.header);
@@ -28,6 +28,7 @@ const News = ({ news, onDelete }) => {
         }),
       });
       if (res.ok) {
+        onEdit({ ...news, header: header, content: content });
         alert("Chỉnh sửa tin tức thành công");
         setIsEditing(false);
       } else {
