@@ -57,7 +57,7 @@
 .bill {
     p {
         text-align: left;
-        margin-left: 20px;
+        margin-left: 30px;
     }
 }
 
@@ -78,3 +78,53 @@
     height: 13px;
 
 }
+
+/* Responsive Styles */
+@media (max-width: 1110px) {
+    .inforTrip, .inforCustomer, .bill, .form-payment{
+        
+        height: 235px;
+    }
+} 
+
+@media (max-width: 768px) {
+    .payment-container {
+      flex-direction: column; /* Xếp chồng các thành phần khi màn hình nhỏ */
+      gap: 15px;
+    }
+  
+    .inforBooking-container, 
+    .bill-container {
+      width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+      margin: 0;
+    }
+  
+    .inforTrip, 
+    .inforCustomer, 
+    .bill, 
+    .form-payment {
+      margin-bottom: 20px; /* Giảm khoảng cách giữa các box */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .payment-container {
+      padding: 10px;
+    }
+  
+    .inforTrip, 
+    .inforCustomer, 
+    .bill, 
+    .form-payment {
+      padding: 15px; /* Giảm padding cho màn hình nhỏ */
+    }
+  
+    .row-payment p {
+      font-size: 14px; /* Giảm kích thước chữ */
+    }
+  
+    .row-payment input[type="radio"] {
+      width: 12px;
+      height: 12px; /* Giảm kích thước input */
+    }
+  }

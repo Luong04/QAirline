@@ -120,3 +120,47 @@
   width: 50%;
   font-weight: bold;
   }
+
+  @media (max-width: 768px) {
+.plane-container {
+  padding: 5px;
+}
+
+    .plane-card {
+        width: 100%;
+        padding: 10px;
+        height: 150px;
+    }
+
+    .card-left .time-location {
+        /* flex-direction: column; Sắp xếp thời gian và vị trí theo cột */
+        text-align: center;
+    }
+
+    .icon {
+        width: 40px; /* Kích thước biểu tượng nhỏ hơn */
+        height: 40px;
+    }
+
+    .reserve-btn {
+        width: 50%; /* Nút chiếm toàn bộ chiều rộng */
+    }
+
+    .card-right .container-price {
+        width: 100%; /* Giá chiếm toàn bộ chiều rộng */
+    }
+}
+
+@media (max-width: 480px) {
+    .plane-container {
+        padding: 10px; /* Giảm padding */
+    }
+
+    .departure .location, .arrival .location {
+        font-size: 1em; /* Thu nhỏ chữ */
+    }
+
+    .reserve-btn {
+        font-size: 14px; /* Thu nhỏ nút đặt */
+    }
+}

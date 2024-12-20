@@ -26,7 +26,7 @@ const Home = () => {
       <Contact />
       {showLogin && (
         <>
-          <div className="overlay" onClick={toggleLogin}></div>
+          <div className="overlay2" onClick={toggleLogin}></div>
           <Login onClose={toggleLogin} />
         </>
       )}

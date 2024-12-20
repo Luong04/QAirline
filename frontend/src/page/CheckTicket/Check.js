@@ -80,14 +80,14 @@ const Check = () => {
               price={ticketInfo.price}
               classType={ticketInfo.classType}
             />
-            <button type="submit" className="submit-btn" style={{ width: "13%", margin: "1% auto", padding :"1% 0" }} onClick={()=>{navigate('/')}}>Về trang chủ</button>
+            <button type="submit" className="submit-btn" style={{ padding :"1% 0" }} onClick={()=>{navigate('/')}}>Về trang chủ</button>
           </div>
 
         )}
       </div>
       {showLogin && (
         <>
-          <div className="overlay" onClick={toggleLogin}></div>
+          <div className="overlay2" onClick={toggleLogin}></div>
           <Login onClose={toggleLogin} />
         </>
       )}

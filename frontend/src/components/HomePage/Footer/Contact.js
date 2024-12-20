@@ -9,7 +9,6 @@ const Contact = () => {
                 {/* Hotline */}
                 <div className="info-item">
                     <h3>Hotline (24/7)</h3>
-                    <p><a href="tel:+84123456789">+84 342 456 789</a></p>
                     <p><a href="tel:+84123456789">+84 973 735 235</a></p>
                     <p><a href="tel:+84123456789">+84 364 937 234</a></p>
                 </div>
@@ -23,7 +22,7 @@ const Contact = () => {
 
                 {/* Mạng xã hội */}
                 <div className="info-item">
-                    <h3>Liên hệ qua mạng xã hội</h3>
+                    <h3>Mạng xã hội</h3>
                     <p><a href="https://facebook.com/vemaybay" target="_blank" rel="noopener noreferrer">Facebook</a></p>
                     <p><a href="https://zalo.me/vemaybay" target="_blank" rel="noopener noreferrer">Zalo</a></p>
                 </div>

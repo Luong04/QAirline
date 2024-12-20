@@ -45,7 +45,7 @@
   }
 
   .body-ticket {
-    padding: 20px;
+    padding: 10px 20px;
     background: #f0f0f0;
     color: #333;
     font-weight: bold;
@@ -107,4 +107,77 @@
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
   }
+
+  /* Màn hình nhỏ hơn 768px */
+@media (max-width: 900px) {
+  .ticket-container {
+    width: 90%; /* Chiếm 90% chiều ngang màn hình */
+    height: 150; /* Chiều cao tự động */
+    margin: 20px auto;
+  }
+
+  .left-ticket .body-ticket{
+    background-image: url("../../../assets/image/plane.png");
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại */
+    background-size: 200px;
+
+  }
+
+  .right-ticket {
+    display: none;
+  }
+
+  .left-ticket {
+    width: 100%;
+  }
+
+  .header-ticket {
+    font-size: 16px; /* Nhỏ hơn trên màn hình nhỏ */
+    padding: 10px 0;
+  }
+
+  .body-ticket {
+    padding: 10px;
+  }
+
+  .row-ticket {
+    gap: 10px; /* Thêm khoảng cách giữa các dòng */
+  }
+
+  .content-ticket span, .content-ticket1 span {
+    font-size: 12px; /* Kích thước chữ nhỏ hơn */
+  }
+}
+
+/* Màn hình nhỏ hơn 480px */
+@media (max-width: 480px) {
+  .header-ticket {
+    font-size: 14px; /* Chữ nhỏ hơn trên điện thoại */
+    padding: 8px 0;
+  }
+
+  .left-ticket .body-ticket{
+    background-image: url("../../../assets/image/plane.png");
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại */
+    background-size: 150px;
+
+  }
+
+  .content-ticket, .content-ticket1 {
+    font-size: 14px;
+  }
+
+  .content-ticket span, .content-ticket1 span {
+    font-size: 12px;
+  }
+
+  .ticket-container {
+    width: 90%; /* Chiếm 90% chiều ngang màn hình */
+    height:250px; /* Chiều cao tự động */
+    margin: 20px auto;
+  }
+}
+
   

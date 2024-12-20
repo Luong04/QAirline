@@ -150,3 +150,63 @@ input:focus {
   margin-left: 5px;
   text-align: left;
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .infoclient-container {
+    flex-direction: column; /* Chuyển thành cột khi màn hình nhỏ hơn 768px */
+    gap: 15px;
+  }
+
+  .booker-container,
+  .client-container {
+    width: 90%; /* Giảm chiều rộng để phù hợp với màn hình nhỏ */
+    margin: 10px auto;
+  }
+
+  .submit-btn {
+    width: 100%; /* Chiếm toàn bộ chiều rộng nút */
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-choosing {
+    height: auto; /* Tự điều chỉnh chiều cao */
+    padding: 10px;
+    font-size: 18px; /* Giảm kích thước chữ */
+  }
+
+  .header-choosing p {
+    font-size: 14px; /* Giảm kích thước chữ trên điện thoại */
+  }
+
+  .circle-button {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+  }
+
+  .arrow {
+    font-size: 20px;
+  }
+
+  .infoclient-container {
+    padding: 10px;
+  }
+
+  .booker-container,
+  .client-container {
+    width: 100%; /* Tối ưu cho điện thoại */
+    padding: 15px;
+  }
+
+  input {
+    font-size: 14px; /* Giảm kích thước chữ cho input */
+  }
+
+  .submit-btn {
+    padding: 8px;
+    font-size: 14px; /* Giảm kích thước nút */
+  }
+}

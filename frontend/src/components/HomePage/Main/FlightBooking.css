@@ -170,10 +170,23 @@
   z-index: 1000; /* Gợi ý nổi lên trên */
   background-color: #dad8d8; /* Màu nền gợi ý */
   max-height: 200px; /* Giới hạn chiều cao */
-  overflow-y: auto; /* Hiển thị thanh cuộn nếu danh sách dài */
-  width: 300px; /* Đảm bảo kích thước bằng với input */
+  overflow-y: scroll; /* Cho phép cuộn */
+  overflow-x: hidden; /* Ẩn cuộn ngang */
+  width: 60%; /* Đảm bảo kích thước bằng với input */
   box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến kích thước */
   border-radius: 5px;
+}
+
+/* Ẩn thanh cuộn (đối với Webkit - Chrome, Safari, Edge) */
+.react-autosuggest__suggestions-container::-webkit-scrollbar {
+  width: 0; /* Ẩn thanh cuộn dọc */
+  height: 0; /* Ẩn thanh cuộn ngang */
+}
+
+/* Ẩn thanh cuộn (đối với Firefox) */
+.react-autosuggest__suggestions-container {
+  scrollbar-width: none; /* Ẩn thanh cuộn */
+  -ms-overflow-style: none; /* IE và Edge */
 }
 
 .react-autosuggest__suggestions-container ul {
@@ -196,4 +209,94 @@
 /* Gợi ý khi người dùng di chuột qua */
 .react-autosuggest__suggestion:hover {
   background-color: #c4c5c6; /* Màu nền khi hover */
+}
+
+@media screen and (max-width: 1024px) {
+  .booking-container {
+    width: 60%; 
+    height: auto; /* Để chiều cao tự động */
+    margin: 0 auto; /* Điều chỉnh lề */
+    padding: 5%;
+  }
+
+  .tabs button {
+    font-size: 14px; /* Giảm kích thước chữ */
+    padding: 8px 15px; /* Giảm padding */
+  }
+
+  .promo-button {
+    width: 50%; /* Tăng chiều rộng nút trên màn hình nhỏ hơn */
+  }
+
+  .input-group {
+    grid-template-columns: 100px auto; /* Giảm kích thước cột nhãn */
+    gap: 8px 10px; /* Giảm khoảng cách giữa các phần tử */
+  }
+
+  .react-autosuggest__suggestions-container {
+    width: 80%; /* Đảm bảo gợi ý chiếm toàn bộ chiều rộng input */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .booking-container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 5%;
+  }
+
+  .tabs {
+    flex-wrap: wrap; /* Chuyển tabs xuống dòng nếu không đủ chỗ */
+  }
+
+  .tabs button {
+    flex: 1 1 50%; /* Mỗi tab chiếm 50% chiều rộng */
+    font-size: 12px;
+  }
+
+  .promo-button {
+    width: 100%; /* Nút chiếm toàn bộ chiều rộng */
+    font-size: 12px; /* Giảm kích thước chữ */
+  }
+
+  .input-group {
+    grid-template-columns: 1fr; /* Chuyển về 1 cột */
+    gap: 5px;
+  }
+
+  .input-group label {
+    padding: 5px 0;
+    font-size: 12px; /* Nhỏ hơn cho di động */
+  }
+
+  .react-autosuggest__suggestions-container {
+    width: 100%; /* Đảm bảo gợi ý chiếm toàn bộ chiều rộng input */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .booking-container {
+    width: 95%;
+    padding: 5%;
+  }
+
+  .tabs button {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .promo-button {
+    font-size: 10px;
+    padding: 8px;
+  }
+
+  .date-picker {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .react-autosuggest__suggestion {
+    font-size: 12px;
+    padding: 5px;
+  }
 }
