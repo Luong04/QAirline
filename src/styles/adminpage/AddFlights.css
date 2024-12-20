@@ -7,7 +7,7 @@
 
 .add-flights-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 2fr;
 }
 
 .flights-input {
@@ -25,4 +25,26 @@
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid #ccc;
+}
+
+.suggestions-list {
+  position: absolute;
+  border: 1px solid #ccc;
+  background-color: white;
+  width: 178px;
+  max-height: 150px;
+  overflow-y: auto;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
 }

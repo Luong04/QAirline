@@ -54,6 +54,7 @@ const AddPlanes = () => {
 
         <div className="planes-input">
           <label htmlFor="model">Mẫu máy bay </label>
+
           <input
             type="text"
             id="model"
@@ -65,7 +66,7 @@ const AddPlanes = () => {
         </div>
 
         <div className="planes-input">
-          <label htmlFor="seat-economy">Số ghế hạng phổ thông </label>
+          <label htmlFor="seat-economy">Số ghế phổ thông </label>
           <input
             type="number"
             id="seat-economy"
@@ -78,7 +79,7 @@ const AddPlanes = () => {
         </div>
 
         <div className="planes-input">
-          <label htmlFor="seat-business">Số ghế hạng thương gia </label>
+          <label htmlFor="seat-business">Số ghế thương gia </label>
           <input
             type="number"
             id="seat-business"

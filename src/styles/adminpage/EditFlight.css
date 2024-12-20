@@ -16,7 +16,7 @@
   background-color: white;
   position: absolute;
   top: 20%;
-  left: 30%;
+  left: 25%;
   border: 1px solid orange;
   padding: 1rem;
   border-radius: 1rem;
@@ -25,7 +25,7 @@
 
 .edit-flight-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 2rem;
 }
 
