@@ -1,0 +1,91 @@
+.discovery-content {
+    background-color: white;
+    margin: 50px auto;
+    width: 80%;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+    padding: 10px;
+    display: flex;
+    gap: 5%;
+    height: 300px;
+}
+
+.discovery-content img {
+    width: 30%;
+    border-radius: 20px;
+}
+
+.discovery-content .discovery {
+    width: 60%;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    padding: 20px;
+}
+
+.placediscovery h2 {
+    font-family: Fruktur;
+    font-size: 30px;
+
+}
+
+.discovery h2 {
+    font-family: Fruktur;
+    font-size: 20px;
+
+}
+
+.discovery p {
+    font-size: 20px;
+}
+
+@media (max-width: 1200px) {
+    .discovery-content {
+        height: auto; /* Tự điều chỉnh chiều cao */
+    }
+
+    .discovery p {
+        font-size: 18px; /* Giảm kích thước chữ */
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .discovery-content {
+        flex-direction: column; /* Chuyển sang hiển thị theo cột */
+        height: auto; /* Tự điều chỉnh chiều cao */
+    }
+
+    .discovery-content img {
+        width: 80%; /* Hình ảnh chiếm 80% chiều rộng */
+        margin: 0 auto; /* Canh giữa */
+    }
+
+    .discovery-content .discovery {
+        width: 100%; /* Văn bản chiếm toàn bộ chiều rộng */
+        padding: 10px;
+    }
+
+    .discovery p {
+        font-size: 15px; /* Giảm kích thước chữ */
+    }
+}
+
+@media (max-width: 480px) {
+    .discovery-content {
+        margin: 20px auto;
+    }
+
+    .discovery h2 {
+        font-size: 20px; /* Giảm kích thước chữ */
+    }
+
+    .discovery p {
+        font-size: 16px; /* Giảm kích thước chữ */
+    }
+    .discovery-content img {
+        height: 200px; /* Hình ảnh chiếm 80% chiều rộng */
+        margin: 0 auto; /* Canh giữa */
+    }
+}

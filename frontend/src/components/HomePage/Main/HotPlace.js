@@ -10,7 +10,7 @@ const HotPlace = () => {
     return (
         <div className="destination-card">
             <div className="destination-header">
-                <h2 style={{ textAlign: "left"}}>ĐIỂM ĐẾN PHỔ BIẾN</h2>
+                <h2>ĐIỂM ĐẾN PHỔ BIẾN</h2>
             </div>
             <div className="destination-content">
                 <div className="image-container">

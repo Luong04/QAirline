@@ -303,3 +303,104 @@
   margin-bottom: 20px;
 }
 
+@media (max-width: 1150px) {
+  .seat-map {
+    font-size: 10px;
+  }
+}
+
+/* Tổng quát cho màn hình nhỏ hơn 768px */
+@media (max-width: 768px) {
+  .choosing-container {
+    padding: 10px;
+  }
+
+  .header-choosing {
+    font-size: 18px;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .circle-button {
+    margin-left: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .main-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .seat-map,
+  .info {
+    width: 100%;
+  }
+
+
+
+  .legend {
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  .legend span {
+    width: auto;
+  }
+
+  .info button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .plane-body {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .seat {
+    width: 40px;
+    height: 50px;
+  }
+
+  .container-price {
+    width: 100%;
+  }
+
+  .info-goFlight {
+    font-size: 14px;
+    padding: 15px;
+  }
+}
+
+/* Tổng quát cho màn hình nhỏ hơn 480px */
+@media (max-width: 480px) {
+  .header-choosing {
+    font-size: 16px;
+    padding: 5px 0;
+  }
+
+  .circle-button {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .seat {
+    width: 35px;
+    height: 40px;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 10px;
+  }
+
+  .info-goFlight {
+    font-size: 12px;
+  }
+}
