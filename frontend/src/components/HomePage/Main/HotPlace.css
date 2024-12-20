@@ -2,10 +2,8 @@
 .destination-card {
     margin: 0 auto; /* Canh giữa */
     max-width: 80%;
-    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    border-radius: 15px; /* Bo tròn góc */
 }
 
 .destination-header {
@@ -13,7 +11,11 @@
     text-align: left;
     color: #046262;
     font-weight: bold;
-    font-size: 1.2rem;
+}
+
+.destination-header h2{
+  text-align: left;
+  font-size: 30px;
 }
 
 /* Grid layout cho phần nội dung */
@@ -116,6 +118,10 @@
 
 /* Màn hình từ 1024px trở xuống (tablet) */
 @media (max-width: 1024px) {
+  .destination-card {
+    max-width: 90%; /* Chiếm toàn bộ chiều rộng màn hình */
+    padding: 10px; /* Thêm khoảng trống xung quanh */
+  }
     .destination-content {
       grid-template-columns: repeat(2, 1fr); /* Chỉ hiển thị 2 cột */
       grid-auto-rows: auto; /* Chiều cao tự điều chỉnh */
@@ -139,6 +145,10 @@
     .overlay p {
       font-size: 0.8rem; /* Giảm kích thước mô tả */
     }
+
+    .destination-header h2{
+      font-size: 24px;
+  }
   }
   
   /* Màn hình từ 768px trở xuống (mobile) */
@@ -173,6 +183,13 @@
     .overlay a {
       font-size: 0.8rem; /* Link nhỏ hơn */
     }
+
+    .destination-header h2{
+      font-size: 20px;
+      text-align: center;
+  }
+
+    
   }
   
   /* Màn hình từ 480px trở xuống (small mobile) */
@@ -201,5 +218,9 @@
     .overlay a {
       font-size: 0.7rem; /* Link nhỏ */
     }
+
+    .destination-header h2{
+      font-size: 18px;
+  }
   }
   

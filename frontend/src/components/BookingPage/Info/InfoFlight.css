@@ -102,4 +102,40 @@
     width: 50px;
   }
 
+  @media (max-width: 768px) {
+    .container-route {
+        height: auto; /* Tự động điều chỉnh chiều cao */
+        padding: 10px;
+    }
+
+    .infor-left {
+        border-right: none; /* Bỏ đường viền khi màn hình nhỏ */
+        padding-right: 0;
+    }
+
+    .btn-search {
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        font-size: 16px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-infor {
+        padding: 10px; /* Giảm padding cho màn hình nhỏ */
+    }
+
+    .options {
+        gap: 5px; /* Giảm khoảng cách */
+    }
+
+    .btn-search {
+        font-size: 14px; /* Giảm kích thước font */
+    }
+
+    .date-picker1 {
+        max-width: 200px; /* Giới hạn nhỏ hơn nữa */
+    }
+}
+
   
