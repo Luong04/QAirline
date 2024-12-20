@@ -4,6 +4,7 @@
   border-radius: 1rem;
   padding: 1rem;
   font-size: 1.1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .create-news-form {
@@ -32,10 +33,18 @@
 .button {
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: orange;
+  background-color: #FABE50;
   font-size: inherit;
   cursor: pointer;
-  color: darkgreen;
+  color: #046262;
   font-weight: bold;
   border: none;
+}
+
+.button:hover {
+  background-color: #e1a21b;
+}
+
+.planes-input label {
+  font-weight: bold;
 }

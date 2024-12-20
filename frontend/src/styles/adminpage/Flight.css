@@ -2,7 +2,7 @@
   margin-bottom: 1rem;
   border-radius: 1rem;
   display: flex;
-  border: 1px solid orange;
+  border: 1px solid #046262;
   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -21,11 +21,11 @@
 }
 
 .flight-id {
-  color: darkgreen;
+  color: #046262;
 }
 
 .flight-status {
-  color: orange;
+  color: #e1a21b;
 }
 
 .departure-info {
@@ -50,16 +50,16 @@
 
 .departure-time {
   font-weight: bold;
-  color: orange;
+  color: #FABE50;
 }
 
 .arrival-time {
   font-weight: bold;
-  color: darkgreen;
+  color: #046262;
 }
 
 .eco-price {
-  background-color: darkgreen;
+  background-color:#238575;
   width: 12.5%;
   font-weight: bold;
   color: white;
@@ -70,13 +70,14 @@
 }
 
 .bus-price {
-  background-color: orange;
+  background-color: #FABE50;
   width: 12.5%;
   font-weight: bold;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #046262;
 }
 
 .edit-delete {
@@ -89,10 +90,12 @@
   cursor: pointer;
   border-radius: 0 1rem 0 0;
   border: none;
+  background-color:#117559;
+  color: white;
 }
 
 .edit-button:hover {
-  background-color: rgb(160, 160, 160);
+  background-color: #0D5C46;
 }
 
 .delete-button {
@@ -101,8 +104,10 @@
   cursor: pointer;
   border-radius: 0 0 1rem 0;
   border: none;
+  background-color:rgb(204, 0, 0);
+  color: white;
 }
 
 .delete-button:hover {
-  background-color: rgb(160, 160, 160);
+  background-color: darkred;
 }

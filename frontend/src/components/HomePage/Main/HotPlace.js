@@ -26,7 +26,7 @@ const HotPlace = () => {
                 <div className="image-container">
                     <img src={NhaTrangPlace} alt="NhaTrang" />
                     <div className="overlay1">
-                            <h3>Huế</h3>
+                            <h3>Nha Trang</h3>
                             <p>Việt Nam | Nhiệt độ: 28°C</p>
                             <p>Khám phá thành phố biển Nha Trang với bãi biển tuyệt đẹp và những hòn đảo kỳ thú.</p>
                             <a href="/nhatrang">Xem Chi Tiết →</a>

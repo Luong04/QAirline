@@ -4,10 +4,12 @@
   padding: 1rem;
   border-radius: 1rem;
   box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .ticket-card-title {
   margin: 0;
+  color: #046262;
 }
 
 .ticket-card-number {

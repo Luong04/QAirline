@@ -1,54 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/adminpage/RankTable.css";
+import travel from "../../assets/image/travel.jpg";
+import travel2 from "../../assets/image/travel2.jpg";
+import travel3 from "../../assets/image/travel3.jpg";
+import travel4 from "../../assets/image/travel4.jpg";
+import travel5 from "../../assets/image/travel5.jpg";
 
 const RankTable = () => {
+  const images = [travel, travel2, travel3, travel4, travel5];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Update image index every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [images.length]);
+
   return (
     <div className="rank-table">
-      <h2 style={{ margin: "0" }}>
-        Bảng xếp hạng địa điểm được đến nhiều nhất
-      </h2>
-      <table className="rank-table-table">
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Địa điểm</th>
-            <th>Số vé bán được</th>
-            <th>Doanh thu</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Hà Nội</td>
-            <td>100,000 vé</td>
-            <td>100,000,000 VND</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Đà Nẵng</td>
-            <td>80,000 vé</td>
-            <td>80,000,000 VND</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>TP.Hồ Chí Minh</td>
-            <td>70,000 vé</td>
-            <td>70,000,000 VND</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Hạ Long</td>
-            <td>60,000 vé</td>
-            <td>60,000,000 VND</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Đà Lạt</td>
-            <td>50,000 vé</td>
-            <td>50,000,000 VND</td>
-          </tr>
-        </tbody>
-      </table>
+      <img src={images[currentIndex]} alt={`Slide ${currentIndex}`} />
     </div>
   );
 };

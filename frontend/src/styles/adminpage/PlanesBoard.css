@@ -3,6 +3,7 @@
   margin: 2%;
   padding: 1rem;
   background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .planes-table {

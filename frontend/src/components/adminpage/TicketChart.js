@@ -86,6 +86,7 @@ const TicketChart = () => {
         backgroundColor: "white",
         width: "49%",
         borderRadius: "1rem",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)"
       }}
     >
       <h2>Biểu đồ tổng số vé bán theo tháng</h2>

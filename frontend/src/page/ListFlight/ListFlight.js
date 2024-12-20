@@ -41,7 +41,7 @@ const ListFlight = () => {
                 <Navbar toggleLogin={toggleLogin} />
                 <h1>THÔNG TIN HÀNH TRÌNH</h1>
             </header>
-            <body style={{ padding: "0 60px 0 190px" }}>
+            <body>
                 <div className="table-container">
                     {loading ? (
                         <p>Loading...</p>
@@ -64,14 +64,14 @@ const ListFlight = () => {
                             <tbody>
                                 {flights.map((flight, index) => (
                                     <tr key={index}>
-                                        <td>{flight.flight_id}</td>
-                                        <td>{flight.plane}</td>
-                                        <td>{flight.departure_code}</td>
-                                        <td>{flight.arrival_code}</td>
-                                        <td>{flight.departure_time}</td>
-                                        <td>{flight.arrival_time}</td>
-                                        <td>{flight.duration}</td>
-                                        <td>{flight.status}</td>
+                                        <th>{flight.flight_id}</th>
+                                        <th>{flight.plane}</th>
+                                        <th>{flight.departure_code}</th>
+                                        <th>{flight.arrival_code}</th>
+                                        <th>{flight.departure_time}</th>
+                                        <th>{flight.arrival_time}</th>
+                                        <th>{flight.duration}</th>
+                                        <th>{flight.status}</th>
                                     </tr>
                                 ))}
                             </tbody>
@@ -81,7 +81,7 @@ const ListFlight = () => {
             </body>
             {showLogin && (
                 <>
-                    <div className="overlay" onClick={toggleLogin}></div>
+                    <div className="overlay2" onClick={toggleLogin}></div>
                     <Login onClose={toggleLogin} />
                 </>
             )}

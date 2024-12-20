@@ -1,18 +1,21 @@
+
 .rank-table {
+  height: 350px; /* Đặt chiều cao vùng chứa */
+  overflow: hidden; /* Đảm bảo phần ảnh không vượt ra ngoài vùng chứa */
   width: 100%;
   background-color: white;
-  padding: 1rem;
+  padding: 5px;
   border-radius: 1rem;
   box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.rank-table-table {
+.rank-table img {
   width: 100%;
-  border-collapse: collapse;
-  text-align: center;
+  height: 100%;
+  object-fit: cover; /* Ảnh bao phủ toàn bộ vùng chứa */
+  display: block; /* Loại bỏ khoảng trắng thừa từ thẻ img */
+  border-radius: 1rem;
+  transition: opacity 0.5s ease-in-out; /* Hiệu ứng chuyển mượt */
 }
 
-.rank-table-table th,
-.rank-table-table td {
-  padding: 0.5rem;
-}

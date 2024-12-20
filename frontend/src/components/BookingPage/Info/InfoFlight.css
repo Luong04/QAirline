@@ -24,7 +24,7 @@
     border: 3px solid #046262;
     padding: 20px;
     width: 90%;
-    height: 90px;
+    height: auto;
     margin: 0px auto;
     border-radius: 8px;
     display: grid;
@@ -43,6 +43,27 @@
     align-items: center;
 }
 
+.infor-left .react-autosuggest__suggestions-container ul {
+    margin: 0;
+    padding: 0;
+    li {
+      margin-bottom: 0;
+      height: 35px;
+      padding: 2.5%;
+    }
+  }
+
+.infor-left  .react-autosuggest__suggestions-container {
+    position: absolute; /* Định vị tuyệt đối để không đẩy các thành phần khác */
+    z-index: 1000; /* Gợi ý nổi lên trên */
+    background-color: #dad8d8; /* Màu nền gợi ý */
+    max-height: 200px; /* Giới hạn chiều cao */
+    overflow-y: scroll; /* Cho phép cuộn */
+    overflow-x: hidden; /* Ẩn cuộn ngang */
+    width: 20%; /* Đảm bảo kích thước bằng với input */
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến kích thước */
+    border-radius: 5px;
+  }
 
 .infor-right {
     display: grid;

@@ -20,7 +20,7 @@ const Notification = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % notifications.length);
-        }, 3000); // Tự động chuyển sau mỗi 3 giây
+        }, 5000); // Tự động chuyển sau mỗi 3 giây
 
         return () => clearInterval(interval);
     }, [notifications.length]);

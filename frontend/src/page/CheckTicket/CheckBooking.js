@@ -66,10 +66,10 @@ const CheckBooking = () => {
                 </div>
                 <h2>TRA CỨU THÔNG TIN ĐẶT VÉ / HỦY VÉ</h2>
             </div>
-            <h2>XIN CHÀO {bookingInfo?.customer_name}</h2>
+            <h2 style={{color:"#e1a21b"}}>Xin chào <span style={{color:"#046262"}}>{bookingInfo?.customer_name}</span></h2>
             <div className="container-checkBooking">
                 <section className="left-checkBooking">
-                    <h3>THÔNG TIN ĐẶT VÉ</h3>
+                    <h3 style={{color: "#046262"}}>THÔNG TIN ĐẶT VÉ</h3>
                     <div className="info-checkBooking"> <span>Họ Tên: </span>{bookingInfo?.customer_name}</div>
                     <div className="info-checkBooking"> <span>Email: </span>{bookingInfo?.email}</div>
                     <div className="info-checkBooking"> <span>Số điện thoại: </span>{bookingInfo?.phone}</div>
