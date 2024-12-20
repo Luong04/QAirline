@@ -20,7 +20,7 @@ ChartJS.register(
   Legend
 );
 
-const TicketChart = () => {
+const TicketChart = ({ ticketBookedData, ticketCancelledData }) => {
   const data = {
     labels: [
       "Tháng 1",
@@ -30,18 +30,23 @@ const TicketChart = () => {
       "Tháng 5",
       "Tháng 6",
       "Tháng 7",
-    ], // Months
+      "Tháng 8",
+      "Tháng 9",
+      "Tháng 10",
+      "Tháng 11",
+      "Tháng 12",
+    ],
     datasets: [
       {
-        label: "Vé phổ thông",
-        data: [120, 150, 180, 200, 220, 250, 300], // Replace with actual data
+        label: "Số vé được đặt",
+        data: ticketBookedData, // Data from props
         backgroundColor: "rgba(37, 99, 235, 0.6)", // Tailwind Blue 500
         borderColor: "rgba(37, 99, 235, 1)",
         borderWidth: 1,
       },
       {
-        label: "Vé thương gia",
-        data: [80, 100, 90, 120, 140, 160, 180], // Replace with actual data
+        label: "Số vé bị hủy",
+        data: ticketCancelledData, // Data from props
         backgroundColor: "rgba(249, 115, 22, 0.6)", // Tailwind Orange 500
         borderColor: "rgba(249, 115, 22, 1)",
         borderWidth: 1,
@@ -61,14 +66,14 @@ const TicketChart = () => {
     },
     scales: {
       x: {
-        stacked: true, // Enable stacking on the x-axis
+        stacked: true,
         title: {
           display: true,
           text: "Tháng",
         },
       },
       y: {
-        stacked: true, // Enable stacking on the y-axis
+        stacked: true,
         title: {
           display: true,
           text: "Số vé bán",

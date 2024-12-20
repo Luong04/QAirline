@@ -20,14 +20,27 @@ ChartJS.register(
   Legend
 );
 
-const RevenueChart = () => {
+const RevenueChart = ({ monthlyRevenueData }) => {
   // Dữ liệu cho biểu đồ
   const data = {
-    labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"], // Các tháng
+    labels: [
+      "Tháng 1",
+      "Tháng 2",
+      "Tháng 3",
+      "Tháng 4",
+      "Tháng 5",
+      "Tháng 6",
+      "Tháng 7",
+      "Tháng 8",
+      "Tháng 9",
+      "Tháng 10",
+      "Tháng 11",
+      "Tháng 12",
+    ],
     datasets: [
       {
-        label: "Doanh thu (triệu VND)",
-        data: [120, 150, 200, 180, 220, 300], // Doanh thu mỗi tháng
+        label: "Doanh thu ($)",
+        data: monthlyRevenueData, // Doanh thu hàng tháng từ props
         borderColor: "rgba(75, 192, 192, 1)", // Màu đường
         backgroundColor: "rgba(75, 192, 192, 0.2)", // Màu nền dưới đường
         borderWidth: 2, // Độ rộng của đường
@@ -60,8 +73,9 @@ const RevenueChart = () => {
         beginAtZero: true, // Trục Y bắt đầu từ 0
         title: {
           display: true,
-          text: "Doanh thu (triệu VND)",
+          text: "Doanh thu ($)",
         },
+        
       },
     },
   };
