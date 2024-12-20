@@ -12,6 +12,7 @@ import ConfirmPayment from '../page/Booking/ConfirmPayment.js';
 import CheckBooking from '../page/CheckTicket/CheckBooking.js'
 import TicketB from '../components/BookingPage/Tickets/TicketB.js';
 import HoiAn from '../page/HomePage/HoiAn.js';
+import DaNang from '../page/HomePage/DaNang.js';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/checkBooking" element={<CheckBooking/>}/>
         <Route path="/ticket" element={<TicketB/>}/>
         <Route path="/hoian" element={<HoiAn/>}/>
+        <Route path="/danang" element={<DaNang/>}/>
       </Routes>
     </div>
   );
