@@ -1,0 +1,158 @@
+/* Tiêu đề */
+h1 {
+    text-align: center;
+    color: #046262; /* Nâu cam đậm */
+    margin-bottom: 50px;
+    font-size: 2rem;
+  }
+
+  /* Container cho bảng */
+.table-container {
+  width: 80%;
+  max-height: 415px; /* Chiều cao tối đa của bảng */
+  overflow-y: auto; /* Hiển thị thanh cuộn dọc nếu nội dung vượt quá chiều cao */
+  overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+  border: 2px solid #046262; /* Nâu cam đậm */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+  opacity: 90%;
+  border-radius: 5px;
+}
+
+/* Các kiểu bảng cũ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff; /* Nền trắng */
+}
+
+.table-container::-webkit-scrollbar {
+  width: 0; /* Ẩn thanh cuộn */
+}
+
+.table-container {
+  scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
+  margin: 0 auto;
+}
+
+  /* Tiêu đề cột */
+  thead th {
+    background-color: #67bbad; /* Nâu cam nhạt */
+    color: #053a4e; /* Màu chữ trắng */
+    font-size: 1rem;
+    position: sticky; /* Cố định tiêu đề */
+    top: -2px; /* Dính ở đầu */
+
+  }
+
+  thead {
+    border: 1px solid #046262;
+  }
+
+  tbody th, td {
+    font-size: 0.9rem;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  
+  /* Các ô bảng */
+  th, td {
+    border: 1px solid #046262; /* Nâu cam đậm */
+    padding: 10px;
+    text-align: center;
+  }
+  
+  
+  
+  /* Hàng dữ liệu */
+  td {
+    background-color: #eaf2f8; /* Xanh dương nhạt */
+    color: #34495e; /* Xanh đen */
+  }
+  
+  /* Hàng chẵn */
+  tbody tr:nth-child(even) {
+    background-color: #e5f2f8; /* Xanh dương sáng hơn */
+  }
+  
+  /* Hiệu ứng hover */
+  tbody tr:hover {
+    background-color: #238575; /* Cam sáng */
+    color: #ffffff; /* Màu chữ trắng */
+  }
+  
+  .ListFlight {
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Sắp xếp nội dung theo cột */
+    min-height: 750px; /* Chiều cao tối thiểu là chiều cao của trình duyệt */
+    background-image: url('../../assets/image/backgroud1.webp');   
+    background-size: cover; 
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /*Không lặp lại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+  }
+
+/* Kích thước nhỏ hơn 1024px */
+@media screen and (max-width: 1024px) {
+  .table-container {
+    width: 90%; /* Mở rộng bảng */
+    max-height: 350px; /* Giảm chiều cao bảng */
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 40px; /* Giảm khoảng cách dưới */
+  }
+
+  thead th {
+    font-size: 0.9rem; /* Giảm kích thước tiêu đề cột */
+  }
+
+  tbody th, td {
+    font-size: 0.8rem; /* Giảm kích thước nội dung bảng */
+  }
+}
+
+/* Kích thước nhỏ hơn 768px */
+@media screen and (max-width: 768px) {
+  .table-container {
+    max-height: 300px;
+    overflow-x: auto; /* Thêm thanh cuộn ngang nếu cần */
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  th, td {
+    padding: 8px; /* Giảm padding trong bảng */
+  }
+}
+
+/* Kích thước nhỏ hơn 480px */
+@media screen and (max-width: 480px) {
+  .table-container {
+    width: 90%;
+    max-height: 350px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  thead th {
+    font-size: 0.8rem;
+  }
+
+  tbody th, td {
+    font-size: 0.7rem;
+    padding: 5px;
+  }
+
+  .ListFlight {
+    min-height: auto; /* Loại bỏ chiều cao tối thiểu cho màn hình nhỏ */
+    padding: 20px; /* Thêm khoảng trống xung quanh */
+  }
+}
+

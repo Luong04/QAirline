@@ -1,12 +1,24 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import "../../styles/adminpage/Sidebar.css";
+import axios from 'axios';
 
 const Sidebar = () => {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await axios.get('http://localhost:8081/api/admin/logout');
+      localStorage.removeItem('role'); // Xóa dữ liệu lưu trữ
+      navigate('/');
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
+  };
 
   return (
     <div className="sidebar">
@@ -26,9 +38,8 @@ const Sidebar = () => {
         </Link>
       </div>
       <div
-        className={`btn-container ${
-          isActive("/admin/flights") ? "active" : ""
-        }`}
+        className={`btn-container ${isActive("/admin/flights") ? "active" : ""
+          }`}
       >
         <Link to="/admin/flights" className="link">
           Quản lý chuyến bay
@@ -41,8 +52,10 @@ const Sidebar = () => {
           Quản lý tin tức
         </Link>
       </div>
-      <div className="btn-container">
-        <Link to="/" className="link">
+      <div
+        className={`btn-container ${isActive("/admin/logout") ? "active" : ""}`}
+      >
+        <Link to="/" className="link" onClick={handleLogout}>
           Đăng xuất
         </Link>
       </div>

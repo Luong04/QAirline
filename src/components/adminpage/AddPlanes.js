@@ -1,40 +1,56 @@
 import { React, useState } from "react";
 import "../../styles/adminpage/AddPlanes.css";
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const AddPlanes = ({ onUpdate }) => {
+
+const AddPlanes = ({ setPlanes }) => {
   const [planeID, setPlaneID] = useState("");
   const [planeModel, setPlaneModel] = useState("");
   const [seatEconomy, setSeatEconomy] = useState(0);
   const [seatBusiness, setSeatBusiness] = useState(0);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:8081/admin/createPlane", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const token = localStorage.getItem("role");
+      const res = await axios.post(
+        "http://localhost:8081/api/admin/createPlane",
+        {
           plane_id: planeID,
           model: planeModel,
           total_seat: parseInt(seatEconomy) + parseInt(seatBusiness),
           seat_economy: seatEconomy,
           seat_business: seatBusiness,
-        }),
-      });
-      if (res.ok) {
-        const newPlane = {
-          plane_id: planeID,
-          model: planeModel,
-          total_seat: parseInt(seatEconomy) + parseInt(seatBusiness),
-          seat_economy: seatEconomy,
-          seat_business: seatBusiness,
-        };
-        onUpdate(newPlane);
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.status === 200) {
         alert("Thêm máy bay thành công");
         setPlaneID("");
         setPlaneModel("");
         setSeatEconomy(0);
         setSeatBusiness(0);
+
+        // Update planes list by adding new plane to state
+        setPlanes((prevPlanes) => [
+          ...prevPlanes,
+          {
+            plane_id: planeID,
+            model: planeModel,
+            seat_economy: seatEconomy,
+            seat_business: seatBusiness,
+            total_seat: parseInt(seatEconomy) + parseInt(seatBusiness),
+          },
+        ]);
+
+        navigate('/admin/planes');
       } else {
         alert("Thêm máy bay thất bại");
       }
@@ -43,6 +59,7 @@ const AddPlanes = ({ onUpdate }) => {
       alert("Thêm máy bay thất bại");
     }
   };
+
 
   return (
     <div class="add-planes">
@@ -62,7 +79,6 @@ const AddPlanes = ({ onUpdate }) => {
 
         <div className="planes-input">
           <label htmlFor="model">Mẫu máy bay </label>
-
           <input
             type="text"
             id="model"
@@ -74,7 +90,7 @@ const AddPlanes = ({ onUpdate }) => {
         </div>
 
         <div className="planes-input">
-          <label htmlFor="seat-economy">Số ghế phổ thông </label>
+          <label htmlFor="seat-economy">Số ghế hạng phổ thông </label>
           <input
             type="number"
             id="seat-economy"
@@ -87,7 +103,7 @@ const AddPlanes = ({ onUpdate }) => {
         </div>
 
         <div className="planes-input">
-          <label htmlFor="seat-business">Số ghế thương gia </label>
+          <label htmlFor="seat-business">Số ghế hạng thương gia </label>
           <input
             type="number"
             id="seat-business"

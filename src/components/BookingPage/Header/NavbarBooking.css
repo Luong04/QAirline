@@ -1,0 +1,110 @@
+
+
+/* Thanh điều hướng */
+.navBooking {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 0px 1%;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgb(138, 137, 137);
+}
+
+
+.logo img {
+    margin-left: 10%;
+    height: 110px; /* Logo chiều cao 40px */
+}
+
+.navBooking .logo {
+    width: 8%;
+}
+
+.menu {
+    display: flex;
+    gap: 10px;
+    width: 90%;
+}
+
+
+.menu div {
+    width: 20%;
+    padding: 2% 0;
+    display: block;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    font-weight: bold;
+    font-size: 17px;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.menu div a {
+    text-decoration: none;
+    color: #093221;
+}
+
+.menu div:first-child {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.menu div:last-child{
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+
+/* Hiệu ứng di chuột */
+.menu div:hover {
+    background-color: #a3a3a3; /* Màu đỏ khi hover */
+}
+
+
+/* Trang hiện tại (active) */
+.menu div.active {
+    background-color: #e1a21b; /* Màu đỏ của trang hiện tại */
+    color: #093221;
+}
+
+
+/* Responsive Styles */
+
+@media (max-width: 1024px) {
+    .logo img {
+        height: 70px; /* Logo nhỏ hơn */
+    }
+}
+
+@media (max-width: 768px) {
+    .menu {
+        width: 100%; /* Chiều rộng 100% */
+        gap: 5px;
+    }
+
+    .menu div {
+        width: 100%; /* Mỗi mục chiếm toàn bộ chiều rộng */
+        clip-path: none; /* Loại bỏ hình dạng để dễ đọc hơn */
+        border: 1px solid #dcdcdc;
+    }
+
+    .menu div:first-child {
+        clip-path: none;
+    }
+    
+    .menu div:last-child{
+        clip-path: none;
+    }
+
+    .menu div a {
+        font-size: 15px;
+    }
+
+    .logo {
+        width: 25%; /* Logo lớn hơn */
+    }
+
+    .logo img {
+        height: 50px; /* Logo nhỏ hơn */
+    }
+}
+
+

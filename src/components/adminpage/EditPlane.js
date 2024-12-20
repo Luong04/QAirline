@@ -1,7 +1,8 @@
 import { React, useState } from "react";
 import "../../styles/adminpage/EditPlane.css";
+import axios from "axios";
 
-const EditPlane = ({ plane, onCancel, onEdit }) => {
+const EditPlane = ({ plane, onCancel, setPlanes }) => {
   const [planeID, setPlaneID] = useState(plane.plane_id);
   const [planeModel, setPlaneModel] = useState(plane.model);
   const [seatEconomy, setSeatEconomy] = useState(plane.seat_economy);
@@ -11,28 +12,37 @@ const EditPlane = ({ plane, onCancel, onEdit }) => {
     e.preventDefault();
     if (window.confirm("Bạn có chắc chắn muốn cập nhật máy bay này?")) {
       try {
-        const res = await fetch(
-          `http://localhost:8081/admin/adminplanes/${planeID}`,
+        const token = localStorage.getItem("role");
+        const res = await axios.post(
+          "http://localhost:8081/api/admin/updatePlane",
           {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              plane_id: planeID,
-              model: planeModel,
-              total_seat: parseInt(seatEconomy) + parseInt(seatBusiness),
-              seat_economy: seatEconomy,
-              seat_business: seatBusiness,
-            }),
-          }
-        );
-        if (res.ok) {
-          onEdit({
-            ...plane,
+            plane_id: planeID,
             model: planeModel,
+            total_seat: parseInt(seatEconomy) + parseInt(seatBusiness),
             seat_economy: seatEconomy,
             seat_business: seatBusiness,
-          });
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (res.status === 200) {
           alert("Cập nhật máy bay thành công");
+          // Gọi lại API để lấy danh sách máy bay mới
+          const updatedPlanesRes = await axios.get(
+            "http://localhost:8081/api/admin/getPlane",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          if (updatedPlanesRes.data.planes) {
+            setPlanes(updatedPlanesRes.data.planes); // Cập nhật danh sách máy bay
+          }
+          onCancel();
         } else {
           alert("Cập nhật máy bay thất bại");
         }

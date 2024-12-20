@@ -1,0 +1,141 @@
+.container-infor {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 98%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.options {
+    display: flex;
+    margin-bottom: 20px;
+}
+.options label {
+    margin-left: 3%;
+    font-weight: bold;
+}
+.options input[type="radio"] {
+    margin-right: 20px;
+    width: 15px;
+    height: 15px;
+}
+
+
+.container-route {
+    border: 3px solid #046262;
+    padding: 20px;
+    width: 90%;
+    height: 90px;
+    margin: 0px auto;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+}
+
+
+.infor-left {
+    grid-column: 1;
+    border-right: 2px solid #046262;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 30px;
+    padding-right:20px;
+    align-items: center;
+}
+
+
+.infor-right {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    align-items: center;
+    padding-left: 15px;
+}
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.form-group input {
+    margin-top: 30px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.form-group input[type="date"] {
+    max-width: 200px;
+}
+.btn-search {
+    color: #046262;
+    border: 2px solid #046262 ;
+    border-radius: 20px;
+    cursor: pointer;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    background-color: #fff;
+    padding: 0 30%;
+    height: 90%;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Hiệu ứng chuyển đổi */
+}
+.btn-search:hover {
+    background-color: #046262;
+    color: #fff;
+}
+
+
+.date-picker1 {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .data-picker1 {
+    width: 50px;
+  }
+
+  @media (max-width: 768px) {
+    .container-route {
+        height: auto; /* Tự động điều chỉnh chiều cao */
+        padding: 10px;
+    }
+
+    .infor-left {
+        border-right: none; /* Bỏ đường viền khi màn hình nhỏ */
+        padding-right: 0;
+    }
+
+    .btn-search {
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        font-size: 16px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-infor {
+        padding: 10px; /* Giảm padding cho màn hình nhỏ */
+    }
+
+    .options {
+        gap: 5px; /* Giảm khoảng cách */
+    }
+
+    .btn-search {
+        font-size: 14px; /* Giảm kích thước font */
+    }
+
+    .date-picker1 {
+        max-width: 200px; /* Giới hạn nhỏ hơn nữa */
+    }
+}
+
+  

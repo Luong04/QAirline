@@ -1,0 +1,121 @@
+.check {
+  text-align: center;
+    display: flex;
+    flex-direction: column; /* Sắp xếp nội dung theo cột */
+    min-height: 850px; /* Chiều cao tối thiểu là chiều cao của trình duyệt */
+    background-image: url('../../assets/image/background18.jpg');   
+    background-size: cover; 
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /*Không lặp lại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+
+    .submit-btn{
+      width: 13%; 
+      margin: 1% auto;
+    }
+    
+}
+
+.formcheck-container {
+  background-color:aliceblue;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  width: 25%;
+}
+
+.form-check {
+  padding: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.form-control {
+  margin-left: 5%;
+  width: 60%;
+}
+
+/* Kích thước lớn hơn 1024px */
+@media screen and (min-width: 1024px) {
+  .formcheck-container {
+    width: 30%; /* Mở rộng form trên màn hình lớn */
+  }
+
+  .form-label {
+    font-size: 20px; /* Tăng kích thước nhãn */
+  }
+
+  .form-control {
+    width: 70%; /* Mở rộng input */
+  }
+}
+
+/* Kích thước nhỏ hơn 1024px */
+@media screen and (max-width: 1024px) {
+  .formcheck-container {
+    width: 40%; /* Điều chỉnh form nhỏ gọn hơn */
+  }
+
+  .form-label {
+    font-size: 16px; /* Giảm kích thước nhãn */
+  }
+
+  .form-control {
+    width: 80%; /* Tăng chiều rộng input trên màn hình vừa */
+  }
+
+  
+}
+
+/* Kích thước nhỏ hơn 768px */
+@media screen and (max-width: 768px) {
+  .formcheck-container {
+    width: 60%; /* Mở rộng form để dễ sử dụng */
+    padding: 10px;
+  }
+
+  .form-label {
+    font-size: 14px; /* Giảm kích thước chữ */
+  }
+
+  .form-control {
+    width: 90%; /* Input chiếm gần hết chiều rộng container */
+    margin-left: 0; /* Loại bỏ margin bên trái */
+  }
+
+  .check {
+    .submit-btn{
+      width: 20%;
+    }
+  }
+}
+
+/* Kích thước nhỏ hơn 480px */
+@media screen and (max-width: 480px) {
+  .formcheck-container {
+    width: 90%; /* Đảm bảo form vừa với màn hình nhỏ */
+    padding: 8px;
+  }
+
+  .form-label {
+    font-size: 12px; /* Giảm kích thước nhãn */
+  }
+
+  .form-control {
+    width: 100%; /* Input full chiều rộng container */
+    margin-left: 0;
+  }
+
+  .check {
+    padding: 10px; /* Thêm khoảng trống bên trong container */
+    min-height: auto; /* Loại bỏ chiều cao tối thiểu */
+
+    .submit-btn{
+      width: 30%;
+    }
+  }
+}

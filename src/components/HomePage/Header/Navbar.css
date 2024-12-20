@@ -1,0 +1,66 @@
+.navbar {
+    height: 50px;
+    width: 78%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fdfcfc; /* Chỉnh màu nền */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bóng đổ */
+    margin: 40px auto 50px;
+    border-radius: 20px;
+    
+  }
+
+.navbar-logo {
+  height: 70px; /* Kích thước của logo */
+  margin-right: 15px;
+}
+
+.navbar-text {
+  margin: 0px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1f2937; /* Màu chữ */
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navbar-text:hover {
+  color: #c97932; /* Màu khi hover */
+}
+
+/* Mặc định cho màn hình lớn */
+
+/* Media query cho màn hình nhỏ hơn 768px */
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
+    /* align-items: flex-start; */
+  }
+
+  .navbar-logo {
+    height: 50px; /* Logo nhỏ hơn */
+  }
+
+  .navbar-text {
+    margin: 5px 0; /* Khoảng cách nhỏ hơn */
+    font-size: 14px; /* Font chữ nhỏ hơn */
+  }
+}
+
+/* Media query cho màn hình nhỏ hơn 480px */
+@media screen and (max-width: 480px) {
+  .navbar {
+    width: 100%; /* Chiếm toàn bộ màn hình */
+    padding: 10px;
+  }
+
+  .navbar-logo {
+    height: 40px; /* Thu nhỏ logo hơn nữa */
+  }
+
+  .navbar-text {
+    font-size: 12px; /* Chữ nhỏ hơn */
+  }
+}

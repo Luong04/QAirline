@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import "../../styles/adminpage/AddFlights.css";
 import DatePicker from "react-datepicker";
-
+import { Navigate, useNavigate } from "react-router-dom";
 const AddFlights = ({ onUpdate }) => {
   const [planeID, setPlaneID] = useState("");
   const [departureAirport, setDepartureAirport] = useState("");
@@ -25,21 +25,22 @@ const AddFlights = ({ onUpdate }) => {
   const [isPlaneIDFocused, setIsPlaneIDFocused] = useState(false);
   const [isDepartureFocused, setIsDepartureFocused] = useState(false);
   const [isArrivalFocused, setIsArrivalFocused] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const planeRes = await fetch("http://localhost:8081/admin/getPlanes", {
+        const planeRes = await fetch("http://localhost:8081/api/getPlanes", {
           method: "GET",
         });
         const airportRes = await fetch(
-          "http://localhost:8081/admin/getAirports",
+          "http://localhost:8081/api/getPlaces",
           {
             method: "GET",
           }
         );
 
-        if (planeRes.ok && airportRes.ok) {
+        if (planeRes.status === 200 && airportRes.status ===200) {
+          console.log(planeRes.json(), airportRes.json());
           const planeData = await planeRes.json();
           planeData.map((plane) => plane.plane_id);
           const airportData = await airportRes.json();
@@ -104,15 +105,17 @@ const AddFlights = ({ onUpdate }) => {
         true_price_economy: priceEconomy,
         true_price_business: priceBusiness,
       };
-      const res = await fetch("http://localhost:8081/admin/adminflights", {
+      const token = localStorage.getItem("role");
+      const res = await fetch("http://localhost:8081/api/admin/createFlight", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, },
         body: JSON.stringify({
           flightData: flightData,
         }),
       });
       if (res.ok) {
-        onUpdate(flightData);
+        
         alert("Thêm chuyến bay thành công");
         setPlaneID("");
         setDepartureAirport("");
@@ -122,6 +125,9 @@ const AddFlights = ({ onUpdate }) => {
         setStatus("");
         setPriceEconomy(0);
         setPriceBusiness(0);
+        const newFlight = await res.json();
+        onUpdate(newFlight);
+        navigate('/admin/flights');
       } else {
         alert("Thêm chuyến bay thất bại");
       }

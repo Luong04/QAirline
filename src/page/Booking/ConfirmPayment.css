@@ -1,0 +1,95 @@
+
+.confirmation-message {
+  text-align: center;
+  color: rgb(46, 88, 66);
+  padding: 20px;
+  margin-top: 8%;
+}
+
+.confirmation-message h2 {
+  margin: 30;
+  font-size: 30px;
+  color: red;
+}
+
+.confirmation-message p {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.confirmpayment-container {
+  background-image: url('../../assets/image/background10.png');  
+    background-size: cover; 
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /*Không lặp lại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+    height: 750px;
+
+    .submit-btn {
+      width: 13%;
+      margin:2% 5%;
+    }
+}
+
+@media (max-width: 970px) {
+  .confirmpayment-container {
+  
+      .submit-btn {
+        width: 20%;
+        margin:2% 5%;
+      }
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .confirmation-message {
+    padding: 10px;
+    margin-top: 10%;
+  }
+
+  .confirmation-message h2 {
+    font-size: 24px; /* Giảm kích thước chữ cho màn hình nhỏ */
+    margin: 15px 0;
+  }
+
+  .confirmation-message p {
+    font-size: 18px; /* Điều chỉnh font-size cho nội dung */
+  }
+
+  .confirmpayment-container {
+    background-image: url('../../assets/image/background10.png');  
+    background-size: cover; 
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /*Không lặp lại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+    height: 750px;
+
+    .submit-btn {
+      width: 50%;
+      margin-top: 10px;
+    }
+  }
+
+}
+
+@media (max-width: 480px) {
+  .confirmation-message h2 {
+    font-size: 20px; /* Nhỏ hơn nữa cho màn hình cực nhỏ */
+    margin: 10px 0;
+  }
+
+  .confirmation-message p {
+    font-size: 16px;
+  }
+
+  .confirmpayment-container {
+    background-image: url('../../assets/image/background10.png');  
+    background-size: cover; 
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /*Không lặp lại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /*Đổ bóng viền */
+    height: 750px;
+  }
+}

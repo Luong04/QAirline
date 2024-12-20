@@ -19,7 +19,7 @@ const Flight = ({ flight, onDelete, onEdit }) => {
         </div>
         <div className="departure-info">
           <div className="departure-time">{flight.departure_time}</div>
-          <div className="location">{flight.departure_airport_id}</div>
+          <div className="location">{flight.departure_code}</div>
         </div>
         <div className="flight-icon">
           <span className="plane-icon">✈️</span>
@@ -27,17 +27,17 @@ const Flight = ({ flight, onDelete, onEdit }) => {
         </div>
         <div className="arrival-info">
           <div className="arrival-time">{flight.arrival_time}</div>
-          <div className="location">{flight.arrival_airport_id}</div>
+          <div className="location">{flight.arrival_code}</div>
         </div>
       </div>
       <div className="eco-price">
         Giá vé phổ thông <br />
-        {flight.true_price_economy} VND
+        {flight.true_price_economy} $
       </div>
       <div className="bus-price">
         Giá vé thương gia
         <br />
-        {flight.true_price_business} VND
+        {flight.true_price_business} $
       </div>
       <div className="edit-delete">
         <button className="edit-button" onClick={handleEdit}>

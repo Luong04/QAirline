@@ -7,6 +7,15 @@ const News = ({ news, onDelete, onEdit }) => {
   const [header, setHeader] = useState(news.header);
   const [content, setContent] = useState(news.content);
 
+  // Chuyển đổi date thành chuỗi định dạng ngày tháng
+  const formattedDate = new Date(news.date).toLocaleString("vi-VN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   const handleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -18,16 +27,17 @@ const News = ({ news, onDelete, onEdit }) => {
   const handleEdit = async (e) => {
     e.preventDefault();
     if (window.confirm("Bạn có chắc chắn muốn chỉnh sửa tin tức này?")) {
-      const res = await fetch(`http://localhost:8081/admin/editNotification`, {
+      const token = localStorage.getItem("role");
+      const res = await fetch(`http://localhost:8081/api/admin/editNotification`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           notification_id: news.notification_id,
           header: header,
           content: content,
         }),
       });
-      if (res.ok) {
+      if (res.status === 200) {
         onEdit({ ...news, header: header, content: content });
         alert("Chỉnh sửa tin tức thành công");
         setIsEditing(false);
@@ -47,7 +57,7 @@ const News = ({ news, onDelete, onEdit }) => {
     <div className="news">
       <h3 style={{ marginTop: "0", marginBottom: "0" }}>{news.header}</h3>
       <span style={{ color: "gray", fontSize: "1rem" }}>
-        Ngày tạo: {news.date}
+        Ngày tạo: {formattedDate}
       </span>
       {news.content.length > 100 ? (
         isExpanded ? (

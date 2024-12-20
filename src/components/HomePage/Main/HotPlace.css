@@ -1,0 +1,226 @@
+/* Tổng quát */
+.destination-card {
+    margin: 0 auto; /* Canh giữa */
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.destination-header {
+    padding: 15px;
+    text-align: left;
+    color: #046262;
+    font-weight: bold;
+}
+
+.destination-header h2{
+  text-align: left;
+  font-size: 30px;
+}
+
+/* Grid layout cho phần nội dung */
+.destination-content {
+    position: relative;
+    display: grid;
+    padding: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 300px;
+    grid-gap: 20px;
+}
+
+/* Container chính */
+.image-container {
+    position: relative; /* Cần để overlay "absolute" dựa trên container này */
+    overflow: hidden; /* Giữ cho overlay không vượt ra ngoài khung */
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Giữ tỷ lệ ảnh */
+    transition: transform 0.3s ease; /* Hiệu ứng phóng to ảnh */
+}
+
+.image-container:hover img {
+    transform: scale(1.05); /* Ảnh phóng to nhẹ */
+}
+
+/* Overlay ban đầu ẩn */
+.image-container .overlay1 {
+    position: absolute;
+    bottom: -100%; /* Ẩn overlay ra khỏi khung */
+    left: 0;
+    width: 90%;
+    height: 100px; /* Độ cao của overlay, điều chỉnh theo ý muốn */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: bottom 0.4s ease; /* Hiệu ứng trượt lên */
+    opacity: 0; /* Ban đầu trong suốt */
+    text-align: left;
+}
+
+.image-container:hover .overlay1 {
+    bottom: 0; /* Trượt overlay lên */
+    opacity: 1; /* Hiển thị overlay */
+}
+
+/* Nội dung chữ trong overlay */
+.overlay1 h3 {
+    font-size: 1.2rem;
+    margin: 0 0 5px 0;
+}
+
+.overlay1 p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.overlay1 a {
+    color: #00bfff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.overlay1 a:hover {
+    text-decoration: underline;
+}
+
+
+/* Grid cấu hình lưới */
+.destination-content .image-container:nth-child(1) {
+    grid-column: span 2; /* Chiếm 2 cột */
+}
+
+.destination-content .image-container:nth-child(2) {
+    grid-column: span 2; /* Chiếm 2 cột */
+}
+
+.destination-content .image-container:nth-child(3) {
+    grid-column: span 1;
+}
+
+.destination-content .image-container:nth-child(4) {
+    grid-column: span 1;
+}
+
+.destination-content .image-container:nth-child(5) {
+    grid-column: span 2; /* Chiếm 2 cột */
+}
+
+/* Mặc định cho màn hình lớn */
+
+/* Màn hình từ 1024px trở xuống (tablet) */
+@media (max-width: 1024px) {
+  .destination-card {
+    max-width: 90%; /* Chiếm toàn bộ chiều rộng màn hình */
+    padding: 10px; /* Thêm khoảng trống xung quanh */
+  }
+    .destination-content {
+      grid-template-columns: repeat(2, 1fr); /* Chỉ hiển thị 2 cột */
+      grid-auto-rows: auto; /* Chiều cao tự điều chỉnh */
+    }
+  
+    .destination-content .image-container:nth-child(1),
+    .destination-content .image-container:nth-child(2),
+    .destination-content .image-container:nth-child(5) {
+      grid-column: span 2; /* Chiếm toàn bộ chiều rộng trên tablet */
+    }
+  
+    .destination-content .image-container:nth-child(3),
+    .destination-content .image-container:nth-child(4) {
+      grid-column: span 1; /* Giữ 1 cột nếu không nằm trong nhóm trên */
+    }
+  
+    .overlay h3 {
+      font-size: 1rem; /* Giảm kích thước chữ */
+    }
+  
+    .overlay p {
+      font-size: 0.8rem; /* Giảm kích thước mô tả */
+    }
+
+    .destination-header h2{
+      font-size: 24px;
+  }
+  }
+  
+  /* Màn hình từ 768px trở xuống (mobile) */
+  @media (max-width: 768px) {
+    .destination-card {
+      max-width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+      padding: 10px; /* Thêm khoảng trống xung quanh */
+    }
+  
+    .destination-content {
+      grid-template-columns: repeat(1, 1fr); /* Hiển thị 1 cột */
+      grid-gap: 15px; /* Giảm khoảng cách giữa các phần tử */
+    }
+  
+    .image-container {
+      height: 200px; /* Chiều cao container nhỏ hơn */
+    }
+  
+    .overlay {
+      height: 80px; /* Giảm chiều cao overlay */
+      padding: 10px;
+    }
+  
+    .overlay h3 {
+      font-size: 0.9rem; /* Chữ nhỏ hơn */
+    }
+  
+    .overlay p {
+      font-size: 0.7rem; /* Mô tả nhỏ hơn */
+    }
+  
+    .overlay a {
+      font-size: 0.8rem; /* Link nhỏ hơn */
+    }
+
+    .destination-header h2{
+      font-size: 20px;
+      text-align: center;
+  }
+
+    
+  }
+  
+  /* Màn hình từ 480px trở xuống (small mobile) */
+  @media (max-width: 480px) {
+    .destination-content {
+      grid-gap: 10px; /* Giảm khoảng cách hơn nữa */
+    }
+  
+    .image-container {
+      height: 150px; /* Giảm chiều cao cho màn hình nhỏ */
+    }
+  
+    .overlay {
+      height: 60px; /* Overlay ngắn hơn */
+      padding: 8px;
+    }
+  
+    .overlay h3 {
+      font-size: 0.8rem; /* Chữ tiêu đề nhỏ hơn */
+    }
+  
+    .overlay p {
+      font-size: 0.6rem; /* Mô tả nhỏ hơn nữa */
+    }
+  
+    .overlay a {
+      font-size: 0.7rem; /* Link nhỏ */
+    }
+
+    .destination-header h2{
+      font-size: 18px;
+  }
+  }
+  

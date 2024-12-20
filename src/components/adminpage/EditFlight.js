@@ -34,11 +34,11 @@ const EditFlight = ({ flight, onCancel, onEdit }) => {
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const planeRes = await fetch("http://localhost:8081/admin/getPlanes", {
+        const planeRes = await fetch("http://localhost:8081/api/getPlanes", {
           method: "GET",
         });
         const airportRes = await fetch(
-          "http://localhost:8081/admin/getAirports",
+          "http://localhost:8081/api/getPlaces",
           {
             method: "GET",
           }
@@ -99,13 +99,12 @@ const EditFlight = ({ flight, onCancel, onEdit }) => {
     e.preventDefault();
     if (window.confirm("Bạn có chắc chắn muốn cập nhật chuyến bay này?")) {
       try {
-        const res = await fetch(
-          `http://localhost:8081/admin/adminflights/${planeID}`,
+        const token = localStorage.getItem("role");
+        const res = await fetch(`http://localhost:8081/api/admin/updateFlights/${flight.flight_id}`,
           {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" ,Authorization: `Bearer ${token}`},
             body: JSON.stringify({
-              flight_id: flight.flight_id,
               departure_airport_id: departureAirport,
               arrival_airport_id: arrivalAirport,
               departure_time: departureTime,

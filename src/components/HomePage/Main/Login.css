@@ -1,0 +1,179 @@
+.login-container {
+    position: fixed;
+    /* Định vị cố định */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* Sử dụng Flexbox để căn giữa */
+    justify-content: center;
+    /* Căn giữa ngang */
+    align-items: center;
+    /* Căn giữa dọc */
+    z-index: 20;
+    /* Đặt trên overlay */
+}
+
+.login-box {
+    background: #fff;
+    /* Nền trắng */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Hiệu ứng đổ bóng */
+    width: 25%;
+    /* Độ rộng cố định */
+    z-index: 30;
+    /* Chắc chắn trên nền mờ */
+    position: relative;
+    /* Để định vị nút đóng */
+}
+
+.login-title {
+    font-size: 24px;
+    color: #046262;
+    /* Nâu cam */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-input {
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #046262;
+    /* Nâu cam nhạt */
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.login-input:focus {
+    border-color: #1F8384;
+    /* Nâu cam đậm */
+}
+
+.login-button {
+    background-color: #1F8384;
+    /* Nâu cam */
+    color: #ffffff;
+    font-size: 16px;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #046262;
+    /* Màu nâu cam đậm hơn khi hover */
+}
+
+.forget-password {
+    color: #046262;
+    /* Nâu cam */
+    font-size: 14px;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.forget-password:hover {
+    color: red;
+    /* Đậm hơn khi hover */
+}
+
+.close-button {
+    float: right;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(233, 34, 34);
+    border: solid 1px ;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Mặc định cho màn hình lớn */
+/* Tablet (kích thước từ 768px - 1024px) */
+@media screen and (max-width: 1024px) {
+    .login-box {
+        width: 40%; /* Tăng chiều rộng trên màn hình vừa */
+        padding: 20px;
+    }
+
+    .login-title {
+        font-size: 22px; /* Giảm kích thước chữ tiêu đề */
+    }
+
+    .login-button {
+        font-size: 15px; /* Điều chỉnh kích thước nút */
+    }
+}
+
+/* Mobile (kích thước từ 480px - 768px) */
+@media screen and (max-width: 768px) {
+    .login-box {
+        width: 50%; /* Tăng chiều rộng trên màn hình nhỏ */
+        padding: 20px;
+    }
+
+    .login-title {
+        font-size: 20px; /* Nhỏ hơn một chút */
+        margin-bottom: 15px;
+    }
+
+    .login-input {
+        font-size: 14px; /* Giảm kích thước chữ trong input */
+        padding: 10px 12px;
+    }
+
+    .login-button {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .forget-password {
+        font-size: 12px; /* Nhỏ hơn để phù hợp với thiết bị nhỏ */
+    }
+}
+
+/* Điện thoại nhỏ (kích thước dưới 480px) */
+@media screen and (max-width: 480px) {
+    .login-box {
+        width: 95%; /* Gần full chiều rộng */
+        padding: 10px;
+    }
+
+    .login-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .login-input {
+        font-size: 12px; /* Giảm kích thước chữ hơn nữa */
+        padding: 8px 10px;
+    }
+
+    .login-button {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .forget-password {
+        font-size: 10px;
+    }
+
+    .close-button {
+        font-size: 12px;
+        padding: 5px;
+    }
+}

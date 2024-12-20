@@ -1,0 +1,134 @@
+.payment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.inforBooking-container {
+    width: 70%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.bill-container {
+    width: 30%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px 30px;
+}
+
+.inforTrip, .inforCustomer, .bill, .form-payment{
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    margin-bottom: 30px;
+    height: 200px;
+
+    h3 {
+      color: #046262;
+    }
+}
+
+
+.time-location {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.inforCustomer {
+
+    p {
+        text-align: left;
+        margin-left: 10%;
+        margin-top: 3%;
+    }
+
+    h3 {
+        margin-bottom: 3%;
+    }
+}
+
+.bill {
+    p {
+        text-align: left;
+        margin-left: 30px;
+    }
+}
+
+.row-payment{
+    display: flex;
+    padding: 5px 20px;
+    align-items: center;
+
+    p {
+        margin: 0px;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.row-payment input[type="radio"] {
+    width: 13px;
+    height: 13px;
+
+}
+
+/* Responsive Styles */
+@media (max-width: 1110px) {
+    .inforTrip, .inforCustomer, .bill, .form-payment{
+        
+        height: 235px;
+    }
+} 
+
+@media (max-width: 768px) {
+    .payment-container {
+      flex-direction: column; /* Xếp chồng các thành phần khi màn hình nhỏ */
+      gap: 15px;
+    }
+  
+    .inforBooking-container, 
+    .bill-container {
+      width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+      margin: 0;
+    }
+  
+    .inforTrip, 
+    .inforCustomer, 
+    .bill, 
+    .form-payment {
+      margin-bottom: 20px; /* Giảm khoảng cách giữa các box */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .payment-container {
+      padding: 10px;
+    }
+  
+    .inforTrip, 
+    .inforCustomer, 
+    .bill, 
+    .form-payment {
+      padding: 15px; /* Giảm padding cho màn hình nhỏ */
+    }
+  
+    .row-payment p {
+      font-size: 14px; /* Giảm kích thước chữ */
+    }
+  
+    .row-payment input[type="radio"] {
+      width: 12px;
+      height: 12px; /* Giảm kích thước input */
+    }
+  }
