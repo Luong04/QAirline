@@ -8,6 +8,10 @@ const Notification = sequelize.define('Notification', {
         autoIncrement: true, // Tự động tăng giá trị
         allowNull: false
     },
+    header: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     date: {
         type: DataTypes.DATE,
         allowNull: false

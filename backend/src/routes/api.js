@@ -6,11 +6,14 @@ const {getAllBookingAdmin, createBooking, cancelBooking, createPayment} = requir
 const {updatePrice} = require('../services/priceServices.js');
 const {getTicket, createNewTicket, cancelTicketById} = require('../controllers/ticketController.js');
 const {createSeatReservations, createOneSeatReservations} = require('../services/seatServices');
-const {getPlaces } = require('../services/predictionService');
+const {getPlaces, getPlanes } = require('../services/predictionService');
 const {updateStatistic, getStatisticInDate, getStatisticInWeek, getStatisticInMonth, getWeeklyTotals, getMonthlyTotals } = require('../controllers/statisticController.js');
-const {createNotification, getNotification, removeNotification} = require('../controllers/notificationController.js');
+const {createNotification, getNotification, removeNotification, editNotification} = require('../controllers/notificationController.js');
 const {findSeatReservations} = require('../controllers/seatController.js')
 const {getBookingByForm} = require('../controllers/bookingController.js')
+const {getLoginRequire, logout} = require('../controllers/authController.js');
+const {getPlane, removePlane, updatePlane, createPlane} = require('../controllers/planeController.js');
+
 // Giả sử bạn đã có models từ Sequelize
 
 // Lấy danh sách tất cả chuyến bay
@@ -22,17 +25,18 @@ router.get('/admin/adminflights', getAllFlightAdmin);
 router.get('/admin/adminflights/:id', getFlightById);
 
 // Tạo một chuyến bay mới
-router.post('/admin/adminflights', createFlight);
+router.post('/admin/createFlight', createFlight);
 
 // Cập nhật thông tin chuyến bay
-router.put('/admin/adminflights/:id', updateFlight);
+router.put('/admin/updateFlights/:id', updateFlight);
 
 // Xóa chuyến bay
-router.delete('/admin/adminflights/:id', deleteFlight);
+router.delete('/admin/removeFlights/:id', deleteFlight);
 
 router.post('/findFlight', findFlight)
 router.post('/findBasicFlight', findBasicFlight)
 router.get('/getPlaces', getPlaces);
+router.get('/getPlanes', getPlanes);
 
 router.post('/getBookingByForm', getBookingByForm);
 router.get('/adminbooking', getAllBookingAdmin);
@@ -56,7 +60,16 @@ router.get('/admin/getWeeklyTotal', getWeeklyTotals);
 router.get('/admin/getMonthlyTotal', getMonthlyTotals);
 
 router.post('/admin/createNotification', createNotification);
-router.delete('/admin/removeNotification', removeNotification);
+router.post('/admin/removeNotification', removeNotification);
 router.get('/admin/getNotification', getNotification);
+router.post('/admin/editNotification', editNotification);
+
+router.post('/login', getLoginRequire);
+router.get('/admin/logout', logout);
+
+router.post('/admin/createPlane', createPlane);
+router.post('/admin/removePlane', removePlane);
+router.get('/admin/getPlane', getPlane);
+router.post('/admin/updatePlane', updatePlane);
 
 module.exports = router;

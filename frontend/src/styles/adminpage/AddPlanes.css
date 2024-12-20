@@ -1,0 +1,26 @@
+.add-planes-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.5rem;
+}
+
+.add-planes {
+  background-color: white;
+  margin: 2%;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+#id,
+#model,
+#seat-economy,
+#seat-business {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+
+.planes-input {
+  margin-bottom: 1rem;
+}

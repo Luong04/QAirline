@@ -4,6 +4,7 @@ const Booking = require('../entity/bookings');
 const Flight = require('../entity/flights');
 const Airport = require('../entity/airports');
 const SeatReservation = require('../entity/seats');
+const {updateStatistic} = require('./statisticServices');
 const { DATE } = require('sequelize');
 
 //tạo id vé
@@ -127,6 +128,8 @@ const cancelTicket = async (ticket_id) => {
                 { status: "available" },
                 { where: { seat_reservation_id: seat_reservation.seat_reservation_id } }
             );
+            const date = new Date();
+            await updateStatistic(date, true, ticket_id);
             return amount;
         } catch (error) {
             return "Internal Server Error";
@@ -163,6 +166,8 @@ const createTicket = async (ticket) => {
             { status: "reserved" },
             { where: { seat_reservation_id: seat_reservation.seat_reservation_id } }
         );
+        const date = new Date();
+        await updateStatistic(date, true, ticket_id);
         return newTicket; // Trả về ticket thay vì gửi response
     }
 

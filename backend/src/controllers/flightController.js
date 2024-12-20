@@ -34,6 +34,8 @@ const getAllFlight = async (req, res) => {
                 arrival_time: flightJSON.arrival_time,
                 duration: flightJSON.duration,
                 status: flightJSON.status,
+                true_price_economy: flightJSON.true_price_economy,
+                true_price_business: flightJSON.true_price_business
             };
         });
 
@@ -73,12 +75,15 @@ const getFlightByStatus = async (req, res) => {
 
 // Tạo mới chuyến bay
 const createFlight = async (req, res) => {
-    if (!req.session.authenticated) {
-        return res.status(403).json({ message: "Unauthorized" });
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader || authHeader !== "Bearer admin") {
+        return res.status(403).json({ message: "Unauthorized access" });
     }
 
     try {
-        const flightData = req.body;
+        const {flightData} = req.body;
+        console.log("asadsads:",flightData)
         await flightServices.createFlight(flightData);
         return res.status(201).json({ message: "Flight created successfully" });
     } catch (error) {
@@ -89,9 +94,13 @@ const createFlight = async (req, res) => {
 
 // Cập nhật chuyến bay
 const updateFlight = async (req, res) => {
-    if (!req.session.authenticated) {
-        return res.status(403).json({ message: "Unauthorized" });
+    console.log("goi duoc vo day roi");
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader || authHeader !== "Bearer admin") {
+        return res.status(403).json({ message: "Unauthorized access" });
     }
+
 
     try {
         const { id } = req.params;
@@ -106,9 +115,12 @@ const updateFlight = async (req, res) => {
 
 // Xóa chuyến bay
 const deleteFlight = async (req, res) => {
-    if (!req.session.authenticated) {
-        return res.status(403).json({ message: "Unauthorized" });
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader || authHeader !== "Bearer admin") {
+        return res.status(403).json({ message: "Unauthorized access" });
     }
+
 
     try {
         const { id } = req.params;
@@ -122,12 +134,15 @@ const deleteFlight = async (req, res) => {
 
 // Lấy tất cả chuyến bay (chỉ dành cho Admin)
 const getAllFlightAdmin = async (req, res) => {
-    if (!req.session.authenticated) {
-        return res.status(403).json({ message: "Unauthorized" });
+    const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    if (!authHeader || authHeader !== "Bearer admin") {
+        return res.status(403).json({ message: "Unauthorized access" });
     }
 
+
     try {
-        const flights = await flightServices.getAllFlightAdmin();
+        const flights = await flightServices.getAllFlights();
         return res.status(200).json(flights);
     } catch (error) {
         console.error("Error fetching all flights for admin:", error);
@@ -156,7 +171,7 @@ const findBasicFlight = async (req, res) => {
         if (!flight) {
             return res.status(404).json({ message: "Basic flight information not found" });
         }
-        
+
         return res.status(200).json(flight);
     } catch (error) {
         console.error("Error fetching basic flight information:", error);

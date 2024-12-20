@@ -1,0 +1,48 @@
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Lớp mờ */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.edit-flight {
+  background-color: white;
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  border: 1px solid orange;
+  padding: 1rem;
+  border-radius: 1rem;
+  pointer-events: auto;
+}
+
+.edit-flight-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 2rem;
+}
+
+.edit-flight-button {
+  padding: 0.5rem 1rem;
+  background-color: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+.cancel-flight-button {
+  padding: 0.5rem 1rem;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}

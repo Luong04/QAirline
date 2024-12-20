@@ -1,0 +1,10 @@
+.admin-news {
+  flex: 1;
+}
+
+.news-board {
+  margin: 2%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+}

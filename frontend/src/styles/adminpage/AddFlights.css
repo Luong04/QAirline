@@ -1,0 +1,50 @@
+.add-flights {
+  background-color: white;
+  margin: 2%;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.add-flights-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 2fr;
+}
+
+.flights-input {
+  margin-bottom: 1rem;
+}
+
+#flight-id,
+#plane-id,
+#from,
+#to,
+#departure,
+#arrival,
+#price-eco,
+#price-bus {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.suggestions-list {
+  position: absolute;
+  border: 1px solid #ccc;
+  background-color: white;
+  width: 178px;
+  max-height: 150px;
+  overflow-y: auto;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}

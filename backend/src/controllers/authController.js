@@ -14,10 +14,10 @@ const getLoginRequire = async (req, res) => {
     }
     if(data.status === 'success') {
         req.session.authenticated = true;
-        req.session.user = { username }; // Lưu thông tin người dùng trong session
+        req.session.user = { username, role: "admin" }; // Lưu thông tin người dùng trong session
         //gọi getAdminPage chỉ để test, sau này sẽ thay dòng trên thành dòng dưới
         //res.redirect('/admin')
-        return res.status(200).json({ message: 'Login successful'});
+        return res.status(200).json({ message: 'Login successful', role: "admin"});
     }    
 }
 

@@ -1,0 +1,10 @@
+.admin-flights {
+  flex: 1;
+}
+
+.flights-board {
+  background-color: white;
+  padding: 1rem;
+  margin: 2%;
+  border-radius: 1rem;
+}

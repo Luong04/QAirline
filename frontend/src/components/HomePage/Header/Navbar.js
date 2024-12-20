@@ -10,7 +10,7 @@ const Navbar = ({ toggleLogin }) => {
             <span ><Link to="/" className="navbar-text">TRANG CHỦ</Link></span>
             <span><Link to="/listflight" className="navbar-text">THÔNG TIN HÀNH TRÌNH</Link></span>
             <span><Link to="/checkticket" className="navbar-text">TRA CỨU VÉ</Link></span>
-            <span><Link className="navbar-text" onClick={toggleLogin}>ĐĂNG NHẬP</Link></span>
+            <span><Link to="#" className="navbar-text" onClick={toggleLogin}>ĐĂNG NHẬP</Link></span>
             <span className="navbar-text">☰</span>
         </nav>
     );

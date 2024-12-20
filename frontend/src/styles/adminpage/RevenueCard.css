@@ -1,0 +1,29 @@
+.revenue-card {
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-sizing: border-box;
+}
+
+.revenue-card-title {
+  margin: 0;
+}
+
+.revenue-card-revenue {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.revenue-card-growth {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.money-logo,
+.growth-logo {
+  height: 3rem;
+}

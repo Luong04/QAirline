@@ -13,25 +13,126 @@ const getFlightById = async (id) => {
 };
 
 const createFlight = async (flightData) => {
-    return await Flight.create(flightData);
-};  
+    try {
+        // Kiểm tra dữ liệu đầu vào
+        console.log("aaaaaaaaaaaaaaaaaaa : ", flightData);
+        if (!flightData.departure_airport_id || !flightData.arrival_airport_id) {
+            throw new Error("Thông tin sân bay không được để trống");
+        }
+
+        // Tìm kiếm thông tin sân bay
+        const departureAirport = await Airport.findOne({ where: { name: flightData.departure_airport_id } });
+        const arrivalAirport = await Airport.findOne({ where: { name: flightData.arrival_airport_id } });
+        console.log("aaaaasdasdsasadas:",arrivalAirport);
+        if (!departureAirport || !arrivalAirport) {
+            
+            throw new Error("Không tìm thấy thông tin sân bay");
+        }
+
+        // Tính toán thời gian bay (phút)
+        const departureTime = new Date(flightData.departure_time);
+        const arrivalTime = new Date(flightData.arrival_time);
+        const totalMinutes = Math.floor((arrivalTime - departureTime) / (1000 * 60)); // Thời gian bay tính bằng phút
+
+        if (totalMinutes <= 0) {
+            throw new Error("Thời gian đến phải sau thời gian khởi hành");
+        }
+
+        // Chuyển đổi tổng phút sang định dạng hh:mm:ss
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        const seconds = 0; // Nếu không có giây cụ thể
+        const duration = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        // Cập nhật lại dữ liệu chuyến bay
+        const updatedFlightData = {
+            ...flightData,
+            status: 'Scheduled',
+            departure_airport_id: departureAirport.airport_id, // Thay thế tên sân bay bằng ID
+            arrival_airport_id: arrivalAirport.airport_id,    // Thay thế tên sân bay bằng ID
+            duration: duration,                      // Thời lượng chuyến bay dưới dạng hh:mm:ss
+        };
+
+        // Lưu vào cơ sở dữ liệu
+        return await Flight.create(updatedFlightData);
+    } catch (error) {
+        console.error("Error creating flight:", error);
+        throw new Error("Không thể tạo chuyến bay: " + error.message);
+    }
+};
 
 const updateFlight = async (id, flightData) => {
-    const flight = await Flight.findByPk(id);
-    if (flight) {
-        return await flight.update(flightData);
+    try {
+        // Kiểm tra dữ liệu đầu vào
+        console.log("Cập nhật chuyến bay: ", flightData);
+        if (!flightData.departure_airport_id || !flightData.arrival_airport_id) {
+            throw new Error("Thông tin sân bay không được để trống");
+        }
+
+        // Tìm kiếm thông tin sân bay
+        const departureAirport = await Airport.findOne({ where: { name: flightData.departure_airport_id } });
+        const arrivalAirport = await Airport.findOne({ where: { name: flightData.arrival_airport_id } });
+        console.log("Thông tin sân bay đến: ", arrivalAirport);
+        if (!departureAirport || !arrivalAirport) {
+            throw new Error("Không tìm thấy thông tin sân bay");
+        }
+
+        // Tính toán thời gian bay (phút)
+        const departureTime = new Date(flightData.departure_time);
+        const arrivalTime = new Date(flightData.arrival_time);
+        const totalMinutes = Math.floor((arrivalTime - departureTime) / (1000 * 60)); // Thời gian bay tính bằng phút
+
+        if (totalMinutes <= 0) {
+            throw new Error("Thời gian đến phải sau thời gian khởi hành");
+        }
+
+        // Chuyển đổi tổng phút sang định dạng hh:mm:ss
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        const seconds = 0; // Nếu không có giây cụ thể
+        const duration = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        // Tìm chuyến bay theo ID
+        const flight = await Flight.findByPk(id);
+        if (!flight) {
+            throw new Error("Chuyến bay không tồn tại");
+        }
+
+        // Cập nhật lại dữ liệu chuyến bay
+        const updatedFlightData = {
+            ...flightData,
+            status: 'Scheduled',
+            departure_airport_id: departureAirport.airport_id, // Thay thế tên sân bay bằng ID
+            arrival_airport_id: arrivalAirport.airport_id,    // Thay thế tên sân bay bằng ID
+            duration: duration,                      // Thời lượng chuyến bay dưới dạng hh:mm:ss
+        };
+
+        // Cập nhật chuyến bay
+        await flight.update(updatedFlightData);
+        return flight;
+    } catch (error) {
+        console.error("Lỗi khi cập nhật chuyến bay:", error);
+        throw new Error("Không thể cập nhật chuyến bay: " + error.message);
     }
-    return null;
 };
 
 const deleteFlight = async (id) => {
-    const flight = await Flight.findByPk(id);
-    if (flight) {
+    try {
+        // Kiểm tra sự tồn tại của chuyến bay
+        const flight = await Flight.findByPk(id);
+        if (!flight) {
+            throw new Error("Chuyến bay không tồn tại");
+        }
+
+        // Xóa chuyến bay
         await flight.destroy();
         return true;
+    } catch (error) {
+        console.error("Lỗi khi xóa chuyến bay:", error);
+        throw new Error("Không thể xóa chuyến bay: " + error.message);
     }
-    return false;
 };
+
 
 const findFlight = async (params) => {
     const {
@@ -117,7 +218,7 @@ const findFlight = async (params) => {
     if (return_flights.length === 0) {
         throw new Error('Không tìm thấy chuyến bay đi');
     }
-    
+
     const returnFlights_ = return_flights.map(flight => flight.get());
     const returnFlights = returnFlights_.map((flight) => {
         return {
