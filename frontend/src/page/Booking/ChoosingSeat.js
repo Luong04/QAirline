@@ -12,7 +12,6 @@ const ChoosingSeat = () => {
   const [returnFlight, setReturnFlight] = useState(null);
   const [seatReservation, setSeatReservation] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [currentView, setCurrentView] = useState("go"); // "go" hoặc "return"
 
 
   const seatGoPrice = {
@@ -289,9 +288,9 @@ const ChoosingSeat = () => {
                   {selectedSeats.length}
                 </span>
               </h3>
-              <h3>Tổng cộng: {calculateTotal()} $</h3>
+              <h3>Tổng cộng: {calculateTotal().toFixed(3)} $</h3>
             </div>
-            <button onClick={() => navigate("/booking/infoClient", { state: { selectedSeats, total: calculateTotal(), goFlight, returnFlight } })} className="submit-button">
+            <button onClick={() => navigate("/booking/infoClient", { state: { selectedSeats, total: calculateTotal().toFixed(3), goFlight, returnFlight } })} className="submit-button">
               Tiếp tục
             </button>
           </section>

@@ -28,7 +28,7 @@
 
     .submit-btn {
       width: 13%;
-      margin-right:10%;
+      margin:2% 5%;
     }
 }
 
@@ -37,7 +37,7 @@
   
       .submit-btn {
         width: 20%;
-        margin-right:10%;
+        margin:2% 5%;
       }
   }
 }
@@ -68,6 +68,7 @@
 
     .submit-btn {
       width: 50%;
+      margin-top: 10px;
     }
   }
 

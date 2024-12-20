@@ -37,7 +37,7 @@ const ConfirmPayment = () => {
 
 
             {/* 3. Thêm TicketB và truyền các thông tin vé */}
-            <button type="submit" className="submit-btn" style={{padding: "1% 0", marginRight:"10%"}} onClick={handleCheckBooking}>XEM VÉ</button>
+            <button type="submit" className="submit-btn" style={{padding: "1% 0"}} onClick={handleCheckBooking}>XEM VÉ</button>
             <button type="submit" className="submit-btn" style={{padding: "1% 0"}} onClick={()=>{navigate('/')}}>VỀ TRANG CHỦ</button>
         </div >
     );

@@ -30,6 +30,10 @@
     align-items: center;
     margin-bottom: 30px;
     height: 200px;
+
+    h3 {
+      color: #046262;
+    }
 }
 
 
