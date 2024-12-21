@@ -2,10 +2,9 @@ import { React, useState, useEffect } from "react";
 import "./AdminHome.css";
 import RevenueCard from "../../components/adminpage/RevenueCard";
 import TicketCard from "../../components/adminpage/TicketCard";
-import RankTable from "../../components/adminpage/RankTable";
 import RevenueChart from "../../components/adminpage/RevenueChart";
 import TicketChart from "../../components/adminpage/TicketChart";
-import { use } from "react";
+import PieCard from "../../components/adminpage/PieCard";
 
 const AdminHome = () => {
   const [revenueMonth, setRevenueMonth] = useState(0);
@@ -38,8 +37,8 @@ const AdminHome = () => {
           <RevenueCard />
           <TicketCard />
         </div>
-        <div className="statistics-table">
-          <RankTable />
+        <div className="statistics-pie">
+          <PieCard successTicket={3000} cancelTicket={1000} />
         </div>
       </div>
       <div className="chart">

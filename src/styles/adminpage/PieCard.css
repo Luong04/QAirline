@@ -1,0 +1,27 @@
+.pie-card {
+  width: 100%;
+  display: flex;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  height: 100%;
+  justify-content: space-between;
+  gap: 5%;
+}
+
+.pie-card-info {
+  width: 100%;
+}
+
+.pie-card-title {
+  margin: 0;
+}
+
+.pie-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  width: 100%;
+}

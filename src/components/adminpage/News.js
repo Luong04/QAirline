@@ -28,15 +28,21 @@ const News = ({ news, onDelete, onEdit }) => {
     e.preventDefault();
     if (window.confirm("Bạn có chắc chắn muốn chỉnh sửa tin tức này?")) {
       const token = localStorage.getItem("role");
-      const res = await fetch(`http://localhost:8081/api/admin/editNotification`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({
-          notification_id: news.notification_id,
-          header: header,
-          content: content,
-        }),
-      });
+      const res = await fetch(
+        `http://localhost:8081/api/admin/editNotification`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            notification_id: news.notification_id,
+            header: header,
+            content: content,
+          }),
+        }
+      );
       if (res.status === 200) {
         onEdit({ ...news, header: header, content: content });
         alert("Chỉnh sửa tin tức thành công");
@@ -59,7 +65,7 @@ const News = ({ news, onDelete, onEdit }) => {
       <span style={{ color: "gray", fontSize: "1rem" }}>
         Ngày tạo: {formattedDate}
       </span>
-      {news.content.length > 100 ? (
+      {news.header.length > 100 ? (
         isExpanded ? (
           <p>
             {news.content}{" "}
