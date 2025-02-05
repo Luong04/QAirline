@@ -1,274 +1,247 @@
-const Flight = require('../entity/flights')
+const Flight = require('../entity/flights');
 const Plane = require('../entity/planes');
 const Airport = require('../entity/airports');
 const { Op } = require('sequelize');
 const moment = require('moment');
-const ECONOMY_PRICE = 1000000;
-const BUSINESS_PRICE = 3000000;
-const getAllFlightAdmin = async (req, res) => {
-    try {
-        const flights = await Flight.findAll(); // Lấy tất cả chuyến bay từ cơ sở dữ liệu
 
-        res.status(200).json(flights);
+const getAllFlights = async () => {
+    return await Flight.findAll();
+};
+
+const getFlightById = async (id) => {
+    return await Flight.findByPk(id);
+};
+
+const createFlight = async (flightData) => {
+    try {
+        // Kiểm tra dữ liệu đầu vào
+        console.log("aaaaaaaaaaaaaaaaaaa : ", flightData);
+        if (!flightData.departure_airport_id || !flightData.arrival_airport_id) {
+            throw new Error("Thông tin sân bay không được để trống");
+        }
+
+        // Tìm kiếm thông tin sân bay
+        const departureAirport = await Airport.findOne({ where: { name: flightData.departure_airport_id } });
+        const arrivalAirport = await Airport.findOne({ where: { name: flightData.arrival_airport_id } });
+        console.log("aaaaasdasdsasadas:",arrivalAirport);
+        if (!departureAirport || !arrivalAirport) {
+            
+            throw new Error("Không tìm thấy thông tin sân bay");
+        }
+
+        // Tính toán thời gian bay (phút)
+        const departureTime = new Date(flightData.departure_time);
+        const arrivalTime = new Date(flightData.arrival_time);
+        const totalMinutes = Math.floor((arrivalTime - departureTime) / (1000 * 60)); // Thời gian bay tính bằng phút
+
+        if (totalMinutes <= 0) {
+            throw new Error("Thời gian đến phải sau thời gian khởi hành");
+        }
+
+        // Chuyển đổi tổng phút sang định dạng hh:mm:ss
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        const seconds = 0; // Nếu không có giây cụ thể
+        const duration = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        // Cập nhật lại dữ liệu chuyến bay
+        const updatedFlightData = {
+            ...flightData,
+            status: 'Scheduled',
+            departure_airport_id: departureAirport.airport_id, // Thay thế tên sân bay bằng ID
+            arrival_airport_id: arrivalAirport.airport_id,    // Thay thế tên sân bay bằng ID
+            duration: duration,                      // Thời lượng chuyến bay dưới dạng hh:mm:ss
+        };
+
+        // Lưu vào cơ sở dữ liệu
+        return await Flight.create(updatedFlightData);
     } catch (error) {
-        console.error("Error fetching flights:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        console.error("Error creating flight:", error);
+        throw new Error("Không thể tạo chuyến bay: " + error.message);
     }
-}
+};
 
-const getFlightById = async (req, res) => {
-    const { id } = req.params;
+const updateFlight = async (id, flightData) => {
     try {
+        // Kiểm tra dữ liệu đầu vào
+        console.log("Cập nhật chuyến bay: ", flightData);
+        if (!flightData.departure_airport_id || !flightData.arrival_airport_id) {
+            throw new Error("Thông tin sân bay không được để trống");
+        }
+
+        // Tìm kiếm thông tin sân bay
+        const departureAirport = await Airport.findOne({ where: { name: flightData.departure_airport_id } });
+        const arrivalAirport = await Airport.findOne({ where: { name: flightData.arrival_airport_id } });
+        console.log("Thông tin sân bay đến: ", arrivalAirport);
+        if (!departureAirport || !arrivalAirport) {
+            throw new Error("Không tìm thấy thông tin sân bay");
+        }
+
+        // Tính toán thời gian bay (phút)
+        const departureTime = new Date(flightData.departure_time);
+        const arrivalTime = new Date(flightData.arrival_time);
+        const totalMinutes = Math.floor((arrivalTime - departureTime) / (1000 * 60)); // Thời gian bay tính bằng phút
+
+        if (totalMinutes <= 0) {
+            throw new Error("Thời gian đến phải sau thời gian khởi hành");
+        }
+
+        // Chuyển đổi tổng phút sang định dạng hh:mm:ss
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        const seconds = 0; // Nếu không có giây cụ thể
+        const duration = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        // Tìm chuyến bay theo ID
         const flight = await Flight.findByPk(id);
-        if (flight) {
-            res.status(200).json(flight);
-        } else {
-            res.status(404).json({ error: "Flight not found" });
+        if (!flight) {
+            throw new Error("Chuyến bay không tồn tại");
         }
+
+        // Cập nhật lại dữ liệu chuyến bay
+        const updatedFlightData = {
+            ...flightData,
+            status: 'Scheduled',
+            departure_airport_id: departureAirport.airport_id, // Thay thế tên sân bay bằng ID
+            arrival_airport_id: arrivalAirport.airport_id,    // Thay thế tên sân bay bằng ID
+            duration: duration,                      // Thời lượng chuyến bay dưới dạng hh:mm:ss
+        };
+
+        // Cập nhật chuyến bay
+        await flight.update(updatedFlightData);
+        return flight;
     } catch (error) {
-        console.error("Error fetching flight:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        console.error("Lỗi khi cập nhật chuyến bay:", error);
+        throw new Error("Không thể cập nhật chuyến bay: " + error.message);
     }
-}
+};
 
-const getAllFlight = async (req, res) => {
+const deleteFlight = async (id) => {
     try {
-        // Lấy tất cả chuyến bay
-        const flights = await Flight.findAll();
-        
-        if (!flights || flights.length === 0) {
-            return res.status(404).json({ error: "No flights found" });
+        // Kiểm tra sự tồn tại của chuyến bay
+        const flight = await Flight.findByPk(id);
+        if (!flight) {
+            throw new Error("Chuyến bay không tồn tại");
         }
 
-        // Lấy danh sách sân bay và hãng hàng không
-        const airports = await Airport.findAll({ attributes: ['airport_id', 'name'] });
-        const planes = await Plane.findAll({ attributes: ['plane_id', 'model'] });
-
-        // Tạo ánh xạ ID -> Tên
-        const airportMap = Object.fromEntries(
-            airports.map((airport) => [airport.airport_id, airport.name])
-        );
-
-        const planeMap = Object.fromEntries(
-            planes.map((plane) => [plane.plane_id, plane.model])
-        );
-
-        // Gắn tên vào các chuyến bay và loại bỏ các cột không cần thiết
-        const enrichedFlights = flights.map((flight) => {
-            const flightJSON = flight.toJSON(); // Chuyển đổi Sequelize instance thành object thuần
-            return {
-                flight_id: flightJSON.flight_id,
-                departure_airport: airportMap[flightJSON.departure_airport_id] || "Unknown Airport",
-                arrival_airport: airportMap[flightJSON.arrival_airport_id] || "Unknown Airport",
-                plane: planeMap[flightJSON.plane_id] || "Unknown Plane",
-                departure_time: flightJSON.departure_time,
-                arrival_time: flightJSON.arrival_time,
-                duration: flightJSON.duration,
-                status: flightJSON.status,
-            };
-        });
-
-        res.status(200).json(enrichedFlights);
+        // Xóa chuyến bay
+        await flight.destroy();
+        return true;
     } catch (error) {
-        console.error("Error fetching flights:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        console.error("Lỗi khi xóa chuyến bay:", error);
+        throw new Error("Không thể xóa chuyến bay: " + error.message);
     }
 };
 
 
-const getFlightByStatus = async (req, res) => {
-    const {status} = req.params;
-    try {
-        const flight = await Flight.findOne({ where: {status: status }});
-        if (flight) {
-            res.status(200).json(flight);
-        } else {
-            res.status(404).json({ error: "Flight not found" });
-        }
-    } catch (error) {
-        console.error("Error fetching flight:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-}
+const findFlight = async (params) => {
+    const {
+        departure_place, arrival_place, is_one_way, departure_date, return_date
+    } = params;
 
-const createFlight = async (req, res) => {
-    const { plane_id, departure_airport_id, arrival_airport_id, departure_time, arrival_time, duration, status } = req.body;
-    try {
-        const newFlight = await Flight.create({
-            plane_id,
-            departure_airport_id,
-            arrival_airport_id,
-            departure_time,
-            arrival_time,
-            duration,
-            status
-        });
-        res.status(201).json(newFlight);
-    } catch (error) {
-        console.error("Error creating flight:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-}
-
-const updateFlight = async (req, res) => {
-    const { id } = req.params;
-    const { plane_id, departure_airport_id, arrival_airport_id, departure_time, arrival_time, duration, status } = req.body;
-
-    try {
-        const flight = await Flight.findByPk(id);
-        if (flight) {
-            await flight.update({
-                plane_id,
-                departure_airport_id,
-                arrival_airport_id,
-                departure_time,
-                arrival_time,
-                duration,
-                status
-            });
-            res.status(200).json(flight);
-        } else {
-            res.status(404).json({ error: "Flight not found" });
-        }
-    } catch (error) {
-        console.error("Error updating flight:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-}
-
-const deleteFlight = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const flight = await Flight.findByPk(id);
-        if (flight) {
-            await flight.destroy();
-            res.status(200).json({ message: "Flight deleted successfully" });
-        } else {
-            res.status(404).json({ error: "Flight not found" });
-        }
-    } catch (error) {
-        console.error("Error deleting flight:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-}
-
-const findFlight = async (req, res) => {
-    const { departure_place, arrival_place, is_one_way, departure_date, comeback_date, numberTicket, typeTicket } = req.body;
-
-    // Tìm sân bay
     const departure_airport = await Airport.findOne({ where: { name: departure_place } });
     const arrival_airport = await Airport.findOne({ where: { name: arrival_place } });
 
     if (!departure_airport || !arrival_airport) {
-        return res.status(404).json({ message: 'Không tìm thấy sân bay' });
+        throw new Error('Không tìm thấy sân bay');
     }
 
-    // Định dạng và kiểm tra ngày đi
-    const formattedDate = moment(departure_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
-    if (!moment(formattedDate, 'YYYY-MM-DD', true).isValid()) {
-        return res.status(400).json({ message: 'Ngày đi không hợp lệ' });
+    const formattedDepartureDate = moment(departure_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
+    if (!moment(formattedDepartureDate, 'YYYY-MM-DD', true).isValid()) {
+        throw new Error('Ngày đi không hợp lệ');
     }
 
-    // Tìm chuyến bay đi (departure)
-    const foundFlight = await Flight.findAll({
+    const startOfDay = moment(formattedDepartureDate).startOf('day').utc().add(7, 'hours');
+    const endOfDay = moment(formattedDepartureDate).endOf('day').utc().add(7, 'hours');
+
+    const found_flights = await Flight.findAll({
         where: {
             departure_airport_id: departure_airport.airport_id,
             arrival_airport_id: arrival_airport.airport_id,
             departure_time: {
-                [Op.gte]: `${formattedDate} 00:00:00`,
-                [Op.lt]: `${formattedDate} 23:59:59`
+                [Op.gte]: startOfDay.toDate(),
+                [Op.lte]: endOfDay.toDate()
             }
         }
     });
 
-    if (foundFlight.length === 0) {
-        return res.status(404).json({ message: 'Không tìm thấy chuyến bay đi' });
-    }
+    const foundFlights_ = found_flights.map(flight => flight.get());
 
+    if (foundFlights_.length === 0) {
+        throw new Error('Không tìm thấy chuyến bay đi');
+    }
+    const airports = await Airport.findAll({ attributes: ['airport_id', 'code'] });
+    const airportMap = Object.fromEntries(
+        airports.map((airport) => [airport.airport_id, airport.code])
+    );
+    // Gắn tên vào các chuyến bay và loại bỏ các cột không cần thiết
+    const foundFlights = foundFlights_.map((flight) => {
+        return {
+            flight_id: flight.flight_id,
+            plane_id: flight.plane_id,
+            departure_code: airportMap[flight.departure_airport_id] || "Unknown Airport",
+            arrival_code: airportMap[flight.arrival_airport_id] || "Unknown Airport",
+            departure_time: flight.departure_time,
+            arrival_time: flight.arrival_time,
+            duration: flight.duration,
+            status: flight.status,
+            true_price_economy: flight.true_price_economy,
+            true_price_business: flight.true_price_business
+        };
+    });
     if (is_one_way === "true") {
-        const result = await Promise.all(foundFlight.map(async (flight) => {
-            const plane = await Plane.findByPk(flight.plane_id);
-            return {
-                flight_id: flight.flight_id,
-                departure_code: departure_airport.code,
-                arrival_code: arrival_airport.code,
-                departure_time: flight.departure_time,
-                arrival_time: flight.arrival_time,
-                plane: plane.model,
-                duration_time: flight.duration,
-                economy_price: 1000000, // Giá vé kinh tế giả định
-                business_price: 3000000, // Giá vé hạng thương gia giả định
-                number_ticket: numberTicket, // Số lượng vé
-                type_ticket: typeTicket // Loại vé (economy hoặc business)
-            };
-        }));
-        return res.status(200).json(result);
+        // Tạo ánh xạ ID -> Tên
+
+        return foundFlights;
     }
 
-    // Xử lý chuyến bay khứ hồi (comeback)
-    if (comeback_date !== "") {
-        const formattedComebackDate = moment(comeback_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
-        if (!moment(formattedComebackDate, 'YYYY-MM-DD', true).isValid()) {
-            return res.status(400).json({ message: 'Ngày khứ hồi không hợp lệ' });
-        }
+    // Handle return flights
+    const formattedReturnDate = moment(return_date, 'YYYY-MM-DD', true).format('YYYY-MM-DD');
+    if (!moment(formattedReturnDate, 'YYYY-MM-DD', true).isValid()) {
+        throw new Error('Ngày khứ hồi không hợp lệ');
+    }
 
-        // Tìm chuyến bay về (comeback)
-        const returnFlight = await Flight.findAll({
-            where: {
-                departure_airport_id: arrival_airport.airport_id,
-                arrival_airport_id: departure_airport.airport_id,
-                departure_time: {
-                    [Op.gte]: `${formattedComebackDate} 00:00:00`,
-                    [Op.lt]: `${formattedComebackDate} 23:59:59`
-                }
+    const startOfReturnDay = moment(formattedReturnDate).startOf('day').utc().add(7, 'hours');
+    const endOfReturnDay = moment(formattedReturnDate).endOf('day').utc().add(7, 'hours');
+
+    const return_flights = await Flight.findAll({
+        where: {
+            departure_airport_id: arrival_airport.airport_id,
+            arrival_airport_id: departure_airport.airport_id,
+            departure_time: {
+                [Op.gte]: startOfReturnDay.toDate(),
+                [Op.lte]: endOfReturnDay.toDate()
             }
-        });
-
-        if (returnFlight.length === 0) {
-            return res.status(404).json({ message: 'Không tìm thấy chuyến bay khứ hồi' });
         }
+    });
 
-        // Nếu tìm thấy chuyến bay đi và về
-        const go_result = await Promise.all(foundFlight.map(async (flight) => {
-            const plane = await Plane.findByPk(flight.plane_id);
-            return {
-                flight_id: flight.flight_id,
-                departure_code: departure_airport.code,
-                arrival_code: arrival_airport.code,
-                departure_time: flight.departure_time,
-                arrival_time: flight.arrival_time,
-                plane: plane.model,
-                duration_time: flight.duration,
-                economy_price: 1000000,
-                business_price: 3000000,
-                number_ticket: numberTicket,
-                type_ticket: typeTicket
-            };
-        }));
-
-        const comeback_result = await Promise.all(returnFlight.map(async (flight) => {
-            const plane = await Plane.findByPk(flight.plane_id);
-            return {
-                flight_id: flight.flight_id,
-                departure_code: arrival_airport.code,
-                arrival_code: departure_airport.code,
-                departure_time: flight.departure_time,
-                arrival_time: flight.arrival_time,
-                plane: plane.model,
-                duration_time: flight.duration,
-                economy_price: ECONOMY_PRICE,
-                business_price: BUSINESS_PRICE,
-                number_ticket: numberTicket,
-                type_ticket: typeTicket
-            };
-        }));
-        return res.status(200).json({ goInfo: go_result, comebackInfo: comeback_result });
+    if (return_flights.length === 0) {
+        throw new Error('Không tìm thấy chuyến bay đi');
     }
-    // Trường hợp không có chuyến bay về và không phải là chuyến bay một chiều
-    return res.status(400).json({ message: 'Yêu cầu không hợp lệ' });
+
+    const returnFlights_ = return_flights.map(flight => flight.get());
+    const returnFlights = returnFlights_.map((flight) => {
+        return {
+            flight_id: flight.flight_id,
+            plane_id: flight.plane_id,
+            departure_code: airportMap[flight.departure_airport_id] || "Unknown Airport",
+            arrival_code: airportMap[flight.arrival_airport_id] || "Unknown Airport",
+            departure_time: flight.departure_time,
+            arrival_time: flight.arrival_time,
+            duration: flight.duration,
+            status: flight.status,
+            true_price_economy: flight.true_price_economy,
+            true_price_business: flight.true_price_business
+        };
+    });
+    return { foundFlights, returnFlights };
 };
 
-
 module.exports = {
-    getAllFlight, getFlightById, getFlightByStatus, createFlight, updateFlight, deleteFlight, getAllFlightAdmin, findFlight
-}
+    getAllFlights,
+    getFlightById,
+    createFlight,
+    updateFlight,
+    deleteFlight,
+    findFlight
+};

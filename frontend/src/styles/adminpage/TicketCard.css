@@ -1,0 +1,28 @@
+.ticket-card {
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-sizing: border-box;
+}
+
+.ticket-card-title {
+  margin: 0;
+}
+
+.ticket-card-number {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.ticket-card-growth {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticket-logo {
+  height: 3rem;
+}

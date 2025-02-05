@@ -1,0 +1,406 @@
+.choosing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 0;
+}
+
+.header-choosing {
+  text-align: center;
+  color: green;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 20px;
+  padding-top: 10px;
+  display: flex;
+}
+
+.header-choosing p {
+  font-size: 15px;
+  margin: 6px auto;
+}
+
+.circle-button {
+  width: 50px; /* Đặt kích thước nút */
+  height: 50px;
+  border-radius: 50%; /* Tạo hình tròn */
+  background-color: #e8ac2d; /* Màu nền (xanh lá cây) */
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.circle-button:hover {
+  background-color: #f8c427; /* Màu khi hover */
+  transform: scale(1.1); /* Tăng kích thước khi hover */
+}
+
+.arrow {
+  color: white; /* Màu của mũi tên */
+  font-size: 24px; /* Kích thước chữ */
+  font-weight: bold;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.seat-map {
+  width: 60%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  padding: 0 80px;
+}
+
+.legend span {
+  width: 200px;
+  display: flex;
+}
+
+.legend .box {
+  width: 20px;
+  height: 25px;
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 10px 10px 0 0;
+  /* Cạnh trên bo tròn */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Hiệu ứng nổi */
+  position: relative;
+}
+
+/* Phần đế ghế (chân) */
+.legend .box::after {
+  content: "";
+  width: 15px;
+  height: 5px;
+  background-color: #ccc;
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+.legend .businessEmpty {
+  background-color: #ffe4b2;
+  /* Màu vàng nhạt */
+  border-color: gold;
+}
+
+.legend .economyEmpty {
+  background-color: #d0eaff;
+  /* Màu xanh nhạt */
+  border-color: blue;
+}
+
+.legend .businessSelected {
+  background-color: #6dcf6d;
+  border: 2px solid gold;
+}
+
+.legend .economySelected {
+  background-color: #6dcf6d;
+  border: 2px solid blue;
+}
+
+.legend .booked {
+  background-color: #ed4a41;
+}
+
+.info {
+  width: 35%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  height: 100%;
+  position: sticky;
+  top: 10px;
+}
+
+.info button {
+  width: 30%;
+  margin-top: 3%;
+  padding: 3%;
+  background-color: #238575;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.info button:hover {
+  background-color: #046262;
+}
+
+/* Kiểu dáng ghế */
+.seat {
+  width: 50px;
+  height: 60px;
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 10px 10px 0 0;
+  /* Cạnh trên bo tròn */
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Hiệu ứng nổi */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Phần đế ghế (chân) */
+.seat::after {
+  content: "";
+  width: 30px;
+  height: 8px;
+  background-color: #ccc;
+  position: absolute;
+  bottom: -8px;
+  /* Đặt dưới ghế */
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+
+
+/* Thân máy bay */
+.plane-body {
+  width: 80%;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #f2f2f2, #e6e6e6);
+  border-radius: 50px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Tường cong hai bên */
+.plane-body::before,
+.plane-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  background: linear-gradient(to bottom, #d9d9d9, #f2f2f2);
+  border-radius: 25px;
+  z-index: -1;
+}
+
+.plane-body::before {
+  left: -50px;
+}
+
+.plane-body::after {
+  right: -50px;
+}
+
+/* Hàng ghế */
+.plane-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Nhóm ghế bên trái và bên phải */
+.seat-group {
+  display: flex;
+  gap: 10px;
+  /* Khoảng cách giữa các ghế */
+}
+
+.seat-group.left {
+  justify-content: flex-end;
+  width: 45%;
+  /* Chiếm 45% chiều rộng */
+}
+
+.seat-group.right {
+  justify-content: flex-start;
+  width: 45%;
+}
+
+/* Lối đi giữa */
+.aisle {
+  width: 10%;
+  /* Khoảng cách giữa hai nhóm ghế */
+}
+
+.seat.Business {
+  background-color: #ffe4b2;
+  /* Màu vàng nhạt */
+  border-color: gold;
+}
+
+.seat.Economy {
+  background-color: #d0eaff;
+  /* Màu xanh nhạt */
+  border-color: blue;
+}
+
+.seat.selected {
+  background-color: #6dcf6d;
+  color: white;
+}
+
+.seat.booked {
+  background-color: #ed4a41; /* Màu đỏ nhạt */
+  cursor: not-allowed; /* Không cho phép click */
+}
+
+/* Hiệu ứng hover */
+.seat:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container-price {
+  background-color: #ccc;
+  border-radius: 15px;
+  border: 1px solid #046262;
+  text-align: center;
+  width: 50%;
+  font-weight: bold;
+}
+
+.info .row-price {
+  display: flex;
+  gap: 20px;
+}
+
+.info-goFlight {
+  background-color: #cef4eed5;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1150px) {
+  .seat-map {
+    font-size: 10px;
+  }
+}
+
+/* Tổng quát cho màn hình nhỏ hơn 768px */
+@media (max-width: 768px) {
+  .choosing-container {
+    padding: 10px;
+  }
+
+  .header-choosing {
+    font-size: 18px;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .circle-button {
+    margin-left: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .main-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .seat-map,
+  .info {
+    width: 100%;
+  }
+
+
+
+  .legend {
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+  }
+
+  .legend span {
+    width: auto;
+  }
+
+  .info button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .plane-body {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .seat {
+    width: 40px;
+    height: 50px;
+  }
+
+  .container-price {
+    width: 100%;
+  }
+
+  .info-goFlight {
+    font-size: 14px;
+    padding: 15px;
+  }
+}
+
+/* Tổng quát cho màn hình nhỏ hơn 480px */
+@media (max-width: 480px) {
+  .header-choosing {
+    font-size: 16px;
+    padding: 5px 0;
+  }
+
+  .circle-button {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .seat {
+    width: 35px;
+    height: 40px;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 10px;
+  }
+
+  .info-goFlight {
+    font-size: 12px;
+  }
+}

@@ -2,7 +2,7 @@
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 20px;
-    width: 100%;
+    width: 98%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .options {
@@ -10,20 +10,22 @@
     margin-bottom: 20px;
 }
 .options label {
-    margin-left: 30px;
+    margin-left: 3%;
     font-weight: bold;
 }
 .options input[type="radio"] {
-    margin-right: 5px;
+    margin-right: 20px;
+    width: 15px;
+    height: 15px;
 }
 
 
 .container-route {
-    border: 3px solid #e1a21b;
+    border: 3px solid #046262;
     padding: 20px;
     width: 90%;
     height: 90px;
-    margin: 0px 10px 0px 30px;
+    margin: 0px auto;
     border-radius: 8px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -33,7 +35,7 @@
 
 .infor-left {
     grid-column: 1;
-    border-right: 2px solid #e1a21b;
+    border-right: 2px solid #046262;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 30px;
@@ -69,22 +71,22 @@
     max-width: 200px;
 }
 .btn-search {
-    padding: 30px 10px 5px 50px;
-    color: #e1a21b;
-    border: 2px solid #e1a21b ;
-    border-radius: 4px;
+    color: #046262;
+    border: 2px solid #046262 ;
+    border-radius: 20px;
     cursor: pointer;
-    text-align: center;
+    align-items: center;
     font-size: 18px;
     font-weight: bold;
     display: flex;
-    width: 180px;
-    height: 80px;
-    margin-left: 40px;
     background-color: #fff;
+    padding: 0 30%;
+    height: 90%;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Hiệu ứng chuyển đổi */
 }
 .btn-search:hover {
-    background-color: #f6e9cc;
+    background-color: #046262;
+    color: #fff;
 }
 
 
@@ -99,3 +101,41 @@
   .data-picker1 {
     width: 50px;
   }
+
+  @media (max-width: 768px) {
+    .container-route {
+        height: auto; /* Tự động điều chỉnh chiều cao */
+        padding: 10px;
+    }
+
+    .infor-left {
+        border-right: none; /* Bỏ đường viền khi màn hình nhỏ */
+        padding-right: 0;
+    }
+
+    .btn-search {
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+        font-size: 16px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-infor {
+        padding: 10px; /* Giảm padding cho màn hình nhỏ */
+    }
+
+    .options {
+        gap: 5px; /* Giảm khoảng cách */
+    }
+
+    .btn-search {
+        font-size: 14px; /* Giảm kích thước font */
+    }
+
+    .date-picker1 {
+        max-width: 200px; /* Giới hạn nhỏ hơn nữa */
+    }
+}
+
+  

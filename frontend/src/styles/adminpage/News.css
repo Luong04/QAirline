@@ -1,0 +1,36 @@
+.news {
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid orange;
+}
+
+.tag {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.tag:hover {
+  text-decoration: underline;
+}
+
+.btn {
+  cursor: pointer;
+  width: 50%;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  border: none;
+  font-size: inherit;
+}
+
+.btn:hover {
+  background-color: rgb(210, 210, 210);
+}
+
+.btn:active {
+  background-color: rgb(200, 200, 200);
+}

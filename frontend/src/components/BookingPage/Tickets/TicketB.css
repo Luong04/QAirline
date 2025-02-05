@@ -1,0 +1,183 @@
+.ticket-container {
+    display: flex; /* Flexbox để chia tỷ lệ */
+    width: 750px; /* Chiều rộng tổng */
+    height: 250px; /* Chiều cao tổng */
+    border: 2px solid #ddd; /* Viền container */
+    border-radius: 10px; /* Góc bo tròn */
+    background-color: #fff; /* Nền trắng */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    overflow: hidden; /* Ngăn nội dung tràn ra ngoài */
+    margin: 50px auto; /* Canh giữa container */
+  }
+  
+  .left-ticket {
+    width: 70%; /* Chiếm 70% chiều ngang */
+    background-color: #f0f0f0; /* Màu nền của left-ticket */
+    display: flex; /* Flexbox cho nội dung bên trong */
+    flex-direction: column; /* Sắp xếp nội dung theo cột */
+    border-right: 1px dashed white;
+  }
+  
+  .right-ticket {
+    width: 30%; /* Chiếm 30% chiều ngang */
+    background-color: #f0f0f0; /* Màu nền của right-ticket */
+    display: flex; /* Flexbox cho nội dung bên trong */
+    flex-direction: column; /* Sắp xếp nội dung theo cột */
+    align-items: center; /* Căn giữa nội dung theo chiều ngang */
+    border-left: 1px dashed white;
+    text-align: left;
+  }
+  
+  .header-ticket {
+    display: flex;
+    width: 100%; /* Chiều rộng full */
+    text-align: left; /* Canh giữa nội dung */
+    font-size: 18px; /* Kích thước chữ */
+    font-weight: bold; /* Đậm chữ */
+    background-color: rgb(57, 193, 161); /* Màu nền header */
+    color: #fff; /* Màu chữ */
+    border-bottom: 2px solid #ddd; /* Đường viền dưới header */
+    padding: 15px 0 15px 0;
+  }
+  
+  .header-ticket span {
+    float: right;
+  }
+
+  .body-ticket {
+    padding: 10px 20px;
+    background: #f0f0f0;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .left-ticket .body-ticket{
+    background-image: url("../../../assets/image/plane.png");
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại */
+    background-size: 220px;
+
+  }
+
+  .row-ticket {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .content-ticket {
+    flex: 1;
+    margin: 0 10px;
+    text-align: left;
+  }
+  
+  .content-ticket span {
+    display: block;
+    font-size: 14px;
+    color: #888;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .content-ticket {
+    font-size: 16px;
+    color: #333;  
+  }
+  
+  
+  
+  .content-ticket1 {
+    font-size: 16px;
+    color: #333; 
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .content-ticket1 span {
+    font-size: 14px;
+    color: #888;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-right: 50px;
+  }
+  .body-ticket .row-ticket:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Tạo viền ngăn cách giữa các hàng */
+  .row-ticket:not(:last-child) {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+
+  /* Màn hình nhỏ hơn 768px */
+@media (max-width: 900px) {
+  .ticket-container {
+    width: 90%; /* Chiếm 90% chiều ngang màn hình */
+    height: 150; /* Chiều cao tự động */
+    margin: 20px auto;
+  }
+
+  .left-ticket .body-ticket{
+    background-image: url("../../../assets/image/plane.png");
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại */
+    background-size: 200px;
+
+  }
+
+  .right-ticket {
+    display: none;
+  }
+
+  .left-ticket {
+    width: 100%;
+  }
+
+  .header-ticket {
+    font-size: 16px; /* Nhỏ hơn trên màn hình nhỏ */
+    padding: 10px 0;
+  }
+
+  .body-ticket {
+    padding: 10px;
+  }
+
+  .row-ticket {
+    gap: 10px; /* Thêm khoảng cách giữa các dòng */
+  }
+
+  .content-ticket span, .content-ticket1 span {
+    font-size: 12px; /* Kích thước chữ nhỏ hơn */
+  }
+}
+
+/* Màn hình nhỏ hơn 480px */
+@media (max-width: 480px) {
+  .header-ticket {
+    font-size: 14px; /* Chữ nhỏ hơn trên điện thoại */
+    padding: 8px 0;
+  }
+
+  .left-ticket .body-ticket{
+    background-image: url("../../../assets/image/plane.png");
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại */
+    background-size: 150px;
+
+  }
+
+  .content-ticket, .content-ticket1 {
+    font-size: 14px;
+  }
+
+  .content-ticket span, .content-ticket1 span {
+    font-size: 12px;
+  }
+
+  .ticket-container {
+    width: 90%; /* Chiếm 90% chiều ngang màn hình */
+    height:250px; /* Chiều cao tự động */
+    margin: 20px auto;
+  }
+}
+
+  

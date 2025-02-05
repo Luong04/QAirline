@@ -1,0 +1,160 @@
+.notification-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header-notification h2 {
+    padding: 15px;
+    text-align: left;
+    color: #046262;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.notification-slide {
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.notification-item.active {
+    left: 0;
+    opacity: 1;
+}
+
+.notification-image {
+    flex-shrink: 0;
+    width: 40%;
+    height: 300px;
+    margin: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.notification-content {
+    padding: 10px;
+    color: black;
+    text-align: center;
+}
+
+.notification-content h3 {
+    margin: 0 auto;
+    font-size: 20px;
+    color: #046262;
+    align-items: left;
+}
+
+.notification-content p {
+    margin: 20px 0 0;
+    font-size: 18px;
+}
+
+/* Kích thước lớn hơn 1024px */
+@media screen and (min-width: 1024px) {
+    .notification-container {
+      width: 80%; /* Thu hẹp trên màn hình lớn */
+    }
+  }
+  
+  /* Kích thước nhỏ hơn 1024px */
+  @media screen and (max-width: 1024px) {
+    .notification-container {
+      width: 90%; /* Mở rộng cho màn hình nhỏ hơn */
+    }
+  
+    .header-notification h2 {
+      font-size: 24px; /* Giảm kích thước tiêu đề */
+    }
+  
+    .notification-slide {
+      height: 250px; /* Giảm chiều cao */
+    }
+  
+    .notification-image {
+      width: 35%; /* Giảm kích thước ảnh */
+      height: 250px;
+    }
+  
+    .notification-content h3 {
+      font-size: 18px; /* Giảm kích thước tiêu đề thông báo */
+    }
+  
+    .notification-content p {
+      font-size: 16px; /* Giảm kích thước nội dung */
+    }
+  }
+  
+  /* Kích thước nhỏ hơn 768px */
+  @media screen and (max-width: 768px) {
+    .header-notification h2 {
+      font-size: 20px; /* Giảm kích thước tiêu đề */
+      text-align: center; /* Căn giữa cho màn hình nhỏ */
+    }
+  
+    .notification-slide {
+      height: 200px; /* Giảm chiều cao */
+    }
+  
+    .notification-image {
+      width: 30%; /* Ảnh chiếm toàn bộ chiều rộng */
+      height: 200px; /* Giảm chiều cao */
+    }
+  
+    .notification-content {
+      padding: 5px; /* Giảm padding */
+    }
+  
+    .notification-content h3 {
+      font-size: 16px; /* Giảm kích thước tiêu đề */
+    }
+  
+    .notification-content p {
+      font-size: 14px; /* Giảm kích thước nội dung */
+    }
+  }
+  
+  /* Kích thước nhỏ hơn 480px */
+  @media screen and (max-width: 480px) {
+    .notification-container {
+      width: 95%;
+    }
+  
+    .header-notification h2 {
+      font-size: 18px;
+    }
+  
+    .notification-slide {
+      height: 180px;
+      padding: 5px;
+    }
+  
+    .notification-image {
+      height: 120px; /* Thu nhỏ ảnh */
+      margin: 5px;
+    }
+  
+    .notification-content h3 {
+      font-size: 14px;
+    }
+  
+    .notification-content p {
+      font-size: 12px;
+      margin: 10px 0 0;
+    }
+  }
+  

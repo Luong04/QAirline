@@ -2,7 +2,9 @@ const Ticket = require('../entity/tickets');
 const Customer = require('../entity/customers');
 const Booking = require('../entity/bookings');
 const Flight = require('../entity/flights');
+const Airport = require('../entity/airports');
 const SeatReservation = require('../entity/seats');
+const {updateStatistic} = require('./statisticServices');
 const { DATE } = require('sequelize');
 
 //tạo id vé
@@ -26,73 +28,96 @@ function generateTicketID() {
 }
 
 
-const getTicketbyForm = async (req, res) => {
+const getTicketById = async (ticket_id) => {
     try {
-        const { ticket_id, email, phone } = req.body;
-
+        console.log("goi duoc den day");
         // Kiểm tra và tìm ticket
         const ticket = await Ticket.findByPk(ticket_id);
+        console.log(ticket);
         if (!ticket) {
-            return res.status(404).json({ error: "Ticket not found" });
+            console.log("booking not found");
+            return "Ticket not found";
         }
 
         // Tìm customer liên quan
         const customer = await Customer.findByPk(ticket.customer_id);
         if (!customer) {
-            return res.status(404).json({ error: "Customer not found" });
+            console.log("customer not found");
+            return "Customer not found";
         }
 
         // Tìm booking liên quan
         const booking = await Booking.findByPk(ticket.booking_id);
         if (!booking) {
-            return res.status(404).json({ error: "Booking not found" });
+            console.log("booking not found");
+            return "Booking not found";
         }
 
-        // Kiểm tra email và phone khớp
-        if (email !== customer.email || phone !== customer.phone) {
-            return res.status(400).json({ error: "Invalid email or phone" });
-        }
+        const passenger = await Customer.findByPk(ticket.customer_id);
+        const flight = await Flight.findByPk(ticket.flight_id);
+        const dairport = await Airport.findByPk(flight.departure_airport_id);
+        const aairport = await Airport.findByPk(flight.arrival_airport_id);
+        // Tách ngày (date)
+        let ddate = flight.departure_time.toISOString().split('T')[0];  // Lấy phần ngày từ ISO string (yyyy-mm-dd)
 
-        // Kết hợp dữ liệu để trả về
-        const enrichedTicket = {
-            ticket_id: ticket.ticket_id,
-            customer_name: `${customer.first_name} ${customer.last_name}`,
-            email: customer.email,
-            booking_date: booking.booking_date,
+        // Tách giờ (time)
+        let dtime = flight.departure_time.toISOString().split('T')[1].split('.')[0];
+        // Tách ngày (date)
+        let adate = flight.arrival_time.toISOString().split('T')[0];  // Lấy phần ngày từ ISO string (yyyy-mm-dd)
+
+        // Tách giờ (time)
+        let atime = flight.arrival_time.toISOString().split('T')[1].split('.')[0];
+        console.log("van song");
+        const ticketInfo = {
+            ticketCode: ticket.ticket_id,
+            name: `${passenger.first_name} ${passenger.last_name}`,
+            seat: ticket.seat_number,
+            classType: ticket.class,
             price: ticket.price,
+            departure: `${dairport.name}`,
+            destination: `${aairport.name}`,
+            departureTime: `${dtime} ${ddate}`,
+            arrivalTime: `${atime} ${adate}`,
         };
+        console.log(ticketInfo);
 
-        res.status(200).json(enrichedTicket);
+        return ticketInfo;
     } catch (error) {
-        console.error("Error retrieving ticket:", error);
-        res.status(500).json({ error: "Internal server error" });
+        return "Error retrieving ticket";
     }
 };
 
 // TEST API
-const cancelTicket = async (req, res)=> {
-    const {ticket_id} = req.body;
+const cancelTicket = async (ticket_id) => {
     const ticket = await Ticket.findByPk(ticket_id);
     const booking_id = ticket.booking_id;
     const booking = await Booking.findByPk(booking_id);
     const flight_id = ticket.flight_id;
     const flight = await Flight.findByPk(flight_id);
     const flight_date = flight.departure_time;
-    const expire_date = new Date(flight_date.getTime() - 3*24*60*60*1000);
+    const expire_date = new Date(flight_date.getTime() - 24 * 60 * 60 * 1000);
+    const expire_date1 = new Date(flight_date.getTime() - 3 * 24 * 60 * 60 * 1000);
+
     const current_date = new Date();
     const seat_reservation = await SeatReservation.findOne({
         where: {
             seat_number: ticket.seat_number,
-            flight_id, 
+            flight_id,
         }
     });
-    if(expire_date <= current_date ){
-        console.log("Huỷ vé thất bại do quá hạn");
-        res.status(400).json({
-            success: false,
-            message: "Không thể hủy vé vì đã vượt qua thời hạn cho phép hủy trước giờ khởi hành."
-        });
+    let amount;
+    if (expire_date1 >= current_date) {
+        console.log("Huỷ vé và nhận lại 80% số tiền vé lúc đặt");
+        amount = 0.8
+    }
+    else if (expire_date1 <= current_date && current_date <= expire_date) {
+        console.log("Huỷ vé và nhận lại 50% số tiền vé lúc đặt");
+        amount = 0.5
     } else {
+        console.log("Không thể hủy vé vì quá hạn");
+        return "Yêu cầu hủy vé không thành công do quá hạn.";
+    }
+    if (current_date <= expire_date) {
         try {
             await Ticket.destroy({
                 where: {
@@ -101,16 +126,13 @@ const cancelTicket = async (req, res)=> {
             });
             await SeatReservation.update(
                 { status: "available" },
-                { where: {seat_reservation_id: seat_reservation.seat_reservation_id} }
+                { where: { seat_reservation_id: seat_reservation.seat_reservation_id } }
             );
-            res.status(200).json({
-                success: true,
-                message: "Bạn đã hủy vé thành công"
-            })
-        } catch(error) {
-            res.status(500).json({
-                error: "Internal Server Error"
-            })
+            const date = new Date();
+            await updateStatistic(date, true, ticket_id);
+            return amount;
+        } catch (error) {
+            return "Internal Server Error";
         }
     }
 }
@@ -119,15 +141,15 @@ const cancelTicket = async (req, res)=> {
 const createTicket = async (ticket) => {
     const ticket_id = generateTicketID();
     const booking_id = ticket.booking_id;
-    const customer_id  = ticket.customer_id;
+    const customer_id = ticket.customer_id;
     const flight_id = ticket.flight_id;
     const seat_number = ticket.seat_number;
-    const type = ticket.class; 
+    const type = ticket.class;
     const price = ticket.price;
     const seat_reservation = await SeatReservation.findOne({
         where: {
             seat_number: ticket.seat_number,
-            flight_id, 
+            flight_id,
         }
     });
     const newTicket = await Ticket.create({
@@ -136,14 +158,16 @@ const createTicket = async (ticket) => {
         customer_id,
         flight_id,
         seat_number,
-        class: type, 
+        class: type,
         price
     })
     if (newTicket) {
         await SeatReservation.update(
             { status: "reserved" },
-            { where: {seat_reservation_id: seat_reservation.seat_reservation_id} }
+            { where: { seat_reservation_id: seat_reservation.seat_reservation_id } }
         );
+        const date = new Date();
+        await updateStatistic(date, true, ticket_id);
         return newTicket; // Trả về ticket thay vì gửi response
     }
 
@@ -151,5 +175,5 @@ const createTicket = async (ticket) => {
 }
 
 module.exports = {
-    getTicketbyForm, createTicket
+    getTicketById, createTicket, cancelTicket
 }

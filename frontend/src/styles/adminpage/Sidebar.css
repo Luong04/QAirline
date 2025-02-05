@@ -1,0 +1,47 @@
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: white;
+}
+
+.logo-container {
+  margin: auto;
+  width: 100px;
+}
+
+.logo {
+  width: 100%;
+}
+
+.btn-container {
+  margin: 1rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 1rem;
+  border: none;
+}
+
+/* .link-btn {
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: white;
+} */
+
+.link {
+  text-decoration: none;
+  color: darkgreen;
+  font-weight: bold;
+  display: inline-block;
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.active,
+.btn-container:hover {
+  background-color: orange;
+}

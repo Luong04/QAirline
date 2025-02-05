@@ -1,0 +1,41 @@
+.create-news {
+  background-color: white;
+  margin: 2%;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.create-news-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#header,
+#content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  background-color: rgb(230, 230, 230);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  line-height: 1.5;
+  font-size: inherit;
+  margin-top: 0.25rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.button {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: orange;
+  font-size: inherit;
+  cursor: pointer;
+  color: darkgreen;
+  font-weight: bold;
+  border: none;
+}

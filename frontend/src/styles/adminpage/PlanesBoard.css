@@ -1,0 +1,17 @@
+.planes-board {
+  border-radius: 1rem;
+  margin: 2%;
+  padding: 1rem;
+  background-color: white;
+}
+
+.planes-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.planes-table th,
+.planes-table td {
+  padding: 0.5rem;
+}
