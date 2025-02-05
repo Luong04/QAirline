@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import "../../styles/adminpage/AddFlights.css";
 import DatePicker from "react-datepicker";
 import { Navigate, useNavigate } from "react-router-dom";
+
 const AddFlights = ({ onUpdate }) => {
   const [planeID, setPlaneID] = useState("");
   const [departureAirport, setDepartureAirport] = useState("");
@@ -32,14 +33,11 @@ const AddFlights = ({ onUpdate }) => {
         const planeRes = await fetch("http://localhost:8081/api/getPlanes", {
           method: "GET",
         });
-        const airportRes = await fetch(
-          "http://localhost:8081/api/getPlaces",
-          {
-            method: "GET",
-          }
-        );
+        const airportRes = await fetch("http://localhost:8081/api/getPlaces", {
+          method: "GET",
+        });
 
-        if (planeRes.status === 200 && airportRes.status ===200) {
+        if (planeRes.status === 200 && airportRes.status === 200) {
           console.log(planeRes.json(), airportRes.json());
           const planeData = await planeRes.json();
           planeData.map((plane) => plane.plane_id);
@@ -108,14 +106,15 @@ const AddFlights = ({ onUpdate }) => {
       const token = localStorage.getItem("role");
       const res = await fetch("http://localhost:8081/api/admin/createFlight", {
         method: "POST",
-        headers: { "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           flightData: flightData,
         }),
       });
       if (res.ok) {
-        
         alert("Thêm chuyến bay thành công");
         setPlaneID("");
         setDepartureAirport("");
@@ -127,7 +126,7 @@ const AddFlights = ({ onUpdate }) => {
         setPriceBusiness(0);
         const newFlight = await res.json();
         onUpdate(newFlight);
-        navigate('/admin/flights');
+        navigate("/admin/flights");
       } else {
         alert("Thêm chuyến bay thất bại");
       }
